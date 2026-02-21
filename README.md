@@ -87,27 +87,37 @@ Target Transform:
 
 ## 🎬 Dashboard Preview
 
-### Main Dashboard
+### Main Dashboard Overview
 ![Dashboard Overview](screenshots/dashboard-main.png)
-*Place your main dashboard screenshot here showing AQI card, city selector, and forecast*
+*Real-time AQI monitoring with interactive city selector and comprehensive metrics panel*
+
+### Multi-City Grid View
+![City Grid](screenshots/city-grid.png)
+*All 26 cities displayed with color-coded AQI categories and quick navigation*
 
 ### Live Weather Integration
 ![Weather Details](screenshots/weather-panel.png)
-*Place weather integration screenshot here showing temperature, humidity, wind, UV index*
+*Real-time weather data powered by Open-Meteo API showing temperature, humidity, wind speed, and UV index*
+
+### AQI Details & Breakdown
+![AQI Details](screenshots/aqi-details.png)
+*Detailed pollutant breakdown showing PM2.5, PM10, NO2, SO2, CO, O3 with individual measurements*
+
+### 7-Day Forecast Panel
+![Forecast Panel](screenshots/forecast-panel.png)
+*ML-powered AQI predictions for the next 7 days with confidence intervals*
 
 ### Historical Trends & Analytics
 ![Historical Analysis](screenshots/historical-trends.png)
-*Place charts screenshot here showing 30-day trends and pollutant distribution*
+*Interactive 30-day historical charts showing AQI trends and seasonal patterns*
 
-### ML Model Performance
+### Pollutant Distribution Charts
+![Pollutant Charts](screenshots/pollutant-charts.png)
+*Comprehensive pollutant analysis with distribution charts and correlation insights*
+
+### ML Model Performance Visualization
 ![Model Metrics](screenshots/ml-performance.png)
-*Place model visualization screenshot here showing actual vs predicted plots*
-
-### Video Demo
-![Video Demo](screenshots/demo-video.gif)
-*Place your demo video/GIF here showing city selection, forecast updates, and interactivity*
-
-> 💡 **Tip**: Replace placeholder images above with actual screenshots from your dashboard
+*Actual vs Predicted plots, residual analysis, and feature importance from training notebook*
 
 ---
 

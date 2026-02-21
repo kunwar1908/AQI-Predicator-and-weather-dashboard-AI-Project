@@ -1,6 +1,6 @@
 # 📸 Screenshots Folder
 
-Place your dashboard screenshots and demo video here.
+![alt text](image.png)
 
 ## Required Files
 
