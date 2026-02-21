@@ -90,16 +90,12 @@ Target Transform:
 ### 🎥 Live Demo Video
 Watch the complete dashboard walkthrough showing all features in action:
 
-https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/assets/screenshots/demo-video.mp4
-
-<details>
-<summary>📹 <b>Click to view embedded video player</b></summary>
-
-https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/raw/main/screenshots/demo-video.mp4
+<video src="https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/assets/179868630/demo-video.mp4" controls width="100%" style="max-width: 900px;">
+  Your browser does not support the video tag. 
+  <a href="screenshots/demo-video.mp4">Download the demo video</a>
+</video>
 
 *85.6 MB screen recording showing city selection, weather updates, forecasts, and interactive charts*
-
-</details>
 
 ---
 
