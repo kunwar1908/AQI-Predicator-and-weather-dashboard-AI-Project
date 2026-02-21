@@ -1,0 +1,3174 @@
+{
+  "Ahmedabad": [
+    {
+      "hour": 1,
+      "predicted_aqi": 65.8,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 49.5,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 44.6,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 40.6,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 39.5,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 39.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 39.8,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 39.8,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 39.8,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 39.0,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 39.0,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 38.2,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 38.1,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 38.1,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 37.3,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 37.3,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 38.6,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 39.3,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 39.4,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 39.8,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 39.1,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 38.4,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 38.3,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 37.5,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Aizawl": [
+    {
+      "hour": 1,
+      "predicted_aqi": 21.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 21.5,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 21.1,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 21.1,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 20.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 20.9,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 20.8,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 20.2,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 20.1,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 21.1,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 21.3,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 21.3,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 21.3,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 21.0,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 20.8,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 20.5,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 19.8,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Amaravati": [
+    {
+      "hour": 1,
+      "predicted_aqi": 42.5,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 39.2,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 38.9,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 38.9,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 38.9,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 38.9,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 38.3,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 38.3,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 38.3,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 37.8,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 37.8,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 37.4,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 37.3,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 37.4,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 37.0,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 36.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 37.5,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 38.6,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 38.8,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 38.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 37.7,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 37.5,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 37.6,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 37.0,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Amritsar": [
+    {
+      "hour": 1,
+      "predicted_aqi": 68.9,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 69.0,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 68.8,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 69.0,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 68.8,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 69.0,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 67.4,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 66.6,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 66.5,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 65.6,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 65.4,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 64.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 64.7,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 64.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 60.1,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 59.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 62.8,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 64.9,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 66.6,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 66.3,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 65.3,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 64.2,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 62.3,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 59.4,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Bengaluru": [
+    {
+      "hour": 1,
+      "predicted_aqi": 35.6,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 32.0,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 29.8,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 29.6,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 29.6,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 29.6,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 29.7,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 29.7,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 29.7,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 29.5,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 29.5,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 28.9,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 28.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 29.6,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 29.8,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 29.7,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 29.4,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 28.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 28.9,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Bhopal": [
+    {
+      "hour": 1,
+      "predicted_aqi": 49.8,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 45.7,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 43.0,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 41.8,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 41.4,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 41.4,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 40.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 40.9,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 41.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 40.6,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 40.6,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 40.9,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 41.8,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 41.7,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 41.6,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 41.4,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 41.1,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 40.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 40.4,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Brajrajnagar": [
+    {
+      "hour": 1,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 28.2,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 27.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 27.5,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 28.0,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 27.3,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Chandigarh": [
+    {
+      "hour": 1,
+      "predicted_aqi": 64.9,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 64.1,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 64.2,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 64.3,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 64.3,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 64.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 65.1,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 65.0,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 65.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 64.7,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 64.6,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 63.3,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 63.3,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 63.3,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 61.6,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 61.4,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 62.8,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 63.3,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 63.4,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 63.9,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 63.7,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 63.4,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 63.3,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 61.5,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Chennai": [
+    {
+      "hour": 1,
+      "predicted_aqi": 69.2,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 58.5,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 54.7,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 54.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 54.1,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 54.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 53.8,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 53.8,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 53.8,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 52.8,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 52.9,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 52.5,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 52.4,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 52.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 49.6,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 51.3,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 53.4,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 53.5,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 53.0,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 52.1,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 52.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 51.6,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Coimbatore": [
+    {
+      "hour": 1,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 28.0,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 27.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 27.9,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 28.2,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 28.9,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 27.9,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 27.6,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 27.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Delhi": [
+    {
+      "hour": 1,
+      "predicted_aqi": 95.0,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 94.2,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 94.1,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 94.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 94.1,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 94.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 93.4,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 93.3,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 93.3,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 90.7,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 88.0,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 84.6,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 83.7,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 83.2,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 81.0,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 79.8,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 81.4,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 85.0,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 85.9,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 83.6,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 83.1,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 83.0,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 80.8,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Ernakulam": [
+    {
+      "hour": 1,
+      "predicted_aqi": 74.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 56.0,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 46.8,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 39.2,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 36.6,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 36.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 32.7,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 28.6,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 27.4,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 27.1,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 26.2,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 26.7,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 28.0,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 28.2,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 27.8,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 25.7,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 25.8,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Gurugram": [
+    {
+      "hour": 1,
+      "predicted_aqi": 132.3,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 123.7,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 121.7,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 121.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 118.7,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 117.7,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 115.2,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 112.8,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 112.3,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 110.7,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 110.2,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 110.3,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 110.3,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 110.2,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 105.9,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 103.3,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 106.9,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 112.5,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 114.5,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 112.8,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 110.8,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 111.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 111.0,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 105.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Guwahati": [
+    {
+      "hour": 1,
+      "predicted_aqi": 53.7,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 65.7,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 67.6,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 68.2,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 68.3,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 68.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 68.0,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 68.5,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 68.0,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 67.9,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 67.9,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 66.6,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 66.0,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 65.9,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 64.7,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 64.2,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 65.4,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 66.6,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 67.3,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 67.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 66.7,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 66.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 65.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 64.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Hyderabad": [
+    {
+      "hour": 1,
+      "predicted_aqi": 49.9,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 50.1,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 50.1,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 50.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 50.1,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 50.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 49.8,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 49.8,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 49.8,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 49.2,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 47.8,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 47.7,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 49.2,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 49.9,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 49.8,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 49.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 47.8,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Jaipur": [
+    {
+      "hour": 1,
+      "predicted_aqi": 78.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 79.2,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 78.1,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 78.1,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 78.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 77.4,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 77.4,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 77.2,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 77.2,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 77.3,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 75.6,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 74.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 76.8,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 78.4,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 79.3,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 77.9,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 77.3,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 77.6,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 77.6,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 75.3,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Jorapokhar": [
+    {
+      "hour": 1,
+      "predicted_aqi": 80.6,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 77.5,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 74.1,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 72.9,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 72.6,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 72.6,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 72.0,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 72.0,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 71.8,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 70.3,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 70.1,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 69.5,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 69.5,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 68.2,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 64.7,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 62.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 65.4,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 67.8,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 68.9,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 71.1,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 69.7,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 69.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 66.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 63.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Kochi": [
+    {
+      "hour": 1,
+      "predicted_aqi": 74.5,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 57.9,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 50.3,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 47.4,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 46.9,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 43.1,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 41.0,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 40.7,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 40.0,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 39.6,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 39.3,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 39.3,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 38.6,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 38.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 38.4,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 38.5,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 40.0,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 40.1,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 40.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 39.3,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 39.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 37.6,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 37.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Kolkata": [
+    {
+      "hour": 1,
+      "predicted_aqi": 33.5,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 27.7,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 27.0,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 27.1,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 27.1,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 27.1,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 26.9,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 26.7,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 26.7,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 26.7,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 26.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 26.5,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 26.8,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 27.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 27.0,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 26.8,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 26.5,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 26.2,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Lucknow": [
+    {
+      "hour": 1,
+      "predicted_aqi": 56.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 50.6,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 49.9,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 50.0,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 48.7,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 48.6,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 48.2,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 48.1,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 48.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 46.9,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 43.3,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 42.6,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 43.9,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 45.1,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 44.7,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 44.1,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 43.9,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 43.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 42.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Mumbai": [
+    {
+      "hour": 1,
+      "predicted_aqi": 41.0,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 35.6,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 31.6,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 29.2,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 28.7,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 29.2,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 29.3,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 29.3,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 29.1,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 29.0,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 28.4,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 28.4,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 28.5,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 28.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 28.5,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 28.3,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 28.3,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 28.8,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 28.5,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 28.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 27.8,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 28.1,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Patna": [
+    {
+      "hour": 1,
+      "predicted_aqi": 79.1,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 70.2,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 69.6,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 69.4,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 69.3,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 69.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 68.0,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 67.0,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 66.7,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 65.2,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 64.3,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 62.9,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 62.8,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 62.7,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 60.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 60.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 64.2,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 66.0,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 67.9,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 67.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 65.3,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 64.1,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 62.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 60.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Shillong": [
+    {
+      "hour": 1,
+      "predicted_aqi": 25.8,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 26.1,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 26.1,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 26.1,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 26.1,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 26.1,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 26.4,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 26.4,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 26.4,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 26.0,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 26.0,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 26.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 25.9,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 25.9,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 25.9,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 26.3,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 26.4,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 26.2,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 26.0,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 25.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 25.8,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Talcher": [
+    {
+      "hour": 1,
+      "predicted_aqi": 73.5,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 63.1,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 57.5,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 56.3,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 55.8,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 55.8,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 55.8,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 55.8,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 55.8,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 54.3,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 53.8,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 53.7,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 53.7,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 53.0,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 52.5,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 52.5,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 54.9,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 55.2,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 55.2,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 55.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 53.8,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 53.5,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 52.9,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 52.4,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Thiruvananthapuram": [
+    {
+      "hour": 1,
+      "predicted_aqi": 36.6,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 36.1,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 34.6,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 33.7,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 32.0,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 31.9,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 31.4,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 31.3,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 31.3,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 31.2,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 31.2,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 30.8,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 30.8,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 30.8,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 31.0,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 31.0,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 30.7,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 31.7,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 31.8,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 31.3,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 31.0,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 30.7,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 30.4,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 30.6,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ],
+  "Visakhapatnam": [
+    {
+      "hour": 1,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-01 01:00:00"
+    },
+    {
+      "hour": 2,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-01 03:00:00"
+    },
+    {
+      "hour": 3,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-01 06:00:00"
+    },
+    {
+      "hour": 4,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-01 10:00:00"
+    },
+    {
+      "hour": 5,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-01 15:00:00"
+    },
+    {
+      "hour": 6,
+      "predicted_aqi": 49.3,
+      "timestamp": "2020-07-01 21:00:00"
+    },
+    {
+      "hour": 7,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-02 04:00:00"
+    },
+    {
+      "hour": 8,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-02 12:00:00"
+    },
+    {
+      "hour": 9,
+      "predicted_aqi": 49.4,
+      "timestamp": "2020-07-02 21:00:00"
+    },
+    {
+      "hour": 10,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-03 07:00:00"
+    },
+    {
+      "hour": 11,
+      "predicted_aqi": 48.9,
+      "timestamp": "2020-07-03 18:00:00"
+    },
+    {
+      "hour": 12,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-04 06:00:00"
+    },
+    {
+      "hour": 13,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-04 19:00:00"
+    },
+    {
+      "hour": 14,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-05 09:00:00"
+    },
+    {
+      "hour": 15,
+      "predicted_aqi": 48.3,
+      "timestamp": "2020-07-06 00:00:00"
+    },
+    {
+      "hour": 16,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-06 16:00:00"
+    },
+    {
+      "hour": 17,
+      "predicted_aqi": 48.3,
+      "timestamp": "2020-07-07 09:00:00"
+    },
+    {
+      "hour": 18,
+      "predicted_aqi": 49.2,
+      "timestamp": "2020-07-08 03:00:00"
+    },
+    {
+      "hour": 19,
+      "predicted_aqi": 49.2,
+      "timestamp": "2020-07-08 22:00:00"
+    },
+    {
+      "hour": 20,
+      "predicted_aqi": 49.2,
+      "timestamp": "2020-07-09 18:00:00"
+    },
+    {
+      "hour": 21,
+      "predicted_aqi": 48.7,
+      "timestamp": "2020-07-10 15:00:00"
+    },
+    {
+      "hour": 22,
+      "predicted_aqi": 48.2,
+      "timestamp": "2020-07-11 13:00:00"
+    },
+    {
+      "hour": 23,
+      "predicted_aqi": 48.4,
+      "timestamp": "2020-07-12 12:00:00"
+    },
+    {
+      "hour": 24,
+      "predicted_aqi": 48.3,
+      "timestamp": "2020-07-13 12:00:00"
+    }
+  ]
+}

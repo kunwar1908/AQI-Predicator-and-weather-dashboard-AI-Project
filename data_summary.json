@@ -1,0 +1,10 @@
+{
+  "total_records": 29531,
+  "total_cities": 26,
+  "date_range": {
+    "start": "2015-01-01",
+    "end": "2020-07-01"
+  },
+  "average_aqi": 166.46,
+  "generated_at": "2026-02-21 23:39:38"
+}

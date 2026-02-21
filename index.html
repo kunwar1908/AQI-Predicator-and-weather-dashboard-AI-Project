@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India AQI Dashboard - Air Quality Index Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Leaflet JS for Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    
+    <!-- Data Files -->
+    <script src="aqi_data.js"></script>
+    <script src="all_cities_data.js"></script>
+    <script src="aqi_predictions.js"></script>
+    <script src="city_coordinates.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>🌍 AQI Dashboard</h1>
+                <p>Real-time Air Quality Index Monitor</p>
+            </div>
+            <div class="location-selector">
+                <select id="citySelect">
+                    <option value="delhi">Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="bengaluru">Bengaluru</option>
+                    <option value="kolkata">Kolkata</option>
+                    <option value="chennai">Chennai</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <!-- Live AQI Display -->
+            <section class="aqi-hero">
+                <div class="aqi-main-card aqi-weather-card">
+                    <div class="aqi-icon-container">
+                        <div class="aqi-mascot" id="aqiMascot">😷</div>
+                    </div>
+                    <div class="aqi-value-container">
+                        <div class="live-badge">● LIVE AQI</div>
+                        <div class="aqi-value" id="aqiValue">146</div>
+                        <div class="aqi-standard">(AQI-US)</div>
+                        <div class="aqi-category" id="aqiCategory">Air Quality is Poor</div>
+                        <div class="aqi-pollutants">
+                            <span>PM2.5: <strong id="pm25Value">61</strong> µg/m³</span>
+                            <span>PM10: <strong id="pm10Value">62</strong> µg/m³</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="aqi-scale">
+                    <div class="scale-item good">
+                        <span class="scale-label">Good</span>
+                        <span class="scale-range">0-50</span>
+                    </div>
+                    <div class="scale-item moderate">
+                        <span class="scale-label">Moderate</span>
+                        <span class="scale-range">51-100</span>
+                    </div>
+                    <div class="scale-item poor active">
+                        <span class="scale-label">Poor</span>
+                        <span class="scale-range">101-150</span>
+                    </div>
+                    <div class="scale-item unhealthy">
+                        <span class="scale-label">Unhealthy</span>
+                        <span class="scale-range">151-200</span>
+                    </div>
+                    <div class="scale-item severe">
+                        <span class="scale-label">Severe</span>
+                        <span class="scale-range">201-300</span>
+                    </div>
+                    <div class="scale-item hazardous">
+                        <span class="scale-label">Hazardous</span>
+                        <span class="scale-range">301+</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Primary Air Pollutants -->
+            <section class="section">
+                <h2 class="section-title">Primary Air Pollutants</h2>
+                <div class="pollutants-grid">
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">🔬</div>
+                        <div class="pollutant-name">PM2.5</div>
+                        <div class="pollutant-value" id="pm25Detail">61 µg/m³</div>
+                        <div class="pollutant-desc">Fine particles</div>
+                    </div>
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">💨</div>
+                        <div class="pollutant-name">PM10</div>
+                        <div class="pollutant-value" id="pm10Detail">62 µg/m³</div>
+                        <div class="pollutant-desc">Coarse particles</div>
+                    </div>
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">🧪</div>
+                        <div class="pollutant-name">SO₂</div>
+                        <div class="pollutant-value" id="so2Value">6 µg/m³</div>
+                        <div class="pollutant-desc">Sulphur dioxide</div>
+                    </div>
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">☁️</div>
+                        <div class="pollutant-name">CO</div>
+                        <div class="pollutant-value" id="coValue">333 µg/m³</div>
+                        <div class="pollutant-desc">Carbon monoxide</div>
+                    </div>
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">🌫️</div>
+                        <div class="pollutant-name">NO₂</div>
+                        <div class="pollutant-value" id="no2Value">5 µg/m³</div>
+                        <div class="pollutant-desc">Nitrogen dioxide</div>
+                    </div>
+                    <div class="pollutant-card">
+                        <div class="pollutant-icon">🌬️</div>
+                        <div class="pollutant-name">O₃</div>
+                        <div class="pollutant-value" id="o3Value">74 µg/m³</div>
+                        <div class="pollutant-desc">Ozone</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Info Row -->
+            <div class="info-row">
+                <!-- Weather Forecast -->
+                <section class="section weather-section">
+                    <div class="weather-header">
+                        <h2 class="section-title">Hourly Forecast</h2>
+                        <div class="weather-header-meta">
+                            <div class="weather-source" id="weatherSource">Open-Meteo • Live</div>
+                            <div class="weather-updated" id="weatherUpdated">Updated --:--</div>
+                        </div>
+                    </div>
+                    <div class="weather-current">
+                        <div class="weather-current-main">
+                            <div class="weather-now-icon" id="weatherNowIcon">⛅</div>
+                            <div class="weather-now-values">
+                                <div class="weather-now-temp" id="weatherNowTemp">--°C</div>
+                                <div class="weather-now-feels" id="weatherNowFeels">Feels like --°C</div>
+                            </div>
+                        </div>
+                        <div class="weather-current-meta">
+                            <div class="weather-meta-item weather-meta-live">
+                                <span>Live AQI</span>
+                                <strong id="weatherAqi">--</strong>
+                            </div>
+                            <div class="weather-meta-item">
+                                <span>Humidity</span>
+                                <strong id="weatherHumidity">--%</strong>
+                            </div>
+                            <div class="weather-meta-item">
+                                <span>Wind</span>
+                                <strong id="weatherWind">-- km/h</strong>
+                            </div>
+                            <div class="weather-meta-item">
+                                <span>UV</span>
+                                <strong id="weatherUv">--</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-scroll" id="weatherForecast">
+                        <!-- JavaScript will populate this -->
+                    </div>
+                </section>
+
+                <!-- UV Index & Wind -->
+                <div class="side-info">
+                    <section class="info-card">
+                        <h3>☀️ UV Index</h3>
+                        <div class="info-value" id="uvIndex">0</div>
+                        <div class="info-label" id="uvCategory">Low</div>
+                        <div class="info-desc">Safe to be outside</div>
+                    </section>
+                    <section class="info-card">
+                        <h3>💨 Wind</h3>
+                        <div class="info-value" id="windSpeed">2.9 km/h</div>
+                        <div class="info-label">Calm</div>
+                        <div class="info-desc">Light air</div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Health Recommendations -->
+            <section class="section">
+                <h2 class="section-title">Health Recommendations</h2>
+                <div class="recommendations-grid">
+                    <div class="recommendation-card must">
+                        <div class="rec-icon">🔆</div>
+                        <div class="rec-label">Air Purifier</div>
+                        <div class="rec-status">Turn On</div>
+                    </div>
+                    <div class="recommendation-card must">
+                        <div class="rec-icon">🚗</div>
+                        <div class="rec-label">Car Filter</div>
+                        <div class="rec-status">Must</div>
+                    </div>
+                    <div class="recommendation-card must">
+                        <div class="rec-icon">😷</div>
+                        <div class="rec-label">N95 Mask</div>
+                        <div class="rec-status">Must</div>
+                    </div>
+                    <div class="recommendation-card must">
+                        <div class="rec-icon">🏠</div>
+                        <div class="rec-label">Stay Indoor</div>
+                        <div class="rec-status">Must</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historical AQI Graph -->
+            <section class="section">
+                <h2 class="section-title">Historical AQI Data</h2>
+                <div class="chart-container">
+                    <div class="chart-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="minAqi">121</div>
+                            <div class="stat-label">Min. AQI</div>
+                            <div class="stat-time">at 12:00 AM</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="maxAqi">149</div>
+                            <div class="stat-label">Max. AQI</div>
+                            <div class="stat-time">at 11:00 PM</div>
+                        </div>
+                    </div>
+                    <canvas id="aqiChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Cigarette Equivalent -->
+            <section class="section cigarette-section">
+                <h2 class="section-title">Health Impact Equivalent</h2>
+                <div class="cigarette-card">
+                    <div class="cigarette-icon">🚬</div>
+                    <div class="cigarette-content">
+                        <div class="cigarette-value" id="cigaretteDaily">2.8</div>
+                        <div class="cigarette-label">Cigarettes per day</div>
+                        <div class="cigarette-breakdown">
+                            <span>Weekly: <strong id="cigaretteWeekly">19.6</strong> cigarettes</span>
+                            <span>Monthly: <strong id="cigaretteMonthly">84</strong> cigarettes</span>
+                        </div>
+                        <p class="cigarette-desc">
+                            Breathing the air in this location is equivalent to smoking <strong id="cigaretteText">2.8</strong> cigarettes a day.
+                        </p>
+                        <p class="source">Source: Berkeley Earth</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Health Risks -->
+            <section class="section">
+                <h2 class="section-title">Health Risks & Prevention</h2>
+                <div class="health-risks-grid">
+                    <div class="health-risk-card elevated">
+                        <div class="risk-header">
+                            <div class="risk-icon">🤕</div>
+                            <div class="risk-name">Headaches</div>
+                        </div>
+                        <div class="risk-level">Elevated Risk</div>
+                        <div class="risk-desc">Pressure around forehead, sensitivity to light</div>
+                    </div>
+                    <div class="health-risk-card elevated">
+                        <div class="risk-header">
+                            <div class="risk-icon">👁️</div>
+                            <div class="risk-name">Eye Irritation</div>
+                        </div>
+                        <div class="risk-level">Elevated Risk</div>
+                        <div class="risk-desc">Redness, itching, watery eyes</div>
+                    </div>
+                    <div class="health-risk-card trigger">
+                        <div class="risk-header">
+                            <div class="risk-icon">🫁</div>
+                            <div class="risk-name">Asthma</div>
+                        </div>
+                        <div class="risk-level">Trigger Risk</div>
+                        <div class="risk-desc">Difficulty breathing, wheezing</div>
+                    </div>
+                    <div class="health-risk-card moderate">
+                        <div class="risk-header">
+                            <div class="risk-icon">❤️</div>
+                            <div class="risk-name">Heart Issues</div>
+                        </div>
+                        <div class="risk-level">Moderate Risk</div>
+                        <div class="risk-desc">Cardiovascular strain from pollution</div>
+                    </div>
+                    <div class="health-risk-card elevated">
+                        <div class="risk-header">
+                            <div class="risk-icon">🤧</div>
+                            <div class="risk-name">Allergies</div>
+                        </div>
+                        <div class="risk-level">Elevated Risk</div>
+                        <div class="risk-desc">Sneezing, congestion, runny nose</div>
+                    </div>
+                    <div class="health-risk-card moderate">
+                        <div class="risk-header">
+                            <div class="risk-icon">👶</div>
+                            <div class="risk-name">Pregnancy & Infants</div>
+                        </div>
+                        <div class="risk-level">Moderate Risk</div>
+                        <div class="risk-desc">Extra caution needed for vulnerable groups</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ML Predictions Section -->
+            <section class="section">
+                <h2 class="section-title">
+                    🔮 24-Hour AQI Forecast (ML Predictions)
+                    <span style="font-size: 0.7rem; color: #888; font-weight: normal; margin-left: 10px;">
+                        Powered by Stacked Ensemble ML
+                    </span>
+                </h2>
+                <div class="predictions-container">
+                    <div class="predictions-header">
+                        <div class="prediction-stat">
+                            <div class="prediction-value" id="predictionAvg">--</div>
+                            <div class="prediction-label">Avg Predicted AQI</div>
+                        </div>
+                        <div class="prediction-stat">
+                            <div class="prediction-value" id="predictionMin">--</div>
+                            <div class="prediction-label">Min (Next 24h)</div>
+                        </div>
+                        <div class="prediction-stat">
+                            <div class="prediction-value" id="predictionMax">--</div>
+                            <div class="prediction-label">Max (Next 24h)</div>
+                        </div>
+                    </div>
+                    <div class="predictions-chart-container">
+                        <canvas id="predictionsChart"></canvas>
+                    </div>
+                    <div class="predictions-info">
+                        <span class="info-badge">📊 XGBoost</span>
+                        <span class="info-badge">🌲 Random Forest</span>
+                        <span class="info-badge">📈 SVR</span>
+                        <span class="info-badge">🎯 Ridge Meta-Learner</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Map Section -->
+            <section class="section">
+                <h2 class="section-title">
+                    🗺️ Interactive AQI Map
+                    <span style="font-size: 0.7rem; color: #888; font-weight: normal; margin-left: 10px;">
+                        Click markers to view city details
+                    </span>
+                </h2>
+                <div class="map-container">
+                    <div id="aqiMap" style="width: 100%; height: 500px; border-radius: 15px;"></div>
+                    <div class="map-legend">
+                        <div class="legend-title">AQI Categories</div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #00e400;"></span>
+                            <span class="legend-label">Good (0-50)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #ffff00;"></span>
+                            <span class="legend-label">Moderate (51-100)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #ff7e00;"></span>
+                            <span class="legend-label">Poor (101-150)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #ff0000;"></span>
+                            <span class="legend-label">Unhealthy (151-200)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #8f3f97;"></span>
+                            <span class="legend-label">Severe (201-300)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #7e0023;"></span>
+                            <span class="legend-label">Hazardous (301+)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top Cities -->
+            <section class="section">
+                <h2 class="section-title" id="citiesSectionTitle">All Cities in India</h2>
+                <div class="cities-grid" id="citiesGrid">
+                    <!-- JavaScript will populate this -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <p>Real-time air quality & weather insights for India</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Disclaimer</h4>
+                    <p>Data is for informational purposes. Consult professionals for health concerns.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Last Updated</h4>
+                    <p id="lastUpdated">Just now</p>
+                    <p style="font-size: 0.75rem; margin-top: 5px;" id="dataSource">Data Source: Real Dataset</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 AQI Dashboard. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

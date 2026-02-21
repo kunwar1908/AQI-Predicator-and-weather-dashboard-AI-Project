@@ -1,0 +1,1179 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* AQI Colors */
+    --aqi-good: #00e400;
+    --aqi-moderate: #ffff00;
+    --aqi-poor: #ff7e00;
+    --aqi-unhealthy: #ff0000;
+    --aqi-severe: #8f3f97;
+    --aqi-hazardous: #7e0023;
+    
+    /* UI Colors */
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f2e;
+    --bg-card: #242b3d;
+    --text-primary: #ffffff;
+    --text-secondary: #a0aec0;
+    --accent: #3b82f6;
+    --border: #2d3748;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-primary: #f5f7fb;
+        --bg-secondary: #eef2f7;
+        --bg-card: #ffffff;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --accent: #2563eb;
+        --border: #d7e0ea;
+        --shadow: rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+        background: linear-gradient(135deg, #f7f9fc 0%, #e8eef6 100%);
+    }
+
+    .live-badge {
+        background: rgba(220, 38, 38, 0.12);
+        color: #dc2626;
+    }
+
+    .scale-item.active {
+        border-color: #0f172a;
+        box-shadow: 0 5px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    .weather-source {
+        background: rgba(37, 99, 235, 0.1);
+        border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .weather-updated {
+        border-color: rgba(71, 85, 105, 0.35);
+    }
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+}
+
+.logo h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.location-selector select {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.location-selector select:hover {
+    border-color: var(--accent);
+}
+
+/* AQI Hero Section */
+.aqi-hero {
+    margin-bottom: 40px;
+}
+
+.aqi-main-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, #2a3447 100%);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 40px var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.aqi-weather-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.aqi-weather-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.08), transparent 40%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.aqi-weather-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 15% 80%, var(--aqi-level-color, rgba(255, 126, 0, 0.25)) 0%, transparent 55%),
+                linear-gradient(135deg, var(--aqi-level-color, rgba(255, 126, 0, 0.18)) 0%, transparent 70%);
+    opacity: 0.65;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.aqi-weather-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.aqi-theme-clear {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.45), rgba(14, 165, 233, 0.2));
+}
+
+.aqi-theme-cloudy {
+    background: linear-gradient(135deg, rgba(148, 163, 184, 0.4), rgba(30, 41, 59, 0.35));
+}
+
+.aqi-theme-rain {
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.45), rgba(15, 23, 42, 0.45));
+}
+
+.aqi-theme-storm {
+    background: linear-gradient(135deg, rgba(76, 29, 149, 0.5), rgba(15, 23, 42, 0.55));
+}
+
+.aqi-theme-snow {
+    background: linear-gradient(135deg, rgba(226, 232, 240, 0.55), rgba(148, 163, 184, 0.3));
+}
+
+.aqi-theme-fog {
+    background: linear-gradient(135deg, rgba(226, 232, 240, 0.4), rgba(100, 116, 139, 0.3));
+}
+
+.aqi-theme-night {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+}
+
+.aqi-icon-container {
+    flex-shrink: 0;
+}
+
+.aqi-mascot {
+    font-size: 6rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.aqi-value-container {
+    text-align: center;
+}
+
+.live-badge {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4444;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.aqi-value {
+    font-size: 5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--aqi-poor) 0%, #ff9500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin: 10px 0;
+}
+
+.aqi-standard {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.aqi-category {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.aqi-pollutants {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.aqi-pollutants strong {
+    color: var(--text-primary);
+}
+
+/* AQI Scale */
+.aqi-scale {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.scale-item {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.scale-item.active {
+    border-color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 126, 0, 0.4);
+}
+
+.scale-item.good { background: var(--aqi-good); color: #000; }
+.scale-item.moderate { background: var(--aqi-moderate); color: #000; }
+.scale-item.poor { background: var(--aqi-poor); color: #fff; }
+.scale-item.unhealthy { background: var(--aqi-unhealthy); color: #fff; }
+.scale-item.severe { background: var(--aqi-severe); color: #fff; }
+.scale-item.hazardous { background: var(--aqi-hazardous); color: #fff; }
+
+.scale-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.scale-range {
+    display: block;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* Section Styles */
+.section {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    box-shadow: 0 5px 20px var(--shadow);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 15px;
+}
+
+/* Pollutants Grid */
+.pollutants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.pollutant-card {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.pollutant-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.pollutant-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.pollutant-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent);
+}
+
+.pollutant-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.pollutant-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Info Row */
+.info-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.weather-section {
+    margin-bottom: 0;
+    overflow: hidden; /* Prevent overflow */
+}
+
+.weather-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.weather-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.weather-source {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.weather-updated {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px dashed var(--border);
+    white-space: nowrap;
+}
+
+.weather-current {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+}
+
+.weather-current-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-now-icon {
+    font-size: 2.5rem;
+}
+
+.weather-now-values {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.weather-now-temp {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.weather-now-feels {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.weather-current-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.weather-meta-live strong {
+    color: var(--accent);
+}
+
+.weather-meta-item strong {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.weather-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    max-width: 100%; /* Ensure it doesn't exceed container */
+    scroll-behavior: smooth;
+}
+
+.weather-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.weather-scroll::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.weather-scroll::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
+.weather-item {
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 80px;
+    border: 1px solid var(--border);
+}
+
+.weather-time {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.weather-icon {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.weather-temp {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Dynamic Weather Backgrounds */
+.weather-section {
+    position: relative;
+}
+
+.weather-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.05), transparent 40%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.weather-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+.weather-theme-clear {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(14, 165, 233, 0.18));
+}
+
+.weather-theme-cloudy {
+    background: linear-gradient(135deg, rgba(148, 163, 184, 0.35), rgba(30, 41, 59, 0.3));
+}
+
+.weather-theme-rain {
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.4));
+}
+
+.weather-theme-storm {
+    background: linear-gradient(135deg, rgba(76, 29, 149, 0.4), rgba(15, 23, 42, 0.45));
+}
+
+.weather-theme-snow {
+    background: linear-gradient(135deg, rgba(226, 232, 240, 0.45), rgba(148, 163, 184, 0.25));
+}
+
+.weather-theme-fog {
+    background: linear-gradient(135deg, rgba(226, 232, 240, 0.35), rgba(100, 116, 139, 0.25));
+}
+
+.weather-theme-night {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.5));
+}
+
+@media (max-width: 900px) {
+    .weather-current {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .weather-current-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .weather-meta-item {
+        text-align: left;
+    }
+
+    .weather-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .weather-header-meta {
+        justify-content: flex-start;
+    }
+}
+
+.side-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--bg-card);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid var(--border);
+    box-shadow: 0 5px 20px var(--shadow);
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.info-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Recommendations */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.recommendation-card {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.recommendation-card.must {
+    border-color: var(--aqi-poor);
+    background: rgba(255, 126, 0, 0.1);
+}
+
+.recommendation-card:hover {
+    transform: scale(1.05);
+}
+
+.rec-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.rec-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.rec-status {
+    font-size: 0.9rem;
+    color: var(--aqi-poor);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+}
+
+.chart-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+.stat-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+#aqiChart {
+    max-height: 300px;
+}
+
+/* Cigarette Section */
+.cigarette-section {
+    background: linear-gradient(135deg, var(--bg-card) 0%, #3a2a2a 100%);
+}
+
+.cigarette-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cigarette-icon {
+    font-size: 5rem;
+    flex-shrink: 0;
+}
+
+.cigarette-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ff6b6b;
+}
+
+.cigarette-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.cigarette-breakdown {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.cigarette-breakdown strong {
+    color: var(--text-primary);
+}
+
+.cigarette-desc {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.source {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Health Risks */
+.health-risks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.health-risk-card {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.health-risk-card.elevated {
+    border-left-color: var(--aqi-poor);
+}
+
+.health-risk-card.trigger {
+    border-left-color: var(--aqi-unhealthy);
+}
+
+.health-risk-card.moderate {
+    border-left-color: var(--aqi-moderate);
+}
+
+.health-risk-card:hover {
+    transform: translateX(5px);
+}
+
+.risk-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.risk-icon {
+    font-size: 2rem;
+}
+
+.risk-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.risk-level {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.health-risk-card.elevated .risk-level {
+    color: var(--aqi-poor);
+}
+
+.health-risk-card.trigger .risk-level {
+    color: var(--aqi-unhealthy);
+}
+
+.health-risk-card.moderate .risk-level {
+    color: var(--aqi-moderate);
+}
+
+.risk-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Cities Grid */
+.cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.city-card {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.city-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.city-aqi {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.city-status {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.city-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding: 30px 0;
+    border-top: 2px solid var(--border);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* ML Predictions Section */
+.predictions-container {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.predictions-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.prediction-stat {
+    background: rgba(30, 30, 30, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prediction-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6366f1;
+    margin-bottom: 5px;
+}
+
+.prediction-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.predictions-chart-container {
+    background: rgba(30, 30, 30, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.predictions-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-badge {
+    background: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+/* Map Section Styles */
+.map-container {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#aqiMap {
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.map-legend {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 180px;
+}
+
+.legend-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 0.85rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.legend-label {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Custom Leaflet popup styles */
+.leaflet-popup-content-wrapper {
+    border-radius: 10px;
+    padding: 0;
+}
+
+.leaflet-popup-content {
+    margin: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.map-popup-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.map-popup-aqi {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.map-popup-category {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.map-popup-link {
+    display: block;
+    margin-top: 10px;
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 5px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.map-popup-link:hover {
+    background: #e0e0e0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .info-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .side-info {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .aqi-main-card {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+    
+    .aqi-value {
+        font-size: 4rem;
+    }
+    
+    .aqi-scale {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cigarette-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cigarette-breakdown {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .chart-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .aqi-value {
+        font-size: 3rem;
+    }
+    
+    .aqi-pollutants {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
+    .pollutants-grid,
+    .recommendations-grid,
+    .health-risks-grid,
+    .cities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Map responsive styles */
+    #aqiMap {
+        height: 400px !important;
+    }
+    
+    .map-legend {
+        position: static;
+        margin-top: 15px;
+        width: 100%;
+    }
+    
+    .map-container {
+        padding: 15px;
+    }
+}
