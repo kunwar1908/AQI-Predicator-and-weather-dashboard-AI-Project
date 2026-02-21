@@ -337,6 +337,10 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 - **Pollutants**: PM2.5, PM10, NO, NO2, NOx, NH3, CO, SO2, O3, Benzene, Toluene, Xylene
 - **Metadata**: AQI, AQI_Bucket classification
 
+> **📥 Dataset Setup**: Large CSV files (280+ MB) are excluded from this repository. Download from [Kaggle AQI India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india) and place in `Dataset/` folder:
+> - Required: `city_day.csv` (2.45 MB), `station_day.csv` (8.23 MB)
+> - Optional: `city_hour.csv` (62.6 MB), `station_hour.csv` (209.5 MB) for hourly analysis
+
 ### Top Polluted Cities (Latest AQI)
 1. **Gurugram** - AQI: 157 (Unhealthy)
 2. **Ahmedabad** - AQI: 119 (Moderate)
