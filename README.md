@@ -183,6 +183,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 ## 📈 Dataset Information
 
 ### Source Data (city_day.csv)
+- **Source**: https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india
 - **Total Records**: 29,531
 - **Cities Covered**: 26 unique cities
 - **Time Period**: 2015-2020 (5+ years)
