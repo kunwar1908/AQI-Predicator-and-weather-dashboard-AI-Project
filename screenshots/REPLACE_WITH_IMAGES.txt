@@ -1,5 +1,0 @@
-<!-- Replace this file with your actual dashboard screenshot -->
-<!-- Recommended size: 1920x1080 PNG -->
-<!-- Capture: Main AQI card + city selector + 24h forecast -->
-
-PLACEHOLDER - Add dashboard-main.png here

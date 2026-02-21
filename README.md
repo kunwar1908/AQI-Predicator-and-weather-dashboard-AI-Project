@@ -87,6 +87,22 @@ Target Transform:
 
 ## 🎬 Dashboard Preview
 
+### 🎥 Live Demo Video
+Watch the complete dashboard walkthrough showing all features in action:
+
+https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/assets/screenshots/demo-video.mp4
+
+<details>
+<summary>📹 <b>Click to view embedded video player</b></summary>
+
+https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/raw/main/screenshots/demo-video.mp4
+
+*85.6 MB screen recording showing city selection, weather updates, forecasts, and interactive charts*
+
+</details>
+
+---
+
 ### Main Dashboard Overview
 ![Dashboard Overview](screenshots/dashboard-main.png)
 *Real-time AQI monitoring with interactive city selector and comprehensive metrics panel*
