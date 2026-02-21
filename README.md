@@ -100,35 +100,35 @@ https://github.com/user-attachments/assets/14950dad-f15d-476b-a1e3-b4fa1244f5a4
 
 ### Main Dashboard Overview
 ![Dashboard Overview](screenshots/dashboard-main.png)
-*Real-time AQI monitoring with interactive city selector and comprehensive metrics panel*
+*Real-time AQI monitoring with comprehensive metrics panel, current conditions, and 7-day forecast*
+
+### City Selection Dropdown
+![City Dropdown](screenshots/city-dropdown.png)
+*Quick city selector with search functionality for all 26 Indian cities in the dataset*
 
 ### Multi-City Grid View
 ![City Grid](screenshots/city-grid.png)
-*All 26 cities displayed with color-coded AQI categories and quick navigation*
+*All cities displayed with color-coded AQI categories (Good, Moderate, Poor, Unhealthy, Severe) and quick navigation*
+
+### Interactive Map
+![Interactive Map](screenshots/interactive-map.png)
+*India map with clickable city markers showing real-time AQI levels and geographic distribution*
 
 ### Live Weather Integration
 ![Weather Details](screenshots/weather-panel.png)
-*Real-time weather data powered by Open-Meteo API showing temperature, humidity, wind speed, and UV index*
+*Real-time weather data powered by Open-Meteo API: temperature, humidity, wind speed, pressure, and UV index*
 
-### AQI Details & Breakdown
-![AQI Details](screenshots/aqi-details.png)
-*Detailed pollutant breakdown showing PM2.5, PM10, NO2, SO2, CO, O3 with individual measurements*
-
-### 7-Day Forecast Panel
-![Forecast Panel](screenshots/forecast-panel.png)
-*ML-powered AQI predictions for the next 7 days with confidence intervals*
-
-### Historical Trends & Analytics
-![Historical Analysis](screenshots/historical-trends.png)
-*Interactive 30-day historical charts showing AQI trends and seasonal patterns*
+### Historical Data & Trends
+![Historical Analysis](screenshots/historical-data.png)
+*Interactive 30-day historical charts showing AQI trends, seasonal patterns, and pollutant variations*
 
 ### Pollutant Distribution Charts
 ![Pollutant Charts](screenshots/pollutant-charts.png)
-*Comprehensive pollutant analysis with distribution charts and correlation insights*
+*Comprehensive pollutant analysis: PM2.5, PM10, NO2, SO2, CO, O3 with distribution charts and correlation insights*
 
-### ML Model Performance Visualization
-![Model Metrics](screenshots/ml-performance.png)
-*Actual vs Predicted plots, residual analysis, and feature importance from training notebook*
+### Health Impact & Prevention Tips
+![Health Tips](screenshots/health-impact-and-prevention-tips.png)
+*Health recommendations based on AQI levels, impact on vulnerable groups, and prevention measures*
 
 ---
 
