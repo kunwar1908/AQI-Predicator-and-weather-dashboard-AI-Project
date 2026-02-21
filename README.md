@@ -1,4 +1,4 @@
-# AQI Dashboard - Air Quality Index Monitor
+<img width="1923" height="934" alt="image" src="https://github.com/user-attachments/assets/bf64a615-d8e1-4ae4-aca6-f3d7864c672d" /># AQI Dashboard - Air Quality Index Monitor
 
 A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset integration** and **ML-powered predictions**, similar to [aqinow.org](https://aqinow.org/AQI_India). This MST project combines data science, machine learning, and web development.
 
@@ -90,12 +90,11 @@ Target Transform:
 ### 🎥 Live Demo Video
 Watch the complete dashboard walkthrough showing all features in action:
 
-<video src="https://github.com/kunwar1908/AQI-Predicator-and-weather-dashboard-AI-Project/assets/179868630/demo-video.mp4" controls width="100%" style="max-width: 900px;">
-  Your browser does not support the video tag. 
-  <a href="screenshots/demo-video.mp4">Download the demo video</a>
-</video>
 
-*85.6 MB screen recording showing city selection, weather updates, forecasts, and interactive charts*
+
+https://github.com/user-attachments/assets/14950dad-f15d-476b-a1e3-b4fa1244f5a4
+
+
 
 ---
 
