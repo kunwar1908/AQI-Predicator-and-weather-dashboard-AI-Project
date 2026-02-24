@@ -118,6 +118,10 @@ https://github.com/user-attachments/assets/14950dad-f15d-476b-a1e3-b4fa1244f5a4
 ![Weather Details](screenshots/weather-panel.png)
 *Real-time weather data powered by Open-Meteo API: temperature, humidity, wind speed, pressure, and UV index*
 
+### Compare Cities
+![Compare Cities](screenshots/compare-cities.png)
+*Side-by-side AQI comparison with category badges and a quick summary verdict*
+
 ### Historical Data & Trends
 ![Historical Analysis](screenshots/historical-data.png)
 *Interactive 30-day historical charts showing AQI trends, seasonal patterns, and pollutant variations*
@@ -125,6 +129,14 @@ https://github.com/user-attachments/assets/14950dad-f15d-476b-a1e3-b4fa1244f5a4
 ### Pollutant Distribution Charts
 ![Pollutant Charts](screenshots/pollutant-charts.png)
 *Comprehensive pollutant analysis: PM2.5, PM10, NO2, SO2, CO, O3 with distribution charts and correlation insights*
+
+### AQI Alerts
+![AQI Alerts](screenshots/notification-alert.png)
+*In-page alert banner and dismissible toast for unhealthy AQI notifications*
+
+### AQI Trivia of the Day
+![AQI Trivia](screenshots/trivia.png)
+*Daily air-quality facts in a compact card with a refresh button*
 
 ### Health Impact & Prevention Tips
 ![Health Tips](screenshots/health-impact-and-prevention-tips.png)

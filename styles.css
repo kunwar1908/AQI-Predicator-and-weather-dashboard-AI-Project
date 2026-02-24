@@ -249,6 +249,41 @@ header {
     margin-bottom: 15px;
 }
 
+.aqi-dataset-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+.aqi-alert-banner {
+    margin: 12px 0 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255, 126, 0, 0.12);
+    border: 1px solid rgba(255, 126, 0, 0.35);
+    color: #ffb05c;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.aqi-alert-banner.is-active {
+    display: block;
+}
+
+.aqi-alert-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.aqi-alert-toggle input {
+    accent-color: var(--accent);
+}
+
 .aqi-pollutants {
     display: flex;
     gap: 20px;
@@ -455,6 +490,44 @@ header {
     align-items: center;
     gap: 16px;
 }
+.weather-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 10px 0 15px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.weather-nav-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.weather-nav-btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.2);
+}
+.weather-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.weather-range {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
 
 .weather-meta-item {
     display: flex;
@@ -659,6 +732,152 @@ header {
 
 .recommendation-card:hover {
     transform: scale(1.05);
+}
+
+/* Compare Cities */
+.compare-section {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.compare-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.compare-control {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.compare-control label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.compare-control select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.compare-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.compare-card h3 {
+    margin-bottom: 8px;
+}
+
+.compare-metric {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.compare-metric strong {
+    color: var(--text-primary);
+}
+
+.compare-summary {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: var(--text-secondary);
+}
+
+/* Trivia */
+.trivia-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.trivia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.trivia-refresh {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.trivia-refresh:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.2);
+}
+
+.trivia-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* AQI Toast */
+.aqi-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background: rgba(17, 24, 39, 0.95);
+    color: #fbbf24;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 1200;
+}
+
+.aqi-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.aqi-toast-close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .rec-icon {
@@ -916,6 +1135,11 @@ footer {
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+.footer-humor {
+    margin-top: 8px;
     color: var(--text-secondary);
     font-size: 0.85rem;
 }

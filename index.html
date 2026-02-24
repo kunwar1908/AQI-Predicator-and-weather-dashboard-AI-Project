@@ -52,9 +52,15 @@
                     </div>
                     <div class="aqi-value-container">
                         <div class="live-badge">● LIVE AQI</div>
+                        <div class="aqi-dataset-date">Dataset date: <span id="aqiDatasetDate">--</span></div>
                         <div class="aqi-value" id="aqiValue">146</div>
                         <div class="aqi-standard">(AQI-US)</div>
                         <div class="aqi-category" id="aqiCategory">Air Quality is Poor</div>
+                        <div class="aqi-alert-banner" id="aqiAlertBanner" role="status" aria-live="polite"></div>
+                        <label class="aqi-alert-toggle">
+                            <input type="checkbox" id="aqiAlertToggle">
+                            Notify me when AQI is unhealthy or worse
+                        </label>
                         <div class="aqi-pollutants">
                             <span>PM2.5: <strong id="pm25Value">61</strong> µg/m³</span>
                             <span>PM10: <strong id="pm10Value">62</strong> µg/m³</span>
@@ -132,6 +138,26 @@
                 </div>
             </section>
 
+            <!-- Compare Cities -->
+            <section class="section compare-section">
+                <h2 class="section-title">⚖️ Compare Cities (Side-by-Side AQI)</h2>
+                <div class="compare-controls">
+                    <div class="compare-control">
+                        <label for="compareCityA">City A</label>
+                        <select id="compareCityA"></select>
+                    </div>
+                    <div class="compare-control">
+                        <label for="compareCityB">City B</label>
+                        <select id="compareCityB"></select>
+                    </div>
+                </div>
+                <div class="compare-grid">
+                    <div class="compare-card" id="compareCardA"></div>
+                    <div class="compare-card" id="compareCardB"></div>
+                </div>
+                <div class="compare-summary" id="compareSummary"></div>
+            </section>
+
             <!-- Weather Info Row -->
             <div class="info-row">
                 <!-- Weather Forecast -->
@@ -142,6 +168,11 @@
                             <div class="weather-source" id="weatherSource">Open-Meteo • Live</div>
                             <div class="weather-updated" id="weatherUpdated">Updated --:--</div>
                         </div>
+                    </div>
+                    <div class="weather-nav">
+                        <button class="weather-nav-btn" id="weatherPrev" type="button">⬅ Past</button>
+                        <div class="weather-range" id="weatherRange">Now • Next 12h</div>
+                        <button class="weather-nav-btn" id="weatherNext" type="button">Future ➡</button>
                     </div>
                     <div class="weather-current">
                         <div class="weather-current-main">
@@ -216,6 +247,17 @@
                         <div class="rec-label">Stay Indoor</div>
                         <div class="rec-status">Must</div>
                     </div>
+                </div>
+            </section>
+
+            <!-- AQI Trivia -->
+            <section class="section trivia-section">
+                <div class="trivia-card">
+                    <div class="trivia-header">
+                        <h2 class="section-title">🧠 AQI Trivia of the Day</h2>
+                        <button class="trivia-refresh" id="triviaRefresh" type="button">New Fact</button>
+                    </div>
+                    <p class="trivia-text" id="triviaText">Loading a fun fact...</p>
                 </div>
             </section>
 
@@ -416,8 +458,14 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2026 AQI Dashboard. All rights reserved.</p>
+                <p class="footer-humor">Built with questionable Wi-Fi and too much caffeine 🍵 -- developed by Team No Signal. :)</p>
             </div>
         </footer>
+    </div>
+
+    <div class="aqi-toast" id="aqiToast" role="status" aria-live="polite">
+        <span id="aqiToastText">AQI alert</span>
+        <button class="aqi-toast-close" id="aqiToastClose" type="button" aria-label="Dismiss AQI alert">✕</button>
     </div>
 
     <script src="script.js"></script>

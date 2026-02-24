@@ -108,6 +108,18 @@ if (typeof realCityData !== 'undefined') {
 let currentCity = 'delhi';
 let aqiChart = null;
 let liveWeatherState = { cityKey: null, data: null };
+let aqiAlertEnabled = false;
+let lastAqiAlertKey = null;
+let lastAqiToastKey = null;
+let weatherForecastState = {
+    offset: 0,
+    startIndex: 0,
+    time: [],
+    temperature: [],
+    weatherCode: []
+};
+
+const WEATHER_WINDOW_SIZE = 12;
 
 const DEFAULT_COORDS = { lat: 23.5937, lon: 78.9629, name: 'India (National)' };
 const OPEN_METEO_BASE_URL = 'https://api.open-meteo.com/v1/forecast';
@@ -166,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDashboard(currentCity);
     generateWeatherForecast();
     loadLiveWeather(currentCity);
+    populateCompareDropdowns();
+    updateCompareView();
+    updateTrivia();
     generateCitiesGrid();
     setupEventListeners();
     updateLastUpdated();
@@ -178,6 +193,115 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300000);
 });
 
+function getCompareDataset() {
+    if (typeof realCityData !== 'undefined') {
+        return realCityData;
+    }
+    return cityData || {};
+}
+
+function populateCompareDropdowns() {
+    const compareCityA = document.getElementById('compareCityA');
+    const compareCityB = document.getElementById('compareCityB');
+    if (!compareCityA || !compareCityB) {
+        return;
+    }
+
+    const dataset = getCompareDataset();
+    const keys = Object.keys(dataset).filter((key) => key !== 'india');
+    const options = keys.map((key) => ({
+        key,
+        name: dataset[key].name || formatCityName(key)
+    })).sort((a, b) => a.name.localeCompare(b.name));
+
+    compareCityA.innerHTML = '';
+    compareCityB.innerHTML = '';
+
+    options.forEach((option) => {
+        const optA = document.createElement('option');
+        optA.value = option.key;
+        optA.textContent = option.name;
+        compareCityA.appendChild(optA);
+
+        const optB = document.createElement('option');
+        optB.value = option.key;
+        optB.textContent = option.name;
+        compareCityB.appendChild(optB);
+    });
+
+    const defaultB = options.find((option) => option.key !== currentCity) || options[0];
+    compareCityA.value = currentCity;
+    compareCityB.value = defaultB ? defaultB.key : currentCity;
+}
+
+function updateCompareView() {
+    const compareCityA = document.getElementById('compareCityA');
+    const compareCityB = document.getElementById('compareCityB');
+    const cardA = document.getElementById('compareCardA');
+    const cardB = document.getElementById('compareCardB');
+    const summary = document.getElementById('compareSummary');
+
+    if (!compareCityA || !compareCityB || !cardA || !cardB || !summary) {
+        return;
+    }
+
+    const dataset = getCompareDataset();
+    const dataA = dataset[compareCityA.value];
+    const dataB = dataset[compareCityB.value];
+
+    if (!dataA || !dataB) {
+        summary.textContent = 'Select two cities to compare AQI and pollutant levels.';
+        return;
+    }
+
+    cardA.innerHTML = buildCompareCard(dataA);
+    cardB.innerHTML = buildCompareCard(dataB);
+
+    const diff = dataA.aqi - dataB.aqi;
+    const diffText = diff === 0 ? 'Both cities have the same AQI today.' :
+        diff > 0 ? `${dataA.name} is higher by ${diff} AQI.` : `${dataB.name} is higher by ${Math.abs(diff)} AQI.`;
+    summary.textContent = `AQI difference: ${diffText}`;
+}
+
+function buildCompareCard(data) {
+    const category = getAQICategory(data.aqi);
+    const dateLabel = data.date ? new Date(data.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    }) : 'N/A';
+
+    return `
+        <h3>${data.name}</h3>
+        <div class="compare-metric"><span>AQI</span><strong style="color:${category.color}">${data.aqi} (${category.name})</strong></div>
+        <div class="compare-metric"><span>PM2.5</span><strong>${data.pm25} µg/m³</strong></div>
+        <div class="compare-metric"><span>PM10</span><strong>${data.pm10} µg/m³</strong></div>
+        <div class="compare-metric"><span>NO₂</span><strong>${data.no2} µg/m³</strong></div>
+        <div class="compare-metric"><span>SO₂</span><strong>${data.so2} µg/m³</strong></div>
+        <div class="compare-metric"><span>CO</span><strong>${data.co} µg/m³</strong></div>
+        <div class="compare-metric"><span>O₃</span><strong>${data.o3} µg/m³</strong></div>
+        <div class="compare-metric"><span>Dataset Date</span><strong>${dateLabel}</strong></div>
+    `;
+}
+
+const triviaFacts = [
+    'PM2.5 is small enough to enter your bloodstream and can travel deep into lungs.',
+    'AQI uses a color scale so you can interpret air quality at a glance.',
+    'Ozone helps high in the atmosphere but can irritate lungs at ground level.',
+    'Wind speed can temporarily improve AQI by dispersing pollutants.',
+    'Indoor air can be 2–5x more polluted than outdoor air without ventilation.'
+];
+
+function updateTrivia() {
+    const triviaText = document.getElementById('triviaText');
+    if (!triviaText || triviaFacts.length === 0) {
+        return;
+    }
+
+    const fact = triviaFacts[Math.floor(Math.random() * triviaFacts.length)];
+    triviaText.textContent = fact;
+}
+
 // Setup event listeners
 function setupEventListeners() {
     const citySelect = document.getElementById('citySelect');
@@ -186,6 +310,47 @@ function setupEventListeners() {
         updateDashboard(currentCity);
         loadLiveWeather(currentCity);
     });
+
+    const alertToggle = document.getElementById('aqiAlertToggle');
+    if (alertToggle) {
+        const saved = localStorage.getItem('aqiAlertsEnabled');
+        aqiAlertEnabled = saved === 'true';
+        alertToggle.checked = aqiAlertEnabled;
+
+        alertToggle.addEventListener('change', () => {
+            aqiAlertEnabled = alertToggle.checked;
+            localStorage.setItem('aqiAlertsEnabled', String(aqiAlertEnabled));
+
+            if (!aqiAlertEnabled) {
+                dismissAqiToast();
+            }
+        });
+    }
+
+    const toastClose = document.getElementById('aqiToastClose');
+    if (toastClose) {
+        toastClose.addEventListener('click', dismissAqiToast);
+    }
+
+    const compareCityA = document.getElementById('compareCityA');
+    const compareCityB = document.getElementById('compareCityB');
+    if (compareCityA && compareCityB) {
+        compareCityA.addEventListener('change', updateCompareView);
+        compareCityB.addEventListener('change', updateCompareView);
+    }
+
+    const triviaRefresh = document.getElementById('triviaRefresh');
+    if (triviaRefresh) {
+        triviaRefresh.addEventListener('click', updateTrivia);
+    }
+
+    const prevButton = document.getElementById('weatherPrev');
+    const nextButton = document.getElementById('weatherNext');
+
+    if (prevButton && nextButton) {
+        prevButton.addEventListener('click', () => shiftWeatherWindow(-1));
+        nextButton.addEventListener('click', () => shiftWeatherWindow(1));
+    }
 }
 
 // Update entire dashboard
@@ -248,6 +413,111 @@ function updateMainAQI(data) {
         item.classList.remove('active');
     });
     document.querySelector(`.scale-item.${categoryInfo.class}`).classList.add('active');
+
+    updateAqiDatasetDate();
+    updateAqiAlertBanner(data.aqi, categoryInfo);
+    handleAqiNotification(data.aqi, categoryInfo);
+}
+
+function updateAqiDatasetDate() {
+    const dateElement = document.getElementById('aqiDatasetDate');
+    if (!dateElement) {
+        return;
+    }
+
+    const latest = getLatestDatasetDate();
+    dateElement.textContent = latest || '--';
+}
+
+function getLatestDatasetDate() {
+    const dataset = typeof realCityData !== 'undefined' ? realCityData : cityData;
+    if (!dataset) {
+        return null;
+    }
+
+    let latestDate = null;
+
+    Object.values(dataset).forEach((entry) => {
+        if (!entry || !entry.date) {
+            return;
+        }
+        const parsed = new Date(entry.date);
+        if (Number.isNaN(parsed.getTime())) {
+            return;
+        }
+        if (!latestDate || parsed > latestDate) {
+            latestDate = parsed;
+        }
+    });
+
+    if (!latestDate) {
+        return null;
+    }
+
+    return latestDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+}
+
+function updateAqiAlertBanner(aqi, categoryInfo) {
+    const banner = document.getElementById('aqiAlertBanner');
+    if (!banner) {
+        return;
+    }
+
+    if (aqi >= 151) {
+        banner.textContent = `⚠️ ${categoryInfo.name} AQI alert: limit outdoor activity and wear a mask if needed.`;
+        banner.classList.add('is-active');
+    } else {
+        banner.textContent = '';
+        banner.classList.remove('is-active');
+    }
+}
+
+function handleAqiNotification(aqi, categoryInfo) {
+    if (!aqiAlertEnabled || aqi < 151) {
+        return;
+    }
+
+    const alertKey = `${currentCity}-${categoryInfo.name}-${aqi}`;
+    if (alertKey === lastAqiAlertKey) {
+        return;
+    }
+
+    showAqiToast(`⚠️ ${categoryInfo.name} AQI in ${formatCityName(currentCity)} (${aqi}). Limit outdoor activity.`);
+    lastAqiAlertKey = alertKey;
+}
+
+function showAqiToast(message) {
+    const toast = document.getElementById('aqiToast');
+    const toastText = document.getElementById('aqiToastText');
+    if (!toast || !toastText) {
+        return;
+    }
+
+    if (message === lastAqiToastKey) {
+        return;
+    }
+
+    toastText.textContent = message;
+    toast.classList.add('is-visible');
+    lastAqiToastKey = message;
+}
+
+function dismissAqiToast() {
+    const toast = document.getElementById('aqiToast');
+    if (toast) {
+        toast.classList.remove('is-visible');
+    }
+}
+
+function formatCityName(cityKey) {
+    if (cityData[cityKey] && cityData[cityKey].name) {
+        return cityData[cityKey].name;
+    }
+    return cityKey.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 // Get AQI category
@@ -298,26 +568,29 @@ function updateWeatherInfo(data) {
 
 // Generate weather forecast
 function generateWeatherForecast() {
-    const weatherForecast = document.getElementById('weatherForecast');
     const hours = ['Now', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', 
                    '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00',
                    '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
     
     const temperatures = [19, 19, 19, 18, 18, 17, 16, 16, 16, 19, 23, 25, 27, 28, 29, 30, 29, 29, 28, 25, 23, 22, 21, 20, 20];
     const icons = ['☀️', '🌤️', '🌤️', '🌙', '🌙', '🌙', '🌙', '🌙', '🌤️', '☀️', '☀️', '☀️', '☀️', '☀️', '☀️', '☀️', '☀️', '☀️', '☀️', '🌙', '🌙', '🌙', '🌙', '🌤️', '🌤️'];
-    
-    weatherForecast.innerHTML = '';
-    
-    hours.forEach((hour, index) => {
-        const weatherItem = document.createElement('div');
-        weatherItem.className = 'weather-item';
-        weatherItem.innerHTML = `
-            <div class="weather-time">${hour}</div>
-            <div class="weather-icon">${icons[index]}</div>
-            <div class="weather-temp">${temperatures[index]}°</div>
-        `;
-        weatherForecast.appendChild(weatherItem);
+
+    const now = new Date();
+    const times = hours.map((hour, index) => {
+        if (index === 0) {
+            return now.toISOString();
+        }
+        const date = new Date(now.getTime() + index * 60 * 60 * 1000);
+        return date.toISOString();
     });
+
+    setWeatherForecastState({
+        time: times,
+        temperature: temperatures,
+        weatherCode: icons.map((icon) => iconToWeatherCode(icon))
+    });
+
+    renderHourlyForecastFromState();
 }
 
 function loadLiveWeather(cityKey) {
@@ -456,16 +729,37 @@ function renderHourlyForecast(hourly) {
         return;
     }
 
+    setWeatherForecastState(hourly);
+    renderHourlyForecastFromState();
+}
+
+function setWeatherForecastState(hourly) {
+    weatherForecastState = {
+        offset: 0,
+        startIndex: findNearestHourIndex(hourly.time),
+        time: hourly.time || [],
+        temperature: hourly.temperature || [],
+        weatherCode: hourly.weatherCode || []
+    };
+
+    updateWeatherNavigationControls();
+}
+
+function renderHourlyForecastFromState() {
     const weatherForecast = document.getElementById('weatherForecast');
+    if (!weatherForecast) {
+        return;
+    }
+
+    const startIndex = weatherForecastState.startIndex + weatherForecastState.offset;
+    const maxItems = WEATHER_WINDOW_SIZE;
+
     weatherForecast.innerHTML = '';
 
-    const startIndex = findNearestHourIndex(hourly.time);
-    const maxItems = 12;
-
-    for (let i = startIndex; i < Math.min(startIndex + maxItems, hourly.time.length); i++) {
-        const label = i === startIndex ? 'Now' : formatHour(hourly.time[i]);
-        const temp = formatWeatherValue(hourly.temperature[i], '--');
-        const icon = getWeatherIcon(hourly.weatherCode[i], isNightTime(hourly.time[i]));
+    for (let i = startIndex; i < Math.min(startIndex + maxItems, weatherForecastState.time.length); i++) {
+        const label = i === weatherForecastState.startIndex ? 'Now' : formatHour(weatherForecastState.time[i]);
+        const temp = formatWeatherValue(weatherForecastState.temperature[i], '--');
+        const icon = getWeatherIcon(weatherForecastState.weatherCode[i], isNightTime(weatherForecastState.time[i]));
 
         const weatherItem = document.createElement('div');
         weatherItem.className = 'weather-item';
@@ -476,6 +770,70 @@ function renderHourlyForecast(hourly) {
         `;
         weatherForecast.appendChild(weatherItem);
     }
+
+    updateWeatherNavigationControls();
+}
+
+function shiftWeatherWindow(direction) {
+    if (!weatherForecastState.time.length) {
+        return;
+    }
+
+    const minOffset = -weatherForecastState.startIndex;
+    const maxOffset = Math.max(0, weatherForecastState.time.length - weatherForecastState.startIndex - WEATHER_WINDOW_SIZE);
+    const nextOffset = weatherForecastState.offset + direction * WEATHER_WINDOW_SIZE;
+
+    weatherForecastState.offset = Math.min(maxOffset, Math.max(minOffset, nextOffset));
+    renderHourlyForecastFromState();
+}
+
+function updateWeatherNavigationControls() {
+    const range = document.getElementById('weatherRange');
+    const prevButton = document.getElementById('weatherPrev');
+    const nextButton = document.getElementById('weatherNext');
+
+    if (!range || !prevButton || !nextButton) {
+        return;
+    }
+
+    if (!weatherForecastState.time.length) {
+        range.textContent = 'No forecast available';
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+        return;
+    }
+
+    const minOffset = -weatherForecastState.startIndex;
+    const maxOffset = Math.max(0, weatherForecastState.time.length - weatherForecastState.startIndex - WEATHER_WINDOW_SIZE);
+
+    prevButton.disabled = weatherForecastState.offset <= minOffset;
+    nextButton.disabled = weatherForecastState.offset >= maxOffset;
+
+    const startIndex = weatherForecastState.startIndex + weatherForecastState.offset;
+    const endIndex = Math.min(startIndex + WEATHER_WINDOW_SIZE - 1, weatherForecastState.time.length - 1);
+    const startLabel = formatHour(weatherForecastState.time[startIndex]);
+    const endLabel = formatHour(weatherForecastState.time[endIndex]);
+
+    let windowLabel = 'Now';
+    if (weatherForecastState.offset < 0) {
+        windowLabel = 'Past';
+    } else if (weatherForecastState.offset > 0) {
+        windowLabel = 'Future';
+    }
+
+    range.textContent = `${windowLabel} • ${startLabel} - ${endLabel}`;
+}
+
+function iconToWeatherCode(icon) {
+    if (icon === '☀️') return 0;
+    if (icon === '🌤️') return 1;
+    if (icon === '☁️') return 3;
+    if (icon === '🌫️') return 45;
+    if (icon === '🌦️') return 61;
+    if (icon === '🌨️') return 71;
+    if (icon === '🌧️') return 80;
+    if (icon === '⛈️') return 95;
+    return null;
 }
 
 function findNearestHourIndex(times) {
