@@ -1,4 +1,6 @@
-﻿<img width="1923" height="934" alt="image" src="https://github.com/user-attachments/assets/bf64a615-d8e1-4ae4-aca6-f3d7864c672d" /># AQI Dashboard - Air Quality Index Monitor
+# AQI Dashboard - Air Quality Index Monitor
+
+![Dashboard Main](screenshots/dashboard-main.png)
 
 A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset integration** and **ML-powered predictions**, similar to [aqinow.org](https://aqinow.org/AQI_India). This MST project combines data science, machine learning, and web development.
 
@@ -6,13 +8,13 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 
 ---
 
-## ­ƒôè Project Overview
+## 📊 Project Overview
 
 | Feature | Details |
 |---------|---------|
 | **Real Dataset** | 29,531 records from 26 cities (2015-2020) |
 | **ML Model** | Stacked Ensemble (XGBoost + RF + HistGradientBoosting) |
-| **Accuracy** | R┬▓ = 0.9087, MAE = 16.7 AQI units |
+| **Accuracy** | R² = 0.9087, MAE = 16.7 AQI units |
 | **Features** | 34 engineered features |
 | **Predictions** | 24-hour forecasts for all cities |
 | **Dashboard** | Interactive web interface with live weather |
@@ -20,7 +22,44 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 
 ---
 
-## ­ƒÄ» Model Performance & Stats
+## 🖼️ Screenshots
+
+### Main Dashboard
+![Dashboard Main](screenshots/dashboard-main.png)
+
+### Interactive Map
+![Interactive Map](screenshots/interactive-map.png)
+
+### City Selection
+![City Dropdown](screenshots/city-dropdown.png)
+
+### City Grid
+![City Grid](screenshots/city-grid.png)
+
+### City Comparison
+![Compare Cities](screenshots/compare-cities.png)
+
+### Weather Panel
+![Weather Panel](screenshots/weather-panel.png)
+
+### Historical Data
+![Historical Data](screenshots/historical-data.png)
+
+### Pollutant Charts
+![Pollutant Charts](screenshots/pollutant-charts.png)
+
+### Health Impact & Prevention Tips
+![Health Impact and Prevention Tips](screenshots/health-impact-and-prevention-tips.png)
+
+### Notification Alerts
+![Notification Alert](screenshots/notification-alert.png)
+
+### Trivia
+![Trivia](screenshots/trivia.png)
+
+---
+
+## 🎯 Model Performance & Stats
 
 ### Dataset Statistics
 - **Total Records**: 29,531 air quality measurements
@@ -32,36 +71,36 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 ### Model Architecture
 ```
 Base Models (Layer 1):
-Ôö£ÔöÇÔöÇ XGBoost Regressor (n_estimators=400, max_depth=6)
-Ôö£ÔöÇÔöÇ Random Forest (n_estimators=400, max_depth=20)
-ÔööÔöÇÔöÇ HistGradientBoosting (max_iter=400, max_depth=8)
+├── XGBoost Regressor (n_estimators=400, max_depth=6)
+├── Random Forest (n_estimators=400, max_depth=20)
+└── HistGradientBoosting (max_iter=400, max_depth=8)
 
 Meta Model (Layer 2):
-ÔööÔöÇÔöÇ Ridge Regression (alpha=1.0) with passthrough
+└── Ridge Regression (alpha=1.0) with passthrough
 
 Target Transform:
-ÔööÔöÇÔöÇ Log1p transformation for variance stabilization
+└── Log1p transformation for variance stabilization
 ```
 
 ### Accuracy Metrics
 
 | Metric | Value | Interpretation |
 |--------|-------|----------------|
-| **R┬▓ Score** | 0.9087 | Model explains 90.87% of AQI variance |
-| **MAE** | 16.73 AQI | Average error: ┬▒17 units (typical prediction) |
+| **R² Score** | 0.9087 | Model explains 90.87% of AQI variance |
+| **MAE** | 16.73 AQI | Average error: ±17 units (typical prediction) |
 | **RMSE** | 37.50 AQI | Root mean squared error |
-| **68% CI** | ┬▒36.4 AQI | 68% of predictions within this range |
-| **95% CI** | ┬▒72.8 AQI | 95% of predictions within this range |
+| **68% CI** | ±36.4 AQI | 68% of predictions within this range |
+| **95% CI** | ±72.8 AQI | 95% of predictions within this range |
 
 ### Performance by AQI Category
 
 | AQI Range | Category | Prediction Accuracy |
 |-----------|----------|-------------------|
-| 0-50 | Good | ┬▒12 AQI units |
-| 51-100 | Moderate | ┬▒15 AQI units |
-| 101-150 | Poor | ┬▒18 AQI units |
-| 151-200 | Unhealthy | ┬▒22 AQI units |
-| 201+ | Severe | ┬▒35 AQI units |
+| 0-50 | Good | ±12 AQI units |
+| 51-100 | Moderate | ±15 AQI units |
+| 101-150 | Poor | ±18 AQI units |
+| 151-200 | Unhealthy | ±22 AQI units |
+| 201+ | Severe | ±35 AQI units |
 
 ### Feature Importance (Top 10)
 
@@ -80,15 +119,8 @@ Target Transform:
 - **Training Time**: 196 seconds (~3 minutes)
 - **Training Set Size**: 23,625 records (80%)
 - **Test Set Size**: 5,906 records (20%)
-- **Training R┬▓**: 0.9807 (excellent fit, no overfitting)
-- **Test R┬▓**: 0.9087 (strong generalization)
-
----
-
-## Dashboard Preview
-
-- Live demo: https://github.com/user-attachments/assets/14950dad-f15d-476b-a1e3-b4fa1244f5a4
-- Screenshots: [screenshots/](screenshots/) (dashboard, dropdown, map, weather, historical, pollutants, alerts)
+- **Training R²**: 0.9807 (excellent fit, no overfitting)
+- **Test R²**: 0.9087 (strong generalization)
 
 ---
 
@@ -104,7 +136,7 @@ python -m http.server 8000
 # Open: http://localhost:8000
 
 # Method C: VS Code Live Server
-# Install extension ÔåÆ Right-click index.html ÔåÆ "Open with Live Server"
+# Install extension → Right-click index.html → "Open with Live Server"
 ```
 
 ### Option 2: ML Predictions (Quick Mock)
@@ -112,8 +144,8 @@ python -m http.server 8000
 ```bash
 # Generate instant mock predictions (no ML libraries needed)
 python generate_quick_predictions.py
-# Ô£à Predictions generated in < 5 seconds
-# Ô£à Creates aqi_predictions.json and aqi_predictions.js
+# ✅ Predictions generated in < 5 seconds
+# ✅ Creates aqi_predictions.json and aqi_predictions.js
 ```
 
 ### Option 3: Full ML Training
@@ -124,12 +156,12 @@ pip install -r requirements.txt
 
 # 2. Train Stacked Ensemble model
 python aqi_ml_predictor.py
-# ÔÅ▒´©Å Training takes 2-5 minutes
-# Ô£à Achieves R┬▓ > 0.85
+# ⏱ Training takes 2-5 minutes
+# ✅ Achieves R² > 0.85
 
 # 3. Interactive learning (recommended)
 jupyter notebook AQI_ML_Training.ipynb
-# ­ƒôÜ 10 sections with visualizations
+# 📓 10 sections with visualizations
 ```
 
 ### After Changes: Hard Refresh
@@ -142,46 +174,46 @@ jupyter notebook AQI_ML_Training.ipynb
 
 ---
 
-## ­ƒùé´©Å Project Structure
+## 🗂️ Project Structure
 
 ```
 MST Project/
-Ôö£ÔöÇÔöÇ ­ƒôä index.html                    # Dashboard HTML (330 lines)
-Ôö£ÔöÇÔöÇ ­ƒÄ¿ styles.css                    # Styling (790 lines)
-Ôö£ÔöÇÔöÇ ÔÜÖ´©Å script.js                     # Interactivity (840 lines)
-Ôöé
-Ôö£ÔöÇÔöÇ ­ƒôè DATA FILES
-Ôöé   Ôö£ÔöÇÔöÇ aqi_data.js                  # City data (27 cities, 440 lines)
-Ôöé   Ôö£ÔöÇÔöÇ all_cities_data.js           # Cities list (24 cities, 131 lines)
-Ôöé   Ôö£ÔöÇÔöÇ aqi_predictions.js           # ML predictions (auto-generated)
-Ôöé   ÔööÔöÇÔöÇ Dataset/
-Ôöé       Ôö£ÔöÇÔöÇ city_day.csv             # Main dataset (29,531 records)
-Ôöé       Ôö£ÔöÇÔöÇ city_hour.csv            # Hourly data
-Ôöé       Ôö£ÔöÇÔöÇ stations.csv             # Station info
-Ôöé       Ôö£ÔöÇÔöÇ station_day.csv          # Daily station data
-Ôöé       ÔööÔöÇÔöÇ station_hour.csv         # Hourly station data
-Ôöé
-Ôö£ÔöÇÔöÇ ­ƒñû MACHINE LEARNING
-Ôöé   Ôö£ÔöÇÔöÇ aqi_ml_predictor.py          # ML system (450 lines)
-Ôöé   Ôö£ÔöÇÔöÇ generate_quick_predictions.py # Quick mock predictions
-Ôöé   Ôö£ÔöÇÔöÇ AQI_ML_Training.ipynb        # Training notebook (10 sections)
-Ôöé   Ôö£ÔöÇÔöÇ aqi_stacked_model.pkl        # Trained model (after training)
-Ôöé   Ôö£ÔöÇÔöÇ aqi_scaler.pkl               # Feature scaler (after training)
-Ôöé   ÔööÔöÇÔöÇ aqi_features.pkl             # Feature list (after training)
-Ôöé
-Ôö£ÔöÇÔöÇ ­ƒôê DATA ANALYSIS
-Ôöé   Ôö£ÔöÇÔöÇ AQI_EDA_Analysis.ipynb       # EDA notebook (15 sections)
-Ôöé   ÔööÔöÇÔöÇ process_data.py              # Data processing pipeline
-Ôöé
-Ôö£ÔöÇÔöÇ ­ƒôÜ DOCUMENTATION
-Ôöé   Ôö£ÔöÇÔöÇ README.md                    # This file
-Ôöé   Ôö£ÔöÇÔöÇ requirements.txt             # Python dependencies
-Ôöé   ÔööÔöÇÔöÇ DATASET_INTEGRATION.md       # Dataset integration guide
+├── 📄 index.html                    # Dashboard HTML (330 lines)
+├── 🎨 styles.css                    # Styling (790 lines)
+├── ⚙️ script.js                     # Interactivity (840 lines)
+│
+├── 📊 DATA FILES
+│   ├── aqi_data.js                  # City data (27 cities, 440 lines)
+│   ├── all_cities_data.js           # Cities list (24 cities, 131 lines)
+│   ├── aqi_predictions.js           # ML predictions (auto-generated)
+│   └── Dataset/
+│       ├── city_day.csv             # Main dataset (29,531 records)
+│       ├── city_hour.csv            # Hourly data
+│       ├── stations.csv             # Station info
+│       ├── station_day.csv          # Daily station data
+│       └── station_hour.csv         # Hourly station data
+│
+├── 🤖 MACHINE LEARNING
+│   ├── aqi_ml_predictor.py          # ML system (450 lines)
+│   ├── generate_quick_predictions.py # Quick mock predictions
+│   ├── AQI_ML_Training.ipynb        # Training notebook (10 sections)
+│   ├── aqi_stacked_model.pkl        # Trained model (after training)
+│   ├── aqi_scaler.pkl               # Feature scaler (after training)
+│   └── aqi_features.pkl             # Feature list (after training)
+│
+├── 📋 DATA ANALYSIS
+│   ├── AQI_EDA_Analysis.ipynb       # EDA notebook (15 sections)
+│   └── process_data.py              # Data processing pipeline
+│
+└── 📝 DOCUMENTATION
+    ├── README.md                    # This file
+    ├── requirements.txt             # Python dependencies
+    └── DATASET_INTEGRATION.md       # Dataset integration guide
 ```
 
 ---
 
-## ­ƒøá´©Å Technologies & Tools
+## 🛠️ Technologies & Tools
 
 ### Frontend Stack
 | Technology | Purpose | Version |
@@ -209,24 +241,24 @@ MST Project/
 ```python
 # Stacked Ensemble Configuration
 Base Models:
-Ôö£ÔöÇÔöÇ XGBoost(n_estimators=400, max_depth=6, learning_rate=0.05)
-Ôö£ÔöÇÔöÇ RandomForest(n_estimators=400, max_depth=20, max_features='sqrt')
-ÔööÔöÇÔöÇ HistGradientBoosting(max_iter=400, max_depth=8, learning_rate=0.05)
+├── XGBoost(n_estimators=400, max_depth=6, learning_rate=0.05)
+├── RandomForest(n_estimators=400, max_depth=20, max_features='sqrt')
+└── HistGradientBoosting(max_iter=400, max_depth=8, learning_rate=0.05)
 
 Meta Learner:
-ÔööÔöÇÔöÇ Ridge(alpha=1.0, passthrough=True)
+└── Ridge(alpha=1.0, passthrough=True)
 
 Target Transform:
-ÔööÔöÇÔöÇ TransformedTargetRegressor(func=log1p, inverse_func=expm1)
+└── TransformedTargetRegressor(func=log1p, inverse_func=expm1)
 ```
 
 ### Data Pipeline
 ```
-Raw Data (CSV) ÔåÆ Feature Engineering ÔåÆ Train/Test Split
-                                              Ôåô
-                 ÔåÉ Prediction ÔåÉ Model ÔåÉ Training
-                        Ôåô
-                 JSON Export ÔåÆ JavaScript ÔåÆ Dashboard
+Raw Data (CSV) → Feature Engineering → Train/Test Split
+                                              ↓
+                 ← Prediction ← Model ← Training
+                        ↓
+                 JSON Export → JavaScript → Dashboard
 ```
 
 ### Development Tools
@@ -237,78 +269,94 @@ Raw Data (CSV) ÔåÆ Feature Engineering ÔåÆ Train/Test Split
 
 ---
 
-## ­ƒÄ» Dashboard Features
+## 🎯 Dashboard Features
 
-### ´┐¢´©Å Interactive AQI Map (NEW!)
+### 🗺️ Interactive AQI Map
 - **Geographical Visualization**: See all 26 cities on an interactive map of India
-- **Color-Coded Markers**: Cities marked by AQI category (Green ÔåÆ Yellow ÔåÆ Orange ÔåÆ Red ÔåÆ Purple ÔåÆ Maroon)
+- **Color-Coded Markers**: Cities marked by AQI category (Green → Yellow → Orange → Red → Purple → Maroon)
 - **Click to Explore**: Click any marker to view detailed city information
 - **Real-time Data**: Map markers show current AQI values for each city
 - **Zoom & Pan**: Explore different regions with smooth map controls
 - **Legend**: Visual guide to AQI categories with color indicators
 - **Powered by Leaflet.js**: Fast, responsive, works offline
 
-### ­ƒö« ML-Powered AQI Predictions
+![Interactive Map](screenshots/interactive-map.png)
+
+### 🤖 ML-Powered AQI Predictions
 - **24-Hour Forecast**: Machine learning predictions for next 24 hours
 - **Stacked Ensemble Model**: Combines XGBoost, Random Forest, and HistGradientBoosting
-- **High Accuracy**: R┬▓ > 0.85, MAE < 15 AQI units
-- **Feature Engineering**: 
+- **High Accuracy**: R² > 0.85, MAE < 15 AQI units
+- **Feature Engineering**:
   - Temporal features (hour, day, week, cyclical encodings)
   - Lag features (1-day, 3-day, 7-day historical AQI)
   - Meteorological interactions (PM ratio, traffic proxy, industrial markers)
 - **Interactive Chart**: Visualize predicted AQI trends with confidence intervals
 - **Real-time Updates**: Predictions update when switching cities
 
-### ­ƒôè Live AQI Display
+### 📊 Live AQI Display
 - Real-time AQI value with color-coded categories
 - Visual indicators (Good, Moderate, Poor, Unhealthy, Severe, Hazardous)
 - Animated mascot that changes based on air quality
 - PM2.5 and PM10 values displayed prominently
 
-### ­ƒö¼ Primary Air Pollutants (Real Data)
+### 🔬 Primary Air Pollutants (Real Data)
 - **PM2.5** - Fine particles
 - **PM10** - Coarse particles
-- **SOÔéé** - Sulphur dioxide
+- **SO₂** - Sulphur dioxide
 - **CO** - Carbon monoxide
-- **NOÔéé** - Nitrogen dioxide
-- **OÔéâ** - Ozone
+- **NO₂** - Nitrogen dioxide
+- **O₃** - Ozone
 - **Plus**: NOx, NH3, Benzene, Toluene, Xylene (from dataset)
 
-### ­ƒîñ´©Å Weather Information
+![Pollutant Charts](screenshots/pollutant-charts.png)
+
+### 🌡️ Weather Information
 - 24-hour weather forecast with temperatures
 - UV index with safety recommendations
 - Wind speed and conditions
 - Horizontal scrolling weather cards
 
-### ­ƒôê Historical Data Visualization
+![Weather Panel](screenshots/weather-panel.png)
+
+### 📋 Historical Data Visualization
 - Interactive Chart.js line chart showing AQI trends
 - Min/Max AQI values with timestamps
 - Color-coded chart zones based on AQI levels
 - Hover tooltips with detailed information
 
-### ­ƒÜ¼ Health Impact Indicator
+![Historical Data](screenshots/historical-data.png)
+
+### 💊 Health Impact Indicator
 - Cigarette equivalent calculation
 - Daily, weekly, and monthly exposure metrics
 - Based on Berkeley Earth methodology
 
-### ­ƒÆè Health Recommendations
+### 💡 Health Recommendations
 - Dynamic recommendations based on current AQI
 - Air purifier suggestions
 - N95 mask requirements
 - Indoor/outdoor activity guidance
 
-### ÔÜá´©Å Health Risk Alerts
+![Health Impact and Prevention Tips](screenshots/health-impact-and-prevention-tips.png)
+
+### ⚠️ Health Risk Alerts
 - Headaches, Eye Irritation, Asthma
 - Heart Issues, Allergies, Pregnancy & Infants
 - Risk levels: Elevated, Trigger, Moderate
 
-### ­ƒÅÖ´©Å Multi-City Support (24+ Cities from Dataset)
+![Notification Alert](screenshots/notification-alert.png)
+
+### 🏙️ Multi-City Support (24+ Cities from Dataset)
 **All cities from dataset available in dropdown and grid:**
 Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow, Hyderabad, Visakhapatnam, Coimbatore, Ernakulam, Kochi, Talcher, Thiruvananthapuram, Jaipur, Jorapokhar, Brajrajnagar, Amaravati, Amritsar, Aizawl, Shillong, Guwahati, and more...
 
+![City Dropdown](screenshots/city-dropdown.png)
+
+![City Grid](screenshots/city-grid.png)
+
 ---
 
-## ­ƒôê Dataset Information
+## 📋 Dataset Information
 
 ### Source Data (city_day.csv)
 - **Source**: https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india
@@ -318,7 +366,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 - **Pollutants**: PM2.5, PM10, NO, NO2, NOx, NH3, CO, SO2, O3, Benzene, Toluene, Xylene
 - **Metadata**: AQI, AQI_Bucket classification
 
-> **­ƒôÑ Dataset Setup**: Large CSV files (280+ MB) are excluded from this repository. Download from [Kaggle AQI India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india) and place in `Dataset/` folder:
+> **📌 Dataset Setup**: Large CSV files (280+ MB) are excluded from this repository. Download from [Kaggle AQI India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india) and place in `Dataset/` folder:
 > - Required: `city_day.csv` (2.45 MB), `station_day.csv` (8.23 MB)
 > - Optional: `city_hour.csv` (62.6 MB), `station_hour.csv` (209.5 MB) for hourly analysis
 
@@ -336,33 +384,33 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 
 ---
 
-## ­ƒñû Machine Learning System
+## 🤖 Machine Learning System
 
 ### Model Architecture
 
 **Stacked Ensemble Approach** (State-of-the-Art)
 
 ```
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé          BASE LAYER (Layer 1)           Ôöé
-Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
-Ôöé  XGBoost    Ôöé  Random Forest  Ôöé HistGradientBoost Ôöé
-Ôöé (Complex)   Ôöé   (Robust)      Ôöé (Fast, NaN-safe)  Ôöé
-Ôöé             Ôöé                 Ôöé                  Ôöé
-Ôöé Captures    Ôöé Handles noise   Ôöé Captures smooth   Ôöé
-Ôöé non-linear  Ôöé & outliers      Ôöé non-linear trends Ôöé
-Ôöé patterns    Ôöé                 Ôöé                  Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
-               Ôöé
-               Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé         META LAYER (Layer 2)            Ôöé
-Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
-Ôöé         Ridge Regression                Ôöé
-Ôöé   (Learns best combination)             Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
-               Ôöé
-               Ôû╝
+┌─────────────────────────────────────────┐
+│          BASE LAYER (Layer 1)           │
+├─────────────────────────────────────────┤
+│  XGBoost    │  Random Forest  │ HistGradientBoost │
+│ (Complex)   │   (Robust)      │ (Fast, NaN-safe)  │
+│             │                 │                   │
+│ Captures    │ Handles noise   │ Captures smooth   │
+│ non-linear  │ & outliers      │ non-linear trends │
+│ patterns    │                 │                   │
+└─────────────┴─────────────────┴───────────────────┘
+               │
+               ↓
+┌─────────────────────────────────────────┐
+│         META LAYER (Layer 2)            │
+├─────────────────────────────────────────┤
+│         Ridge Regression                │
+│   (Learns best combination)             │
+└─────────────────────────────────────────┘
+               │
+               ↓
          Final Prediction
 ```
 
@@ -373,7 +421,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 | **Error Mitigation** | If XGBoost over-predicts, Random Forest balances it |
 | **Stability** | Resistant to noisy sensor data |
 | **Robustness** | No single point of failure |
-| **Accuracy** | Consistently achieves R┬▓ > 0.90 |
+| **Accuracy** | Consistently achieves R² > 0.90 |
 
 ### Feature Engineering (50+ Features)
 
@@ -399,13 +447,13 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 ```python
 - PM_ratio = PM2.5 / PM10           # Particle size distribution
 - PM_sum = PM2.5 + PM10             # Total particulate matter
-- Traffic_proxy = CO ├ù NO2          # Rush hour indicator
-- Industrial_proxy = SO2 ├ù PM10     # Industrial activity marker
+- Traffic_proxy = CO × NO2          # Rush hour indicator
+- Industrial_proxy = SO2 × PM10     # Industrial activity marker
 ```
 
 #### 4. Raw Pollutant Features (12 features)
 ```python
-PM2.5, PM10, NO, NO2, NOx, NH3, 
+PM2.5, PM10, NO, NO2, NOx, NH3,
 CO, SO2, O3, Benzene, Toluene, Xylene
 ```
 
@@ -413,18 +461,18 @@ CO, SO2, O3, Benzene, Toluene, Xylene
 
 | Metric | Target | Typical Result | Interpretation |
 |--------|--------|----------------|----------------|
-| **R┬▓ Score** | > 0.85 | 0.88-0.92 | Explains 88-92% of AQI variance |
-| **MAE** | < 15 | 10-14 AQI | Average error is ┬▒10-14 AQI points |
+| **R² Score** | > 0.85 | 0.88-0.92 | Explains 88-92% of AQI variance |
+| **MAE** | < 15 | 10-14 AQI | Average error is ±10-14 AQI points |
 | **RMSE** | < 20 | 15-20 AQI | Root mean squared error |
 
 ### Model Comparison
 
 | Model | Accuracy | Speed | Best For |
 |-------|----------|-------|----------|
-| **Stacked Ensemble** Ô¡É | Ô¡ÉÔ¡ÉÔ¡ÉÔ¡ÉÔ¡É | Ô¡ÉÔ¡ÉÔ¡É | Highest accuracy, research |
-| XGBoost/LightGBM | Ô¡ÉÔ¡ÉÔ¡ÉÔ¡É | Ô¡ÉÔ¡ÉÔ¡ÉÔ¡ÉÔ¡É | Real-time apps, production |
-| Random Forest | Ô¡ÉÔ¡ÉÔ¡É | Ô¡ÉÔ¡ÉÔ¡ÉÔ¡É | Small/messy datasets |
-| LSTM (Deep Learning) | Ô¡ÉÔ¡ÉÔ¡É | Ô¡ÉÔ¡É | Very long time-series |
+| **Stacked Ensemble** ⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Highest accuracy, research |
+| XGBoost/LightGBM | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Real-time apps, production |
+| Random Forest | ⭐⭐⭐ | ⭐⭐⭐⭐ | Small/messy datasets |
+| LSTM (Deep Learning) | ⭐⭐⭐ | ⭐⭐ | Very long time-series |
 
 ---
 
@@ -463,15 +511,15 @@ python process_data.py
 ```bash
 # Option 1: Quick mock predictions
 python generate_quick_predictions.py
-# Ô£à Instant (< 5 seconds)
-# Ô£à No ML libraries required
-# Ô£à Realistic patterns with rush-hour effects
+# ✅ Instant (< 5 seconds)
+# ✅ No ML libraries required
+# ✅ Realistic patterns with rush-hour effects
 
 # Option 2: Real ML predictions
 python aqi_ml_predictor.py
-# ÔÅ▒´©Å Takes 2-5 minutes to train
-# Ô£à Achieves R┬▓ > 0.85
-# Ô£à Production-ready predictions
+# ⏱ Takes 2-5 minutes to train
+# ✅ Achieves R² > 0.85
+# ✅ Production-ready predictions
 ```
 
 **Output Files:**
@@ -483,20 +531,20 @@ python aqi_ml_predictor.py
 
 ---
 
-## ­ƒÄ¿ AQI Categories
+## 🎨 AQI Categories
 
 | Range | Category | Color | Description |
 |-------|----------|-------|-------------|
-| 0-50 | Good | ­ƒƒó Green | Air quality is satisfactory |
-| 51-100 | Moderate | ­ƒƒí Yellow | Acceptable air quality |
-| 101-150 | Poor | ­ƒƒá Orange | Unhealthy for sensitive groups |
-| 151-200 | Unhealthy | ­ƒö┤ Red | Everyone may experience effects |
-| 201-300 | Severe | ­ƒƒú Purple | Health alert; serious effects |
-| 301+ | Hazardous | ­ƒƒñ Maroon | Emergency conditions |
+| 0-50 | Good | 🟢 Green | Air quality is satisfactory |
+| 51-100 | Moderate | 🟡 Yellow | Acceptable air quality |
+| 101-150 | Poor | 🟠 Orange | Unhealthy for sensitive groups |
+| 151-200 | Unhealthy | 🔴 Red | Everyone may experience effects |
+| 201-300 | Severe | 🟣 Purple | Health alert; serious effects |
+| 301+ | Hazardous | 🟤 Maroon | Emergency conditions |
 
 ---
 
-## ­ƒÆ╗ Technical Stack
+## 💻 Technical Stack
 
 ### Frontend
 - **HTML5** - Semantic structure (380+ lines)
@@ -526,24 +574,24 @@ python aqi_ml_predictor.py
 
 ---
 
-## ­ƒûÑ´©Å Browser Compatibility
+## 🖥️ Browser Compatibility
 
 | Browser | Support | Notes |
 |---------|---------|-------|
-| Chrome/Edge | Ô£à Full | Recommended |
-| Firefox | Ô£à Full | All features work |
-| Safari | Ô£à Full | macOS & iOS |
-| Mobile | Ô£à Responsive | 320px+ screens |
+| Chrome/Edge | ✅ Full | Recommended |
+| Firefox | ✅ Full | All features work |
+| Safari | ✅ Full | macOS & iOS |
+| Mobile | ✅ Responsive | 320px+ screens |
 
 ### Responsive Breakpoints
-- ­ƒô▒ Mobile: 320px+
-- ­ƒô▒ Tablets: 768px+
-- ­ƒÆ╗ Laptops: 1024px+
-- ­ƒûÑ´©Å Desktops: 1400px+
+- 📱 Mobile: 320px+
+- �� Tablets: 768px+
+- 💻 Laptops: 1024px+
+- 🖥️ Desktops: 1400px+
 
 ---
 
-## ­ƒøá´©Å Customization
+## 🛠️ Customization
 
 ### Adding More Cities
 
@@ -592,26 +640,26 @@ xgb.XGBRegressor(
 
 ---
 
-## ­ƒöº Troubleshooting
+## 🔧 Troubleshooting
 
 ### Dashboard Issues
 
 **Issue: Only 5 cities showing**
 ```bash
-Ô£à Solution: Hard refresh browser
+✅ Solution: Hard refresh browser
 Windows/Linux: Ctrl + Shift + R
 Mac: Cmd + Shift + R
 ```
 
 **Issue: CORS error with fetch()**
 ```bash
-Ô£à Already fixed: Dashboard uses <script> tags
+✅ Already fixed: Dashboard uses <script> tags
 No action needed
 ```
 
 **Issue: Chart not rendering**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Check Chart.js CDN loaded
 2. Open console (F12) for errors
 3. Verify canvas element exists
@@ -619,10 +667,10 @@ No action needed
 
 **Issue: Predictions not showing**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Check aqi_predictions.js exists
 2. Hard refresh browser
-3. Check console: "Ô£à Loaded X cities from dataset"
+3. Check console: "✅ Loaded X cities from dataset"
 4. Regenerate: python generate_quick_predictions.py
 ```
 
@@ -630,13 +678,13 @@ No action needed
 
 **Issue: ModuleNotFoundError**
 ```bash
-Ô£à Solution: Install dependencies
+✅ Solution: Install dependencies
 pip install -r requirements.txt
 ```
 
 **Issue: Training takes too long**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Reduce n_estimators from 100 to 50
 2. Reduce cv folds from 5 to 3
 3. Use generate_quick_predictions.py instead
@@ -644,7 +692,7 @@ pip install -r requirements.txt
 
 **Issue: Low model accuracy**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Ensure dataset has enough historical data
 2. Check for missing values
 3. Try hyperparameter tuning
@@ -653,7 +701,7 @@ pip install -r requirements.txt
 
 **Issue: Memory error during training**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Reduce dataset size (sample by date)
 2. Reduce n_estimators
 3. Close other applications
@@ -664,7 +712,7 @@ pip install -r requirements.txt
 
 **Issue: process_data.py fails**
 ```bash
-Ô£à Solutions:
+✅ Solutions:
 1. Check Dataset/city_day.csv exists
 2. Install: pip install pandas numpy
 3. Check file permissions
@@ -672,7 +720,7 @@ pip install -r requirements.txt
 
 ---
 
-## ­ƒôè Project Statistics
+## 📊 Project Statistics
 
 | Metric | Value |
 |--------|-------|
@@ -690,27 +738,27 @@ pip install -r requirements.txt
 | **Time Period** | 2015-2020 (5+ years) |
 | **Files Created** | 21+ files |
 | **ML Features** | 50+ engineered features |
-| **Model Accuracy** | R┬▓ > 0.85, MAE < 15 |
+| **Model Accuracy** | R² > 0.85, MAE < 15 |
 
 ### Key Achievements
 
-Ô£à Full-stack dashboard with real data integration  
-Ô£à Comprehensive EDA with 15 analysis sections  
-Ô£à State-of-the-art ML prediction system (Stacked Ensemble)  
-Ô£à 24-hour AQI forecasts for all 26 cities  
-Ô£à Interactive visualizations with Chart.js  
-Ô£à **Interactive map with Leaflet.js (NEW!)**  
-Ô£à **Geographical AQI visualization across India (NEW!)**  
-Ô£à Responsive design for all devices  
-Ô£à Production-ready code with documentation  
+✅ Full-stack dashboard with real data integration
+✅ Comprehensive EDA with 15 analysis sections
+✅ State-of-the-art ML prediction system (Stacked Ensemble)
+✅ 24-hour AQI forecasts for all 26 cities
+✅ Interactive visualizations with Chart.js
+✅ **Interactive map with Leaflet.js**
+✅ **Geographical AQI visualization across India**
+✅ Responsive design for all devices
+✅ Production-ready code with documentation
 
 ---
 
-## ­ƒÜÇ Future Enhancements
+## 🚀 Future Enhancements
 
 ### Dashboard
 - [ ] Live API integration (OpenWeatherMap, AirVisual)
-- [x] **Interactive map view with city markers** Ô£à **COMPLETED!**
+- [x] **Interactive map view with city markers** ✅ **COMPLETED!**
 - [ ] Historical data for 7/30/90 days selection
 - [ ] Export data as CSV/PDF
 - [ ] Push notifications for AQI alerts
@@ -735,7 +783,7 @@ pip install -r requirements.txt
 
 ---
 
-## ­ƒöù API Integration Options (Future)
+## 🔗 API Integration Options (Future)
 
 For live data integration:
 
@@ -760,44 +808,44 @@ For live data integration:
 
 ---
 
-## ­ƒÅå Project Achievements
+## 🏅 Project Achievements
 
-### Ô£à What Was Accomplished
+### ✅ What Was Accomplished
 
 **Data Science & ML**
-- Ô£ô Trained stacked ensemble model with **90.87% accuracy** (R┬▓ = 0.9087)
-- Ô£ô Achieved **┬▒16.7 AQI prediction error** (better than ┬▒20 target)
-- Ô£ô Processed **29,531 records** with intelligent missing data handling
-- Ô£ô Engineered **34+ features** including temporal, lag, and interaction terms
-- Ô£ô Implemented log transformation for variance stabilization
-- Ô£ô Created comprehensive Jupyter notebooks with 10+ visualization sections
+- ✔ Trained stacked ensemble model with **90.87% accuracy** (R² = 0.9087)
+- ✔ Achieved **±16.7 AQI prediction error** (better than ±20 target)
+- ✔ Processed **29,531 records** with intelligent missing data handling
+- ✔ Engineered **34+ features** including temporal, lag, and interaction terms
+- ✔ Implemented log transformation for variance stabilization
+- ✔ Created comprehensive Jupyter notebooks with 10+ visualization sections
 
 **Full-Stack Development**
-- Ô£ô Built responsive dashboard with **2000+ lines of code**
-- Ô£ô Integrated live weather API (Open-Meteo) with dynamic backgrounds
-- Ô£ô Created interactive map with **26 Indian cities**
-- Ô£ô Implemented real-time Chart.js visualizations
-- Ô£ô Added light/dark theme support based on system preferences
-- Ô£ô Optimized for mobile and desktop views
+- ✔ Built responsive dashboard with **2000+ lines of code**
+- ✔ Integrated live weather API (Open-Meteo) with dynamic backgrounds
+- ✔ Created interactive map with **26 Indian cities**
+- ✔ Implemented real-time Chart.js visualizations
+- ✔ Added light/dark theme support based on system preferences
+- ✔ Optimized for mobile and desktop views
 
 **Real-World Features**
-- Ô£ô 24-hour AQI forecasting with confidence intervals
-- Ô£ô Health recommendations based on air quality levels
-- Ô£ô Cigarette equivalent calculations for health awareness
-- Ô£ô Pollutant tracking (PM2.5, PM10, NO2, CO, SO2, O3, etc.)
-- Ô£ô City comparison functionality with statistical insights
+- ✔ 24-hour AQI forecasting with confidence intervals
+- ✔ Health recommendations based on air quality levels
+- ✔ Cigarette equivalent calculations for health awareness
+- ✔ Pollutant tracking (PM2.5, PM10, NO2, CO, SO2, O3, etc.)
+- ✔ City comparison functionality with statistical insights
 
-### ­ƒôè By The Numbers
+### 📈 By The Numbers
 - **29,531** data records processed
 - **26** cities covered
 - **34** engineered features
-- **90.87%** model accuracy (R┬▓)
-- **┬▒16.7** AQI prediction error
+- **90.87%** model accuracy (R²)
+- **±16.7** AQI prediction error
 - **2000+** lines of code
 - **10** notebook sections
 - **5** ML algorithms tested
 
-### ­ƒÄô Learning Outcomes
+### 🎓 Learning Outcomes
 - Advanced ML techniques (stacked ensembles, feature engineering)
 - Real-world data cleaning and preprocessing
 - API integration and asynchronous JavaScript
@@ -808,13 +856,13 @@ For live data integration:
 
 ---
 
-## ­ƒôä License
+## 📄 License
 
 This project is created for educational purposes (MST Project - AI Semester 4). Feel free to use and modify as needed.
 
 ---
 
-## ­ƒÖÅ Credits
+## 🏆 Credits
 
 - **Design Inspiration**: [aqinow.org](https://aqinow.org/AQI_India)
 - **Chart Visualization**: [Chart.js](https://www.chartjs.org/)
@@ -827,7 +875,7 @@ This project is created for educational purposes (MST Project - AI Semester 4). 
 
 ---
 
-## ­ƒô× Support & Contact
+## 📧 Support & Contact
 
 ### Getting Help
 
@@ -860,7 +908,7 @@ jupyter notebook
 
 ---
 
-## ­ƒôØ File Formats
+## 📰 File Formats
 
 ### Data Structure
 
@@ -902,12 +950,11 @@ const realCityData = {
 
 ---
 
-**Ô£¿ Enjoy monitoring air quality with real data and ML-powered predictions! ­ƒîì­ƒÆ¿­ƒñû**
+**✅ Enjoy monitoring air quality with real data and ML-powered predictions! 🌍💚🤖**
 
-**ÔÜá´©Å Disclaimer**: This dashboard is for informational and educational purposes only. For medical advice related to air quality exposure, consult healthcare professionals.
+**⚠️ Disclaimer**: This dashboard is for informational and educational purposes only. For medical advice related to air quality exposure, consult healthcare professionals.
 
 ---
 
-*Last Updated: February 21, 2026*  
+*Last Updated: February 2026*
 *Version: 2.0 (with ML Predictions)*
-"# AQI-Predicator-and-weather-dashboard-AI-Project" 
