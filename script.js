@@ -1,5 +1,9 @@
 // AQI Dashboard JavaScript
 
+// Global cache for preloaded city data
+let preloadedCityData = {};
+let isDataPreloaded = false;
+
 // Use real data from aqi_data.js if available, otherwise use mock data
 let cityData;
 
@@ -142,54 +146,189 @@ function initializeCitiesData() {
     populateCityDropdown();
 }
 
-// Populate city dropdown with all cities
+// Populate city dropdown with all cities (130+ global + India dataset)
 function populateCityDropdown() {
     const citySelect = document.getElementById('citySelect');
-    
-    // Keep the existing options for cities we have full data for
-    const existingOptions = ['delhi', 'mumbai', 'bengaluru', 'kolkata', 'chennai'];
-    
-    // Add a separator and label if we have additional cities
-    if (allCitiesData.length > 0) {
-        const separator = document.createElement('option');
-        separator.disabled = true;
-        separator.textContent = '────────── All Cities ──────────';
-        citySelect.appendChild(separator);
+    const cityList = document.getElementById('cityList');
+    const datalistSeen = new Set();
+
+    if (!citySelect) {
+        return;
     }
-    
-    // Add all cities from the dataset
-    allCitiesData.forEach(cityInfo => {
-        // Skip if already in existing options
-        if (!existingOptions.includes(cityInfo.city.toLowerCase())) {
+
+    if (cityList) {
+        cityList.innerHTML = '';
+    }
+
+    const addDatalistOption = (cityName) => {
+        if (!cityList || !cityName) {
+            return;
+        }
+        const cleanCityName = cityName
+            .split(',')[0]
+            .trim();
+
+        if (!datalistSeen.has(cleanCityName)) {
             const option = document.createElement('option');
-            const cityKey = cityInfo.city.toLowerCase().replace(/\s+/g, '_');
-            option.value = cityKey;
-            option.textContent = `${cityInfo.city} (AQI: ${cityInfo.aqi})`;
-            citySelect.appendChild(option);
+            option.value = cleanCityName;
+            cityList.appendChild(option);
+            datalistSeen.add(cleanCityName);
+        }
+    };
+
+    const staticOptions = Array.from(citySelect.options).filter((option) => !option.disabled);
+    staticOptions.forEach((option) => {
+        addDatalistOption(option.textContent);
+    });
+
+    if (!citySelect.value || citySelect.selectedIndex === 0) {
+        if (staticOptions.length > 0) {
+            citySelect.value = staticOptions[0].value;
+            currentCity = staticOptions[0].value;
+        }
+    } else {
+        currentCity = citySelect.value;
+    }
+
+    console.log(`✅ Using static city list (${staticOptions.length} options)`, `Current city set to: ${currentCity}`);
+}
+
+function setupCitySearchInput() {
+    const citySearch = document.getElementById('citySearch');
+    const citySelect = document.getElementById('citySelect');
+    if (!citySearch || !citySelect) {
+        return;
+    }
+
+    const resolveCityKey = (query) => {
+        if (!query) {
+            return null;
+        }
+        
+        // Clean the query - remove country names, flags, etc.
+        let cleanQuery = query.trim();
+        
+        // Remove flag emojis
+        cleanQuery = cleanQuery.replace(/[\ud83c\udde6-\ud83c\uddff]{2}/gu, '').trim();
+        
+        // Remove common country patterns
+        // "Delhi, India" -> "Delhi", "India Delhi" -> "Delhi"
+        cleanQuery = cleanQuery.split(',')[0].trim();
+        
+        const countryPrefixes = ['India', 'USA', 'US', 'UK', 'China', 'Japan', 'Brazil', 'Canada', 'Australia', 'France', 'Germany', 'Spain', 'Italy'];
+        for (const prefix of countryPrefixes) {
+            const regex = new RegExp(`^${prefix}\\s+`, 'i');
+            if (regex.test(cleanQuery)) {
+                cleanQuery = cleanQuery.replace(regex, '').trim();
+                break;
+            }
+        }
+
+        // Try WAQI search with cleaned query
+        if (window.WAQI && typeof window.WAQI.searchCities === 'function') {
+            const matches = window.WAQI.searchCities(cleanQuery);
+            if (matches.length > 0) {
+                return matches[0].key;
+            }
+        }
+
+        // Try direct match with cleaned query
+        const normalized = cleanQuery.toLowerCase().replace(/\s+/g, '_');
+        for (const option of citySelect.options) {
+            if (option.disabled) {
+                continue;
+            }
+            if (option.value === normalized) {
+                return option.value;
+            }
+            // Compare option text without country as well
+            const optionTextClean = option.text.split(',')[0].trim().toLowerCase();
+            if (optionTextClean === cleanQuery.toLowerCase()) {
+                return option.value;
+            }
+        }
+
+        return null;
+    };
+
+    const applySelection = () => {
+        const query = citySearch.value.trim();
+        const key = resolveCityKey(query);
+        if (!key) {
+            return;
+        }
+        citySelect.value = key;
+        citySelect.dispatchEvent(new Event('change'));
+    };
+
+    citySearch.addEventListener('change', applySelection);
+    citySearch.addEventListener('blur', applySelection);
+    citySearch.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            applySelection();
         }
     });
-    
-    console.log(`✅ Dropdown populated with ${citySelect.options.length} options`);
+}
+
+function setupPredictionTabs() {
+    const tabForecast = document.getElementById('predictionTabForecast');
+    const tabCompare = document.getElementById('predictionTabCompare');
+    const panelForecast = document.getElementById('predictionPanelForecast');
+    const panelCompare = document.getElementById('predictionPanelCompare');
+
+    if (!tabForecast || !tabCompare || !panelForecast || !panelCompare) {
+        return;
+    }
+
+    const setActive = (activeTab) => {
+        const isForecast = activeTab === 'forecast';
+        tabForecast.classList.toggle('is-active', isForecast);
+        tabCompare.classList.toggle('is-active', !isForecast);
+        panelForecast.classList.toggle('is-active', isForecast);
+        panelCompare.classList.toggle('is-active', !isForecast);
+
+        if (!isForecast && lastDashboardData) {
+            updatePredictionCompare(currentCity, lastDashboardData);
+        }
+    };
+
+    tabForecast.addEventListener('click', () => setActive('forecast'));
+    tabCompare.addEventListener('click', () => setActive('compare'));
 }
 
 // Initialize dashboard
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCitiesData(); // Initialize cities data
-    updateDashboard(currentCity);
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize WAQI first to ensure cities are available
+    if (typeof window.WAQI !== 'undefined' && window.WAQI.init) {
+        window.WAQI.init();
+    }
+    
+    initializeCitiesData(); // Initialize cities data with global cities
+    setupCitySearchInput();
+    setupPredictionTabs();
+    setupEventListeners();
+    
+    // Preload all city data for instant access
+    console.log('⏳ Preloading all city AQI data...');
+    await preloadAllCityData();
+    
+    await updateDashboardWithWAQI(currentCity);  // Use async WAQI version
     generateWeatherForecast();
     loadLiveWeather(currentCity);
     populateCompareDropdowns();
-    updateCompareView();
+    await updateCompareView();
     updateTrivia();
-    generateCitiesGrid();
-    setupEventListeners();
+    await generateCitiesGrid(); // Generate grid with live WAQI data
     updateLastUpdated();
-    updateDataSourceIndicator();
+    updateDataSourceBadge('Loading...');
     
     // Update every 5 minutes
-    setInterval(() => {
+    setInterval(async () => {
         simulateDataUpdate();
         updateLastUpdated();
+        await updateDashboardWithWAQI(currentCity);  // Refresh WAQI data
+        await generateCitiesGrid(); // Update cities grid with fresh data
     }, 300000);
 });
 
@@ -200,6 +339,33 @@ function getCompareDataset() {
     return cityData || {};
 }
 
+function getCompareOptions() {
+    const options = [];
+    const seen = new Set();
+
+    if (window.WAQI && typeof window.WAQI.searchCities === 'function') {
+        const allCities = window.WAQI.searchCities('');
+        allCities.forEach((city) => {
+            if (seen.has(city.key)) {
+                return;
+            }
+            seen.add(city.key);
+            options.push({ key: city.key, name: city.name });
+        });
+    }
+
+    const dataset = getCompareDataset();
+    Object.keys(dataset).forEach((key) => {
+        if (key === 'india' || seen.has(key)) {
+            return;
+        }
+        seen.add(key);
+        options.push({ key, name: dataset[key].name || formatCityName(key) });
+    });
+
+    return options.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 function populateCompareDropdowns() {
     const compareCityA = document.getElementById('compareCityA');
     const compareCityB = document.getElementById('compareCityB');
@@ -207,12 +373,7 @@ function populateCompareDropdowns() {
         return;
     }
 
-    const dataset = getCompareDataset();
-    const keys = Object.keys(dataset).filter((key) => key !== 'india');
-    const options = keys.map((key) => ({
-        key,
-        name: dataset[key].name || formatCityName(key)
-    })).sort((a, b) => a.name.localeCompare(b.name));
+    const options = getCompareOptions();
 
     compareCityA.innerHTML = '';
     compareCityB.innerHTML = '';
@@ -234,7 +395,27 @@ function populateCompareDropdowns() {
     compareCityB.value = defaultB ? defaultB.key : currentCity;
 }
 
-function updateCompareView() {
+async function getCompareCityData(cityKey, dataset) {
+    const fallback = dataset[cityKey] || null;
+
+    if (window.WAQI && typeof window.WAQI.getHybridData === 'function') {
+        const liveData = await window.WAQI.getHybridData(cityKey, fallback);
+        if (liveData) {
+            if (!liveData.name) {
+                liveData.name = formatCityName(cityKey);
+            }
+            return liveData;
+        }
+    }
+
+    if (fallback && !fallback.name) {
+        fallback.name = formatCityName(cityKey);
+    }
+
+    return fallback;
+}
+
+async function updateCompareView() {
     const compareCityA = document.getElementById('compareCityA');
     const compareCityB = document.getElementById('compareCityB');
     const cardA = document.getElementById('compareCardA');
@@ -246,8 +427,8 @@ function updateCompareView() {
     }
 
     const dataset = getCompareDataset();
-    const dataA = dataset[compareCityA.value];
-    const dataB = dataset[compareCityB.value];
+    const dataA = await getCompareCityData(compareCityA.value, dataset);
+    const dataB = await getCompareCityData(compareCityB.value, dataset);
 
     if (!dataA || !dataB) {
         summary.textContent = 'Select two cities to compare AQI and pollutant levels.';
@@ -265,7 +446,8 @@ function updateCompareView() {
 
 function buildCompareCard(data) {
     const category = getAQICategory(data.aqi);
-    const dateLabel = data.date ? new Date(data.date).toLocaleDateString('en-US', {
+    const dateSource = data.updated || data.date;
+    const dateLabel = dateSource ? new Date(dateSource).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
@@ -280,7 +462,7 @@ function buildCompareCard(data) {
         <div class="compare-metric"><span>SO₂</span><strong>${data.so2} µg/m³</strong></div>
         <div class="compare-metric"><span>CO</span><strong>${data.co} µg/m³</strong></div>
         <div class="compare-metric"><span>O₃</span><strong>${data.o3} µg/m³</strong></div>
-        <div class="compare-metric"><span>Dataset Date</span><strong>${dateLabel}</strong></div>
+        <div class="compare-metric"><span>Last Updated</span><strong>${dateLabel}</strong></div>
     `;
 }
 
@@ -303,11 +485,127 @@ function updateTrivia() {
 }
 
 // Setup event listeners
+// ============================================================================
+// WAQI Integration Wrapper
+// ============================================================================
+
+function buildEmptyCityData(cityKey) {
+    const displayName = formatCityName(cityKey);
+    return {
+        name: displayName,
+        city: displayName,
+        aqi: 0,
+        pm25: 0,
+        pm10: 0,
+        so2: 0,
+        co: 0,
+        no2: 0,
+        o3: 0,
+        uv: 0,
+        wind: 0,
+        minAqi: 0,
+        maxAqi: 0,
+        cigarettes: 0,
+        source: 'Default'
+    };
+}
+
+/**
+ * Async wrapper to fetch data from WAQI or fallback to dataset
+ */
+async function updateDashboardWithWAQI(city) {
+    try {
+        console.log(`📡 Loading dashboard for city: ${city}`);
+        
+        // Show loading state
+        const aqiValue = document.getElementById('aqiValue');
+        if (aqiValue && !aqiValue.textContent) {
+            aqiValue.textContent = '...';
+        }
+        
+        // Check preloaded cache first for instant updates
+        if (isDataPreloaded && preloadedCityData[city]) {
+            console.log(`⚡ Using preloaded data for ${city}`);
+            const dataToUse = preloadedCityData[city];
+            dataToUse.name = dataToUse.name || formatCityName(city);
+            updateDashboard(city, dataToUse);
+            updateDataSourceBadge(dataToUse.source || 'Preloaded');
+            updateSelectedCityOnMap(city, dataToUse);
+            return;
+        }
+        
+        // Get fallback data - ALWAYS has a name
+        const fallbackData = cityData[city] || buildEmptyCityData(city);
+        fallbackData.name = fallbackData.name || formatCityName(city);
+        
+        // Try to fetch WAQI data if not preloaded
+        if (window.WAQI) {
+            const hybridData = await window.WAQI.getHybridData(city, fallbackData);
+            if (hybridData) {
+                // Ensure name is always set
+                hybridData.name = hybridData.name || fallbackData.name;
+                // Cache the data
+                preloadedCityData[city] = hybridData;
+                // Update with hybrid data (WAQI + fallback)
+                console.log(`✅ Using WAQI data for ${hybridData.name}`);
+                updateDashboard(city, hybridData);
+                updateDataSourceBadge(hybridData.source || 'Mixed');
+                updateSelectedCityOnMap(city, hybridData);
+                return;
+            }
+        }
+        
+        // Fallback if WAQI not available
+        console.log(`📊 Using dataset fallback for ${fallbackData.name}`);
+        updateDashboard(city, fallbackData);
+        updateDataSourceBadge('Dataset');
+        updateSelectedCityOnMap(city, fallbackData);
+        
+    } catch (error) {
+        console.error('❌ Error updating dashboard with WAQI:', error);
+        const fallbackData = cityData[city] || buildEmptyCityData(city);
+        fallbackData.name = fallbackData.name || formatCityName(city);
+        console.log(`⚠️  Using error fallback for ${fallbackData.name}`);
+        updateDashboard(city, fallbackData);
+        updateDataSourceBadge('Dataset (Error)');
+        updateSelectedCityOnMap(city, fallbackData);
+    }
+}
+
+/**
+ * Update data source badge on UI
+ */
+function updateDataSourceBadge(source) {
+    let badge = document.getElementById('dataSourceBadge');
+    if (!badge) {
+        // Create badge if it doesn't exist
+        const mainCard = document.querySelector('.aqi-main-card');
+        if (mainCard) {
+            badge = document.createElement('div');
+            badge.id = 'dataSourceBadge';
+            badge.style.cssText = 'position: absolute; top: 10px; right: 10px; padding: 4px 8px; background: #4CAF50; color: white; border-radius: 4px; font-size: 11px; font-weight: bold; z-index: 1;';
+            mainCard.appendChild(badge);
+        }
+    }
+    
+    if (badge) {
+        badge.textContent = '🌐 ' + source;
+        // Change color based on source
+        if (source.includes('WAQI')) {
+            badge.style.background = '#2196F3';  // Blue for WAQI
+        } else if (source.includes('Dataset')) {
+            badge.style.background = '#FF9800';  // Orange for Dataset
+        } else {
+            badge.style.background = '#9C27B0';  // Purple for Mixed
+        }
+    }
+}
+
 function setupEventListeners() {
     const citySelect = document.getElementById('citySelect');
     citySelect.addEventListener('change', (e) => {
         currentCity = e.target.value;
-        updateDashboard(currentCity);
+        updateDashboardWithWAQI(currentCity);  // Use async WAQI version
         loadLiveWeather(currentCity);
     });
 
@@ -335,8 +633,12 @@ function setupEventListeners() {
     const compareCityA = document.getElementById('compareCityA');
     const compareCityB = document.getElementById('compareCityB');
     if (compareCityA && compareCityB) {
-        compareCityA.addEventListener('change', updateCompareView);
-        compareCityB.addEventListener('change', updateCompareView);
+        compareCityA.addEventListener('change', async () => {
+            await updateCompareView();
+        });
+        compareCityB.addEventListener('change', async () => {
+            await updateCompareView();
+        });
     }
 
     const triviaRefresh = document.getElementById('triviaRefresh');
@@ -354,8 +656,10 @@ function setupEventListeners() {
 }
 
 // Update entire dashboard
-function updateDashboard(city) {
-    const data = cityData[city];
+function updateDashboard(city, overrideData) {
+    // Use override data if provided (from WAQI), otherwise use cityData
+    const data = overrideData || cityData[city];
+    lastDashboardData = data;
     
     // Update main AQI display
     updateMainAQI(data);
@@ -377,6 +681,7 @@ function updateDashboard(city) {
     
     // Update ML predictions
     updatePredictionsChart(city);
+    updatePredictionCompare(city, data);
 }
 
 // Update main AQI display
@@ -386,10 +691,33 @@ function updateMainAQI(data) {
     const aqiMascot = document.getElementById('aqiMascot');
     const pm25Value = document.getElementById('pm25Value');
     const pm10Value = document.getElementById('pm10Value');
+    const aqiCityName = document.getElementById('aqiCityName');
+    const citySearch = document.getElementById('citySearch');
     
-    aqiValue.textContent = data.aqi;
-    pm25Value.textContent = data.pm25;
-    pm10Value.textContent = data.pm10;
+    // Ensure data exists
+    if (!data) {
+        console.error('❌ updateMainAQI called with missing data');
+        return;
+    }
+
+    aqiValue.textContent = formatNumber(data.aqi, '0.00');
+    pm25Value.textContent = formatNumber(data.pm25, '0.00');
+    pm10Value.textContent = formatNumber(data.pm10, '0.00');
+
+    // Set city name with multiple fallbacks
+    const cityName = data.name || data.city || formatCityName(currentCity);
+    console.log(`🏙️  Setting city name to: ${cityName}`);
+    
+    if (aqiCityName) {
+        aqiCityName.textContent = cityName;
+        aqiCityName.title = cityName; // Also set title for tooltip
+    } else {
+        console.warn('⚠️ aqiCityName element not found');
+    }
+
+    if (citySearch && cityName) {
+        citySearch.value = cityName;
+    }
     
     // Get category info
     const categoryInfo = getAQICategory(data.aqi);
@@ -520,6 +848,39 @@ function formatCityName(cityKey) {
     return cityKey.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+// Extract just city name for predictions (removes country, states, etc.)
+function extractCityNameForPredictions(cityNameOrKey) {
+    let cityName = cityNameOrKey;
+    
+    // If it's a key, convert to name first
+    if (cityNameOrKey.includes('_')) {
+        cityName = formatCityName(cityNameOrKey);
+    }
+    
+    // Remove country names and common patterns
+    // Examples: "Delhi, India" -> "Delhi", "New York, USA" -> "New York"
+    const parts = cityName.split(',');
+    if (parts.length > 1) {
+        cityName = parts[0].trim();
+    }
+    
+    // Remove flag emojis and country codes
+    cityName = cityName.replace(/[🇦-🇿]{2}/gu, '').trim();
+    
+    // Remove common country indicators at start
+    // "India Delhi" -> "Delhi", "USA New York" -> "New York"
+    const countryPrefixes = ['India', 'USA', 'UK', 'China', 'Japan', 'Brazil', 'Canada', 'Australia', 'France', 'Germany', 'Spain', 'Italy'];
+    for (const prefix of countryPrefixes) {
+        const regex = new RegExp(`^${prefix}\\s+`, 'i');
+        if (regex.test(cityName)) {
+            cityName = cityName.replace(regex, '').trim();
+            break;
+        }
+    }
+    
+    return cityName;
+}
+
 // Get AQI category
 function getAQICategory(aqi) {
     if (aqi <= 50) {
@@ -539,12 +900,12 @@ function getAQICategory(aqi) {
 
 // Update pollutants
 function updatePollutants(data) {
-    document.getElementById('pm25Detail').textContent = `${data.pm25} µg/m³`;
-    document.getElementById('pm10Detail').textContent = `${data.pm10} µg/m³`;
-    document.getElementById('so2Value').textContent = `${data.so2} µg/m³`;
-    document.getElementById('coValue').textContent = `${data.co} µg/m³`;
-    document.getElementById('no2Value').textContent = `${data.no2} µg/m³`;
-    document.getElementById('o3Value').textContent = `${data.o3} µg/m³`;
+    document.getElementById('pm25Detail').textContent = `${formatNumber(data.pm25, '0.00')} µg/m³`;
+    document.getElementById('pm10Detail').textContent = `${formatNumber(data.pm10, '0.00')} µg/m³`;
+    document.getElementById('so2Value').textContent = `${formatNumber(data.so2, '0.00')} µg/m³`;
+    document.getElementById('coValue').textContent = `${formatNumber(data.co, '0.00')} µg/m³`;
+    document.getElementById('no2Value').textContent = `${formatNumber(data.no2, '0.00')} µg/m³`;
+    document.getElementById('o3Value').textContent = `${formatNumber(data.o3, '0.00')} µg/m³`;
 }
 
 // Update weather info
@@ -553,11 +914,15 @@ function updateWeatherInfo(data) {
         return;
     }
 
-    document.getElementById('uvIndex').textContent = data.uv;
-    document.getElementById('windSpeed').textContent = `${data.wind} km/h`;
+    const uvValue = Number(data.uv);
+    const uvDisplay = formatNumber(data.uv, '--');
+    const windDisplay = formatNumber(data.wind, '--');
+
+    document.getElementById('uvIndex').textContent = uvDisplay;
+    document.getElementById('windSpeed').textContent = `${windDisplay} km/h`;
     
     // UV Category
-    const uvCategory = data.uv <= 2 ? 'Low' : data.uv <= 5 ? 'Moderate' : data.uv <= 7 ? 'High' : 'Very High';
+    const uvCategory = Number.isNaN(uvValue) ? '--' : (uvValue <= 2 ? 'Low' : uvValue <= 5 ? 'Moderate' : uvValue <= 7 ? 'High' : 'Very High');
     document.getElementById('uvCategory').textContent = uvCategory;
 
     updateLiveAqiBadge();
@@ -703,12 +1068,12 @@ function updateLiveWeatherCards(current) {
 
 function updateLiveAqiBadge() {
     const aqiValue = cityData[currentCity] ? cityData[currentCity].aqi : null;
-    const displayValue = aqiValue !== null && aqiValue !== undefined ? aqiValue : '--';
+    const displayValue = formatNumber(aqiValue, '--');
     const aqiElement = document.getElementById('weatherAqi');
     if (aqiElement) {
         aqiElement.textContent = displayValue;
         if (displayValue !== '--') {
-            const category = getAQICategory(Number(displayValue));
+            const category = getAQICategory(Number(aqiValue));
             aqiElement.style.color = category.color;
         }
     }
@@ -755,6 +1120,10 @@ function renderHourlyForecastFromState() {
     const maxItems = WEATHER_WINDOW_SIZE;
 
     weatherForecast.innerHTML = '';
+    
+    // Get live AQI data
+    const liveAqi = formatNumber(lastDashboardData ? lastDashboardData.aqi : null, '--');
+    const aqiCategory = lastDashboardData ? getAQICategory(lastDashboardData.aqi) : null;
 
     for (let i = startIndex; i < Math.min(startIndex + maxItems, weatherForecastState.time.length); i++) {
         const label = i === weatherForecastState.startIndex ? 'Now' : formatHour(weatherForecastState.time[i]);
@@ -763,10 +1132,12 @@ function renderHourlyForecastFromState() {
 
         const weatherItem = document.createElement('div');
         weatherItem.className = 'weather-item';
+        const aqiColor = aqiCategory ? aqiCategory.color : '#999';
         weatherItem.innerHTML = `
             <div class="weather-time">${label}</div>
             <div class="weather-icon">${icon}</div>
             <div class="weather-temp">${temp}°</div>
+            <div class="weather-aqi" style="color: ${aqiColor}; font-size: 0.85em; font-weight: bold; margin-top: 4px;">AQI: ${liveAqi}</div>
         `;
         weatherForecast.appendChild(weatherItem);
     }
@@ -864,11 +1235,19 @@ function formatHour(timeString) {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-function formatWeatherValue(value, fallback) {
-    if (value === null || value === undefined || Number.isNaN(value)) {
+function formatNumber(value, fallback = '--') {
+    if (value === null || value === undefined) {
         return fallback;
     }
-    return Math.round(value);
+    const numeric = Number(value);
+    if (Number.isNaN(numeric)) {
+        return fallback;
+    }
+    return numeric.toFixed(2);
+}
+
+function formatWeatherValue(value, fallback) {
+    return formatNumber(value, fallback);
 }
 
 function updateWeatherSource(text) {
@@ -1118,23 +1497,41 @@ function updateAQIChart(data) {
 // Update cigarette equivalent
 function updateCigaretteEquivalent(data) {
     const daily = data.cigarettes;
-    const weekly = (daily * 7).toFixed(1);
-    const monthly = (daily * 30).toFixed(0);
+    const weekly = daily !== null && daily !== undefined ? Number(daily) * 7 : null;
+    const monthly = daily !== null && daily !== undefined ? Number(daily) * 30 : null;
     
-    document.getElementById('cigaretteDaily').textContent = daily;
-    document.getElementById('cigaretteWeekly').textContent = weekly;
-    document.getElementById('cigaretteMonthly').textContent = monthly;
-    document.getElementById('cigaretteText').textContent = daily;
+    document.getElementById('cigaretteDaily').textContent = formatNumber(daily, '0.00');
+    document.getElementById('cigaretteWeekly').textContent = formatNumber(weekly, '0.00');
+    document.getElementById('cigaretteMonthly').textContent = formatNumber(monthly, '0.00');
+    document.getElementById('cigaretteText').textContent = formatNumber(daily, '0.00');
 }
 
 // ML Predictions Chart
 let predictionsChart = null;
+let predictionCompareChart = null;
+let lastDashboardData = null;
+
+// Load global predictions if available
+let globalPredictions = null;
+if (typeof aqiPredictions !== 'undefined') {
+    // Check if it's the new format with metadata
+    if (aqiPredictions.predictions && aqiPredictions.generated_at) {
+        globalPredictions = aqiPredictions.predictions;
+        console.log(`✅ Loaded global predictions (${aqiPredictions.successful_predictions} cities)`);
+        console.log(`   Generated: ${aqiPredictions.generated_at}`);
+        console.log(`   Method: ${aqiPredictions.method}`);
+    } else {
+        // Legacy format
+        globalPredictions = aqiPredictions;
+        console.log('✅ Loaded predictions (legacy format)');
+    }
+}
 
 function updatePredictionsChart(city) {
     console.log(`🔮 Loading predictions for ${city}...`);
     
     // Check if predictions are loaded
-    if (typeof aqiPredictions === 'undefined') {
+    if (!globalPredictions) {
         console.warn('⚠️ Predictions not loaded');
         document.getElementById('predictionAvg').textContent = 'N/A';
         document.getElementById('predictionMin').textContent = 'N/A';
@@ -1142,9 +1539,28 @@ function updatePredictionsChart(city) {
         return;
     }
     
-    // Get city name (capitalize first letter)
-    const cityName = city.charAt(0).toUpperCase() + city.slice(1);
-    const predictions = aqiPredictions[cityName];
+    // Extract clean city name for prediction lookup
+    const cityName = extractCityNameForPredictions(city);
+    let predictions = globalPredictions[cityName];
+    
+    // Try alternative formats if not found
+    if (!predictions) {
+        const altNames = [
+            cityName.replace(/[^a-zA-Z\s]/g, ''),  // Remove special chars
+            city.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+            formatCityName(city),  // Original format
+            city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()  // Simple capitalize
+        ];
+        
+        for (const altName of altNames) {
+            const cleanAlt = extractCityNameForPredictions(altName);
+            if (globalPredictions[cleanAlt]) {
+                predictions = globalPredictions[cleanAlt];
+                console.log(`✅ Found predictions using alternate name: ${cleanAlt}`);
+                break;
+            }
+        }
+    }
     
     if (!predictions || predictions.length === 0) {
         console.warn(`⚠️ No predictions found for ${cityName}`);
@@ -1158,9 +1574,9 @@ function updatePredictionsChart(city) {
     
     // Calculate statistics
     const aqiValues = predictions.map(p => p.predicted_aqi);
-    const avgAqi = (aqiValues.reduce((a, b) => a + b, 0) / aqiValues.length).toFixed(1);
-    const minAqi = Math.min(...aqiValues).toFixed(1);
-    const maxAqi = Math.max(...aqiValues).toFixed(1);
+    const avgAqi = (aqiValues.reduce((a, b) => a + b, 0) / aqiValues.length).toFixed(2);
+    const minAqi = Math.min(...aqiValues).toFixed(2);
+    const maxAqi = Math.max(...aqiValues).toFixed(2);
     
     // Update display
     document.getElementById('predictionAvg').textContent = avgAqi;
@@ -1239,7 +1655,7 @@ function updatePredictionsChart(city) {
                         label: function(context) {
                             const category = getAQICategory(context.parsed.y);
                             return [
-                                `Predicted AQI: ${context.parsed.y.toFixed(1)}`,
+                                `Predicted AQI: ${context.parsed.y.toFixed(2)}`,
                                 `Category: ${category.name}`,
                                 `Confidence: High ✓`
                             ];
@@ -1307,6 +1723,135 @@ function updatePredictionsChart(city) {
     console.log('✨ Predictions chart rendered successfully');
 }
 
+function updatePredictionCompare(city, currentData) {
+    const predictedEl = document.getElementById('comparePredictedAvg');
+    const fetchedEl = document.getElementById('compareFetchedAqi');
+    const deltaEl = document.getElementById('compareDelta');
+    const noteEl = document.getElementById('predictionCompareNote');
+    const chartEl = document.getElementById('predictionCompareChart');
+
+    if (!predictedEl || !fetchedEl || !deltaEl || !noteEl || !chartEl) {
+        return;
+    }
+
+    if (!globalPredictions || !currentData) {
+        predictedEl.textContent = 'N/A';
+        fetchedEl.textContent = currentData ? currentData.aqi : 'N/A';
+        deltaEl.textContent = '--';
+        noteEl.textContent = 'Prediction data not available.';
+        if (predictionCompareChart) {
+            predictionCompareChart.destroy();
+            predictionCompareChart = null;
+        }
+        return;
+    }
+
+    // Extract clean city name for prediction lookup
+    const cleanCityName = extractCityNameForPredictions(city);
+    let predictions = globalPredictions[cleanCityName];
+    
+    // Try alternative formats if not found
+    if (!predictions) {
+        const altNames = [
+            city.charAt(0).toUpperCase() + city.slice(1),
+            formatCityName(city),
+            city.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+        ];
+        
+        for (const altName of altNames) {
+            const cleanAlt = extractCityNameForPredictions(altName);
+            if (globalPredictions[cleanAlt]) {
+                predictions = globalPredictions[cleanAlt];
+                break;
+            }
+        }
+    }
+    
+    if (!predictions || predictions.length === 0) {
+        predictedEl.textContent = 'N/A';
+        fetchedEl.textContent = currentData.aqi;
+        deltaEl.textContent = '--';
+        noteEl.textContent = 'No prediction data for this city yet.';
+        if (predictionCompareChart) {
+            predictionCompareChart.destroy();
+            predictionCompareChart = null;
+        }
+        return;
+    }
+
+    const aqiValues = predictions.map((p) => p.predicted_aqi);
+    const avgAqi = aqiValues.reduce((a, b) => a + b, 0) / aqiValues.length;
+    const fetchedAqi = currentData.aqi;
+    const delta = avgAqi - fetchedAqi;
+
+    predictedEl.textContent = avgAqi.toFixed(2);
+    fetchedEl.textContent = fetchedAqi.toFixed(2);
+    deltaEl.textContent = `${delta >= 0 ? '+' : ''}${delta.toFixed(2)}`;
+
+    const predictedCategory = getAQICategory(avgAqi);
+    const fetchedCategory = getAQICategory(fetchedAqi);
+    predictedEl.style.color = predictedCategory.color;
+    fetchedEl.style.color = fetchedCategory.color;
+    deltaEl.style.color = delta >= 0 ? '#ef4444' : '#10b981';
+    noteEl.textContent = `Model check for ${cleanCityName}: predicted average vs live AQI.`;
+
+    const ctx = chartEl.getContext('2d');
+    if (predictionCompareChart) {
+        predictionCompareChart.destroy();
+    }
+
+    predictionCompareChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Predicted Avg', 'Fetched AQI'],
+            datasets: [
+                {
+                    data: [avgAqi, fetchedAqi],
+                    backgroundColor: [predictedCategory.color, fetchedCategory.color],
+                    borderColor: ['#ffffff', '#ffffff'],
+                    borderWidth: 1,
+                    borderRadius: 8
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: Math.max(300, Math.max(avgAqi, fetchedAqi) * 1.2),
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#a5b4fc',
+                        font: {
+                            weight: '600'
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: '#a5b4fc',
+                        font: {
+                            weight: '600'
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
 // Update health recommendations
 function updateHealthRecommendations(aqi) {
     const recommendations = document.querySelectorAll('.recommendation-card');
@@ -1333,19 +1878,109 @@ function updateHealthRecommendations(aqi) {
 }
 
 // Generate cities grid
-function generateCitiesGrid() {
+// Generate cities grid with live WAQI data
+async function generateCitiesGrid() {
+    const citiesGrid = document.getElementById('citiesGrid');
+    const sectionTitle = document.getElementById('citiesSectionTitle');
+    const citySelect = document.getElementById('citySelect');
+    
+    citiesGrid.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Loading live city data...</div>';
+    
+    try {
+        const staticOptions = citySelect
+            ? Array.from(citySelect.options).filter((option) => !option.disabled)
+            : [];
+        const cityKeys = staticOptions.map((option) => option.value);
+        const totalCities = cityKeys.length;
+
+        sectionTitle.innerHTML = `<span>Global Cities - Live AQI Data</span><br><small style="font-size: 0.7em; color: #999;">Showing ${totalCities} cities from the static list</small>`;
+
+        let waqiBatch = preloadedCityData;
+        if (!isDataPreloaded || !waqiBatch || Object.keys(waqiBatch).length === 0) {
+            if (window.WAQI && typeof window.WAQI.getBatchData === 'function') {
+                const fallbackData = cityData || {};
+                waqiBatch = await window.WAQI.getBatchData(cityKeys, fallbackData);
+            }
+        }
+
+        citiesGrid.innerHTML = '';
+        let citiesDisplayed = 0;
+
+        cityKeys.forEach((cityKey) => {
+            const data = waqiBatch && waqiBatch[cityKey] ? waqiBatch[cityKey] : null;
+            const fallback = cityData[cityKey] || buildEmptyCityData(cityKey);
+            const displayData = data || fallback;
+            const aqiValue = typeof displayData.aqi === 'number' ? displayData.aqi : Number(displayData.aqi);
+            const normalizedAqi = Number.isNaN(aqiValue) ? 0 : aqiValue;
+            
+            // SKIP cities with N/A or 0 AQI
+            const aqiDisplay = data && data.aqi !== undefined
+                ? formatNumber(data.aqi, '')
+                : formatNumber(displayData.aqi, '');
+            
+            if (aqiDisplay === '' || aqiDisplay === 'N/A' || normalizedAqi === 0) {
+                console.log(`⏭️ Skipping ${cityKey} - no valid AQI data`);
+                return;
+            }
+            
+            const category = getAQICategory(normalizedAqi);
+            const pm25Display = formatNumber(displayData.pm25, 'N/A');
+            const lastUpdate = data && data.time
+                ? new Date(data.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                : 'n/a';
+
+            const cityCard = document.createElement('div');
+            cityCard.className = 'city-card';
+            cityCard.innerHTML = `
+                <div class="city-badge" style="background-color: ${category.color}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; margin-bottom: 8px; display: inline-block;">${data ? 'LIVE' : 'DATASET'}</div>
+                <div class="city-name">${displayData.name || formatCityName(cityKey)}</div>
+                <div class="city-aqi" style="color: ${category.color}; font-size: 2em; margin: 8px 0;">${formatNumber(aqiValue, '0.00')}</div>
+                <div class="city-status" style="color: ${category.color};">${category.name}</div>
+                <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
+                    <div>PM2.5: ${pm25Display} µg/m³</div>
+                    <div>Updated: ${lastUpdate}</div>
+                </div>
+            `;
+
+            cityCard.style.cursor = 'pointer';
+            cityCard.addEventListener('click', () => {
+                document.getElementById('citySelect').value = cityKey;
+                currentCity = cityKey;
+                updateDashboardWithWAQI(cityKey);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            citiesGrid.appendChild(cityCard);
+            citiesDisplayed++;
+        });
+
+        const displayedCount = citiesGrid.children.length;
+        sectionTitle.innerHTML = `<span>Global Cities - Live AQI Data</span><br><small style="font-size: 0.7em; color: #999;">Showing ${displayedCount} monitored cities (${totalCities} in list)</small>`;
+        
+        if (displayedCount === 0) {
+            console.warn('⚠️ Could not generate grid from static city list');
+            generateCitiesGridFallback();
+        } else {
+            console.log(`✅ Displayed data for ${displayedCount} cities with valid AQI data`);
+        }
+    } catch (err) {
+        console.error('Error generating cities grid with live data:', err);
+        generateCitiesGridFallback();
+    }
+}
+
+// Fallback function for when WAQI data is not available
+function generateCitiesGridFallback() {
     const citiesGrid = document.getElementById('citiesGrid');
     const sectionTitle = document.getElementById('citiesSectionTitle');
     
     citiesGrid.innerHTML = '';
+    sectionTitle.textContent = `All Cities in India (${allCitiesData.length} cities)`;
     
-    console.log(`🏙️ Generating cities grid with ${allCitiesData.length} cities`);
+    console.log(`🏙️ Generating cities grid with ${allCitiesData.length} cities from dataset`);
     
     // Use all cities data if available, otherwise show default cities
     if (allCitiesData.length > 0) {
-        // Update section title with count
-        sectionTitle.textContent = `All Cities in India (${allCitiesData.length} cities)`;
-        
         // Show all cities from the dataset
         allCitiesData.forEach(cityInfo => {
             const category = getAQICategory(cityInfo.aqi);
@@ -1353,10 +1988,11 @@ function generateCitiesGrid() {
             const cityCard = document.createElement('div');
             cityCard.className = 'city-card';
             cityCard.innerHTML = `
+                <div class="city-badge" style="background-color: #666; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; margin-bottom: 8px; display: inline-block;">📊 DATASET</div>
                 <div class="city-name">${cityInfo.city}</div>
-                <div class="city-aqi" style="color: ${category.color}">${cityInfo.aqi}</div>
-                <div class="city-status">${category.name}</div>
-                <div class="city-date">${new Date(cityInfo.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+                <div class="city-aqi" style="color: ${category.color}; font-size: 2em; margin: 8px 0;">${formatNumber(cityInfo.aqi, '0.00')}</div>
+                <div class="city-status" style="color: ${category.color};">${category.name}</div>
+                <div class="city-date" style="font-size: 0.8em; color: #999;">${new Date(cityInfo.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
             `;
             
             // Check if we have full data for this city
@@ -1382,7 +2018,7 @@ function generateCitiesGrid() {
         });
     } else {
         // Fallback to hardcoded cities
-        console.warn('⚠️ No cities data loaded, using fallback');
+        console.warn('⚠️ No cities data loaded, using hardcoded fallback');
         sectionTitle.textContent = 'Top Cities in India';
         
         const citiesToShow = ['delhi', 'mumbai', 'bengaluru', 'kolkata', 'chennai'];
@@ -1396,10 +2032,11 @@ function generateCitiesGrid() {
                 cityCard.className = 'city-card';
                 cityCard.innerHTML = `
                     <div class="city-name">${city.name}</div>
-                    <div class="city-aqi" style="color: ${category.color}">${city.aqi}</div>
-                    <div class="city-status">${category.name}</div>
+                    <div class="city-aqi" style="color: ${category.color}; font-size: 2em; margin: 8px 0;">${formatNumber(city.aqi, '0.00')}</div>
+                    <div class="city-status" style="color: ${category.color};">${category.name}</div>
                 `;
                 
+                cityCard.style.cursor = 'pointer';
                 cityCard.addEventListener('click', () => {
                     document.getElementById('citySelect').value = cityKey;
                     currentCity = cityKey;
@@ -1552,8 +2189,236 @@ document.head.appendChild(style);
 // ============================
 let map = null;
 let markers = [];
+let selectedCityMarker = null;
 
-function initializeMap() {
+function clearMapMarkers() {
+    markers.forEach((item) => {
+        if (item.marker) {
+            map.removeLayer(item.marker);
+        }
+    });
+    markers = [];
+}
+
+function addMapMarker(cityName, cityKey, coords, aqiValue, sourceLabel) {
+    if (!coords || coords.lat === undefined || coords.lon === undefined) {
+        return;
+    }
+
+    const color = getAQIColor(aqiValue || 0);
+    const category = getAQICategory(aqiValue || 0);
+    const iconLabel = aqiValue ? aqiValue : 'N/A';
+
+    const customIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="
+            background-color: ${color};
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: ${(aqiValue || 0) > 100 ? 'white' : '#333'};
+        ">${iconLabel}</div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+    });
+
+    const marker = L.marker([coords.lat, coords.lon], { icon: customIcon })
+        .addTo(map);
+
+    const popupContent = `
+        <div style="text-align: center;">
+            <div class="map-popup-title">${cityName}</div>
+            <div class="map-popup-aqi" style="color: ${color};">AQI: ${aqiValue || 'N/A'}</div>
+            <div class="map-popup-category" style="background-color: ${color}; color: ${(aqiValue || 0) > 100 ? 'white' : '#333'};">
+                ${category.emoji} ${category.name}
+            </div>
+            <div style="margin-top: 6px; font-size: 0.75rem; color: #666;">${sourceLabel}</div>
+            <a href="#" class="map-popup-link" onclick="selectCityFromMap('${cityName}'); return false;">
+                View Details →
+            </a>
+        </div>
+    `;
+
+    marker.bindPopup(popupContent);
+    markers.push({ name: cityName, marker: marker, key: cityKey });
+}
+
+/**
+ * Preload all city data on page load for instant city switching
+ */
+async function preloadAllCityData() {
+    if (!window.WAQI || typeof window.WAQI.getAvailableCities !== 'function') {
+        console.warn('⚠️ WAQI not available, skipping preload');
+        return;
+    }
+
+    console.log('🔄 Preloading all city data...');
+    const startTime = Date.now();
+
+    const regions = window.WAQI.getAvailableCities();
+    const cityKeys = [];
+    const cityNames = {};
+
+    Object.values(regions).forEach((region) => {
+        if (!region || typeof region !== 'object') {
+            return;
+        }
+        Object.entries(region).forEach(([key, name]) => {
+            cityKeys.push(key);
+            cityNames[key] = name;
+        });
+    });
+
+    const fallbackData = cityData || {};
+    const waqiBatch = await window.WAQI.getBatchData(cityKeys, fallbackData);
+
+    // Store in global cache
+    preloadedCityData = waqiBatch;
+    isDataPreloaded = true;
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`✅ Preloaded ${Object.keys(preloadedCityData).length} cities in ${elapsed}s`);
+    console.log('⚡ City switching is now instant!');
+}
+
+async function populateMapMarkers() {
+    if (!map) {
+        return;
+    }
+
+    clearMapMarkers();
+
+    if (window.WAQI && typeof window.WAQI.getAvailableCities === 'function') {
+        // Use preloaded data if available, otherwise fetch
+        let waqiBatch = preloadedCityData;
+        const regions = window.WAQI.getAvailableCities();
+        const cityKeys = [];
+        const englishCityNames = {};
+
+        Object.values(regions).forEach((region) => {
+            if (!region || typeof region !== 'object') {
+                return;
+            }
+            Object.entries(region).forEach(([key, englishName]) => {
+                cityKeys.push(key);
+                // Always use English names from WAQI mapping
+                englishCityNames[key] = englishName;
+            });
+        });
+
+        // If not preloaded, fetch now
+        if (!isDataPreloaded) {
+            const fallbackData = cityData || {};
+            waqiBatch = await window.WAQI.getBatchData(cityKeys, fallbackData);
+        }
+
+        cityKeys.forEach((key) => {
+            const entry = waqiBatch[key];
+            if (!entry) {
+                return;
+            }
+
+            const coords = entry.geo || getCityCoordinates(key);
+            // Always use English names from the WAQI mapping, not from API response
+            addMapMarker(englishCityNames[key], key, coords, entry.aqi, entry.source || 'WAQI');
+        });
+
+        console.log(`✅ Added ${markers.length} global city markers to map`);
+        return;
+    }
+
+    if (typeof allCitiesFromDataset !== 'undefined') {
+        allCitiesFromDataset.forEach(cityInfo => {
+            const cityName = cityInfo.city;
+            const aqi = cityInfo.aqi;
+            const coords = cityCoordinates[cityName];
+            if (!coords) {
+                return;
+            }
+            addMapMarker(cityName, cityName.toLowerCase().replace(/\s+/g, '_'), coords, aqi, 'Dataset');
+        });
+        console.log(`✅ Added ${markers.length} dataset markers to map`);
+    } else {
+        console.warn('⚠️ allCitiesFromDataset not loaded');
+    }
+}
+
+function updateSelectedCityOnMap(cityKey, data) {
+    if (!map || !data) {
+        return;
+    }
+
+    const coords = data.geo || getCityCoordinates(cityKey);
+    if (!coords || coords.lat === undefined || coords.lon === undefined) {
+        return;
+    }
+
+    const aqiValue = typeof data.aqi === 'number' ? data.aqi : 0;
+    const category = getAQICategory(aqiValue);
+    const color = typeof getAQIColor === 'function' ? getAQIColor(aqiValue) : category.color;
+
+    const customIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="
+            background-color: ${color};
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: ${aqiValue > 100 ? 'white' : '#333'};
+        ">${aqiValue || 'N/A'}</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+    });
+
+    if (!selectedCityMarker) {
+        selectedCityMarker = L.marker([coords.lat, coords.lon], { icon: customIcon })
+            .addTo(map);
+    } else {
+        selectedCityMarker.setLatLng([coords.lat, coords.lon]);
+        selectedCityMarker.setIcon(customIcon);
+    }
+
+    // Get English city name from WAQI mapping, not from API response
+    let cityLabel = formatCityName(cityKey);
+    if (window.WAQI && typeof window.WAQI.getAvailableCities === 'function') {
+        const regions = window.WAQI.getAvailableCities();
+        for (const region of Object.values(regions)) {
+            if (region && region[cityKey]) {
+                cityLabel = region[cityKey];
+                break;
+            }
+        }
+    }
+
+    const popupContent = `
+        <div style="text-align: center;">
+            <div class="map-popup-title">${cityLabel}</div>
+            <div class="map-popup-aqi" style="color: ${color};">AQI: ${aqiValue}</div>
+            <div class="map-popup-category" style="background-color: ${color}; color: ${aqiValue > 100 ? 'white' : '#333'};">
+                ${category.emoji} ${category.name}
+            </div>
+        </div>
+    `;
+
+    selectedCityMarker.bindPopup(popupContent);
+    map.setView([coords.lat, coords.lon], 6, { animate: true });
+}
+
+async function initializeMap() {
     console.log('🗺️ Initializing interactive AQI map...');
     
     // Initialize map centered on India
@@ -1566,68 +2431,18 @@ function initializeMap() {
         minZoom: 4
     }).addTo(map);
     
-    // Add markers for all cities
-    if (typeof allCitiesFromDataset !== 'undefined') {
-        allCitiesFromDataset.forEach(cityInfo => {
-            const cityName = cityInfo.city;
-            const aqi = cityInfo.aqi;
-            
-            // Get coordinates
-            const coords = cityCoordinates[cityName];
-            if (!coords) {
-                console.warn(`⚠️ No coordinates for ${cityName}`);
-                return;
-            }
-            
-            // Create custom icon based on AQI
-            const color = getAQIColor(aqi);
-            const category = getAQICategory(aqi);
-            
-            const customIcon = L.divIcon({
-                className: 'custom-marker',
-                html: `<div style="
-                    background-color: ${color};
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    border: 3px solid white;
-                    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: bold;
-                    font-size: 11px;
-                    color: ${aqi > 100 ? 'white' : '#333'};
-                ">${aqi}</div>`,
-                iconSize: [30, 30],
-                iconAnchor: [15, 15]
-            });
-            
-            // Create marker
-            const marker = L.marker([coords.lat, coords.lon], { icon: customIcon })
-                .addTo(map);
-            
-            // Create popup content
-            const popupContent = `
-                <div style="text-align: center;">
-                    <div class="map-popup-title">${cityName}</div>
-                    <div class="map-popup-aqi" style="color: ${color};">AQI: ${aqi}</div>
-                    <div class="map-popup-category" style="background-color: ${color}; color: ${aqi > 100 ? 'white' : '#333'};">
-                        ${category.emoji} ${category.name}
-                    </div>
-                    <a href="#" class="map-popup-link" onclick="selectCityFromMap('${cityName}'); return false;">
-                        View Details →
-                    </a>
-                </div>
-            `;
-            
-            marker.bindPopup(popupContent);
-            markers.push({ name: cityName, marker: marker });
-        });
-        
-        console.log(`✅ Added ${markers.length} city markers to map`);
-    } else {
-        console.warn('⚠️ allCitiesFromDataset not loaded');
+    // Preload all city data first
+    await preloadAllCityData();
+    
+    // Then populate map markers using preloaded data
+    populateMapMarkers();
+
+    // Update initial city
+    if (preloadedCityData[currentCity]) {
+        updateDashboard(currentCity, preloadedCityData[currentCity]);
+        updateSelectedCityOnMap(currentCity, preloadedCityData[currentCity]);
+    } else if (cityData && cityData[currentCity]) {
+        updateSelectedCityOnMap(currentCity, cityData[currentCity]);
     }
 }
 
@@ -1674,7 +2489,9 @@ window.selectCityFromMap = function(cityName) {
 
 // Initialize map when DOM is loaded
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeMap);
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeMap();
+    });
 } else {
     initializeMap();
 }

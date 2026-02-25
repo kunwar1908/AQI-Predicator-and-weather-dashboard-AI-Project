@@ -16,6 +16,7 @@ const cityCoordinates = {
     'Bhopal': { lat: 23.2599, lon: 77.4126, name: 'Bhopal' },
     'Patna': { lat: 25.5941, lon: 85.1376, name: 'Patna' },
     'Ludhiana': { lat: 30.9010, lon: 75.8573, name: 'Ludhiana' },
+    'Patiala': { lat: 30.3398, lon: 76.3869, name: 'Patiala' },
     'Agra': { lat: 27.1767, lon: 78.0081, name: 'Agra' },
     'Gurugram': { lat: 28.4595, lon: 77.0266, name: 'Gurugram' },
     'Coimbatore': { lat: 11.0168, lon: 76.9558, name: 'Coimbatore' },

@@ -45,9 +45,4 @@ Dataset/*.csv
 *.parquet
 # Keep small reference files
 !Dataset/stations.csv
-
-# Screenshots (keep README placeholder, exclude actual images if private)
-# screenshots/*.png
-# screenshots/*.jpg
-# screenshots/*.gif
-# screenshots/*.mp4
+waqi_integration.js

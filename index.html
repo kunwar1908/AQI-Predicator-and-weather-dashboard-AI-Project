@@ -24,6 +24,9 @@
     <script src="all_cities_data.js"></script>
     <script src="aqi_predictions.js"></script>
     <script src="city_coordinates.js"></script>
+    
+    <!-- WAQI Integration (Real-time data) -->
+    <script src="waqi_integration.js"></script>
 </head>
 <body>
     <div class="container">
@@ -33,12 +36,84 @@
                 <p>Real-time Air Quality Index Monitor</p>
             </div>
             <div class="location-selector">
+                <input id="citySearch" list="cityList" placeholder="Type a city name..." aria-label="Type to search a city">
+                <datalist id="cityList"></datalist>
                 <select id="citySelect">
+                    <option disabled selected>SELECT A CITY</option>
+                    <option disabled>--- INDIA (25 CITIES) ---</option>
                     <option value="delhi">Delhi</option>
                     <option value="mumbai">Mumbai</option>
                     <option value="bengaluru">Bengaluru</option>
                     <option value="kolkata">Kolkata</option>
                     <option value="chennai">Chennai</option>
+                    <option value="ahmedabad">Ahmedabad</option>
+                    <option value="gurugram">Gurugram</option>
+                    <option value="patna">Patna</option>
+                    <option value="lucknow">Lucknow</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="visakhapatnam">Visakhapatnam</option>
+                    <option value="coimbatore">Coimbatore</option>
+                    <option value="ernakulam">Ernakulam</option>
+                    <option value="kochi">Kochi</option>
+                    <option value="talcher">Talcher</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                    <option value="jaipur">Jaipur</option>
+                    <option value="amritsar">Amritsar</option>
+                    <option value="aizawl">Aizawl</option>
+                    <option value="shillong">Shillong</option>
+                    <option value="guwahati">Guwahati</option>
+                    <option value="pune">Pune</option>
+                    <option value="surat">Surat</option>
+                    <option value="nagpur">Nagpur</option>
+                    <option value="patiala">Patiala</option>
+
+                    <option disabled>--- NORTH AMERICA (7 CITIES) ---</option>
+                    <option value="new_york">New York</option>
+                    <option value="los_angeles">Los Angeles</option>
+                    <option value="chicago">Chicago</option>
+                    <option value="houston">Houston</option>
+                    <option value="toronto">Toronto</option>
+                    <option value="vancouver">Vancouver</option>
+                    <option value="mexico_city">Mexico City</option>
+
+                    <option disabled>--- SOUTH AMERICA (5 CITIES) ---</option>
+                    <option value="sao_paulo">Sao Paulo</option>
+                    <option value="rio_de_janeiro">Rio de Janeiro</option>
+                    <option value="buenos_aires">Buenos Aires</option>
+                    <option value="lima">Lima</option>
+                    <option value="bogota">Bogota</option>
+
+                    <option disabled>--- EUROPE (9 CITIES) ---</option>
+                    <option value="london">London</option>
+                    <option value="paris">Paris</option>
+                    <option value="berlin">Berlin</option>
+                    <option value="madrid">Madrid</option>
+                    <option value="rome">Rome</option>
+                    <option value="amsterdam">Amsterdam</option>
+                    <option value="barcelona">Barcelona</option>
+                    <option value="vienna">Vienna</option>
+                    <option value="moscow">Moscow</option>
+
+                    <option disabled>--- ASIA (8 CITIES) ---</option>
+                    <option value="beijing">Beijing</option>
+                    <option value="shanghai">Shanghai</option>
+                    <option value="tokyo">Tokyo</option>
+                    <option value="bangkok">Bangkok</option>
+                    <option value="singapore">Singapore</option>
+                    <option value="hong_kong">Hong Kong</option>
+                    <option value="seoul">Seoul</option>
+                    <option value="dubai">Dubai</option>
+
+                    <option disabled>--- OCEANIA (3 CITIES) ---</option>
+                    <option value="sydney">Sydney</option>
+                    <option value="melbourne">Melbourne</option>
+                    <option value="auckland">Auckland</option>
+
+                    <option disabled>--- AFRICA (4 CITIES) ---</option>
+                    <option value="cairo">Cairo</option>
+                    <option value="lagos">Lagos</option>
+                    <option value="johannesburg">Johannesburg</option>
+                    <option value="nairobi">Nairobi</option>
                 </select>
             </div>
         </header>
@@ -52,7 +127,7 @@
                     </div>
                     <div class="aqi-value-container">
                         <div class="live-badge">● LIVE AQI</div>
-                        <div class="aqi-dataset-date">Dataset date: <span id="aqiDatasetDate">--</span></div>
+                        <div class="aqi-city" id="aqiCityName">Delhi</div>
                         <div class="aqi-value" id="aqiValue">146</div>
                         <div class="aqi-standard">(AQI-US)</div>
                         <div class="aqi-category" id="aqiCategory">Air Quality is Poor</div>
@@ -364,29 +439,57 @@
                         Powered by Stacked Ensemble ML
                     </span>
                 </h2>
-                <div class="predictions-container">
-                    <div class="predictions-header">
-                        <div class="prediction-stat">
-                            <div class="prediction-value" id="predictionAvg">--</div>
-                            <div class="prediction-label">Avg Predicted AQI</div>
+                <div class="predictions-tabs">
+                    <button class="predictions-tab is-active" id="predictionTabForecast" type="button">24-Hour Forecast</button>
+                    <button class="predictions-tab" id="predictionTabCompare" type="button">Predicted vs Fetched</button>
+                </div>
+                <div class="predictions-panel is-active" id="predictionPanelForecast">
+                    <div class="predictions-container">
+                        <div class="predictions-header">
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="predictionAvg">--</div>
+                                <div class="prediction-label">Avg Predicted AQI</div>
+                            </div>
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="predictionMin">--</div>
+                                <div class="prediction-label">Min (Next 24h)</div>
+                            </div>
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="predictionMax">--</div>
+                                <div class="prediction-label">Max (Next 24h)</div>
+                            </div>
                         </div>
-                        <div class="prediction-stat">
-                            <div class="prediction-value" id="predictionMin">--</div>
-                            <div class="prediction-label">Min (Next 24h)</div>
+                        <div class="predictions-chart-container">
+                            <canvas id="predictionsChart"></canvas>
                         </div>
-                        <div class="prediction-stat">
-                            <div class="prediction-value" id="predictionMax">--</div>
-                            <div class="prediction-label">Max (Next 24h)</div>
+                        <div class="predictions-info">
+                            <span class="info-badge">📊 XGBoost</span>
+                            <span class="info-badge">🌲 Random Forest</span>
+                            <span class="info-badge">📈 SVR</span>
+                            <span class="info-badge">🎯 Ridge Meta-Learner</span>
                         </div>
                     </div>
-                    <div class="predictions-chart-container">
-                        <canvas id="predictionsChart"></canvas>
-                    </div>
-                    <div class="predictions-info">
-                        <span class="info-badge">📊 XGBoost</span>
-                        <span class="info-badge">🌲 Random Forest</span>
-                        <span class="info-badge">📈 SVR</span>
-                        <span class="info-badge">🎯 Ridge Meta-Learner</span>
+                </div>
+                <div class="predictions-panel" id="predictionPanelCompare">
+                    <div class="predictions-container">
+                        <div class="predictions-header">
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="comparePredictedAvg">--</div>
+                                <div class="prediction-label">Avg Predicted AQI</div>
+                            </div>
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="compareFetchedAqi">--</div>
+                                <div class="prediction-label">Fetched AQI (Live)</div>
+                            </div>
+                            <div class="prediction-stat">
+                                <div class="prediction-value" id="compareDelta">--</div>
+                                <div class="prediction-label">Delta (Pred - Live)</div>
+                            </div>
+                        </div>
+                        <div class="predictions-chart-container">
+                            <canvas id="predictionCompareChart"></canvas>
+                        </div>
+                        <div class="predictions-info" id="predictionCompareNote">Select a city to compare predictions with live AQI.</div>
                     </div>
                 </div>
             </section>
