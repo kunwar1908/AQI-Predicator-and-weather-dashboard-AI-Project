@@ -9,10 +9,16 @@ Usage:
     python generate_global_predictions.py
 """
 
+import sys
+import io
 import requests
 import json
 import numpy as np
 import pandas as pd
+
+# Set UTF-8 encoding for console output
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 from datetime import datetime, timedelta
 import time
 import os
@@ -27,41 +33,69 @@ CITY_MAPPING = {
     'delhi': 'Delhi', 'mumbai': 'Mumbai', 'bengaluru': 'Bengaluru',
     'kolkata': 'Kolkata', 'chennai': 'Chennai', 'ahmedabad': 'Ahmedabad',
     'gurugram': 'Gurugram', 'patna': 'Patna', 'lucknow': 'Lucknow',
-    'hyderabad': 'Hyderabad', 'pune': 'Pune', 'jaipur': 'Jaipur',
-    'chandigarh': 'Chandigarh', 'coimbatore': 'Coimbatore',
-    'ernakulam': 'Ernakulam', 'kochi': 'Kochi', 'guwahati': 'Guwahati',
-    'visakhapatnam': 'Visakhapatnam', 'bhopal': 'Bhopal',
-    'thiruvananthapuram': 'Thiruvananthapuram', 'amritsar': 'Amritsar',
-    'aizawl': 'Aizawl', 'shillong': 'Shillong', 'patiala': 'Patiala',
+    'hyderabad': 'Hyderabad', 'visakhapatnam': 'Visakhapatnam',
+    'coimbatore': 'Coimbatore', 'ernakulam': 'Ernakulam', 'kochi': 'Kochi',
+    'talcher': 'Talcher', 'thiruvananthapuram': 'Thiruvananthapuram',
+    'jaipur': 'Jaipur', 'jorapokhar': 'Jorapokhar', 'brajrajnagar': 'Brajrajnagar',
+    'amaravati': 'Amaravati', 'amritsar': 'Amritsar', 'aizawl': 'Aizawl',
+    'shillong': 'Shillong', 'guwahati': 'Guwahati', 'pune': 'Pune',
+    'surat': 'Surat', 'chandigarh': 'Chandigarh', 'bhopal': 'Bhopal',
+    'indore': 'Indore', 'nagpur': 'Nagpur', 'vadodara': 'Vadodara',
+    'ludhiana': 'Ludhiana', 'kanpur': 'Kanpur', 'agra': 'Agra',
+    'meerut': 'Meerut', 'ranchi': 'Ranchi', 'thrissur': 'Thrissur',
+    'nashik': 'Nashik', 'salem': 'Salem', 'vijaywada': 'Vijaywada',
+    'tiruchirappalli': 'Tiruchirappalli', 'cuttack': 'Cuttack',
+    'pimpri': 'Pimpri', 'dombivli': 'Dombivli', 'vasai': 'Vasai',
+    'mira_bhayander': 'Mira Bhayander', 'navi_mumbai': 'Navi Mumbai',
+    'patiala': 'Patiala',
     
     # North America
     'new_york': 'New York', 'los_angeles': 'Los Angeles', 'chicago': 'Chicago',
-    'houston': 'Houston', 'phoenix': 'Phoenix', 'san_francisco': 'San Francisco',
-    'seattle': 'Seattle', 'boston': 'Boston', 'miami': 'Miami',
-    'toronto': 'Toronto', 'vancouver': 'Vancouver', 'washington_dc': 'Washington DC',
+    'houston': 'Houston', 'phoenix': 'Phoenix', 'philadelphia': 'Philadelphia',
+    'san_antonio': 'San Antonio', 'san_diego': 'San Diego', 'dallas': 'Dallas',
+    'san_francisco': 'San Francisco', 'seattle': 'Seattle', 'denver': 'Denver',
+    'boston': 'Boston', 'miami': 'Miami', 'atlanta': 'Atlanta',
+    'washington_dc': 'Washington DC', 'toronto': 'Toronto',
+    'vancouver': 'Vancouver', 'mexico_city': 'Mexico City',
+    
+    # South America
+    'sao_paulo': 'Sao Paulo', 'rio_de_janeiro': 'Rio de Janeiro',
+    'buenos_aires': 'Buenos Aires', 'lima': 'Lima', 'bogota': 'Bogota',
+    'santiago': 'Santiago', 'caracas': 'Caracas',
     
     # Europe
     'london': 'London', 'paris': 'Paris', 'berlin': 'Berlin',
     'madrid': 'Madrid', 'rome': 'Rome', 'amsterdam': 'Amsterdam',
     'barcelona': 'Barcelona', 'vienna': 'Vienna', 'prague': 'Prague',
-    'moscow': 'Moscow', 'istanbul': 'Istanbul', 'stockholm': 'Stockholm',
+    'warsaw': 'Warsaw', 'budapest': 'Budapest', 'lisbon': 'Lisbon',
+    'athens': 'Athens', 'istanbul': 'Istanbul', 'moscow': 'Moscow',
+    'milan': 'Milan', 'zurich': 'Zurich', 'stockholm': 'Stockholm',
+    'oslo': 'Oslo', 'dublin': 'Dublin', 'brussels': 'Brussels',
+    'geneva': 'Geneva', 'krakow': 'Krakow', 'bucharest': 'Bucharest',
     
     # Asia
-    'beijing': 'Beijing', 'shanghai': 'Shanghai', 'tokyo': 'Tokyo',
-    'seoul': 'Seoul', 'bangkok': 'Bangkok', 'singapore': 'Singapore',
-    'hong_kong': 'Hong Kong', 'dubai': 'Dubai', 'manila': 'Manila',
-    'jakarta': 'Jakarta', 'hanoi': 'Hanoi', 'taipei': 'Taipei',
-    'kuala_lumpur': 'Kuala Lumpur', 'tehran': 'Tehran',
-    
-    # South America
-    'sao_paulo': 'Sao Paulo', 'buenos_aires': 'Buenos Aires',
-    'rio_de_janeiro': 'Rio de Janeiro', 'lima': 'Lima',
+    'beijing': 'Beijing', 'shanghai': 'Shanghai', 'guangzhou': 'Guangzhou',
+    'chengdu': 'Chengdu', 'chongqing': 'Chongqing', 'shenzhen': 'Shenzhen',
+    'xi_an': 'Xian', 'jinan': 'Jinan', 'tokyo': 'Tokyo', 'osaka': 'Osaka',
+    'kyoto': 'Kyoto', 'yokohama': 'Yokohama', 'bangkok': 'Bangkok',
+    'bangkok_nonthaburi': 'Bangkok Nonthaburi', 'hanoi': 'Hanoi',
+    'ho_chi_minh': 'Ho Chi Minh', 'singapore': 'Singapore', 'manila': 'Manila',
+    'jakarta': 'Jakarta', 'bandung': 'Bandung', 'surabaya': 'Surabaya',
+    'seoul': 'Seoul', 'busan': 'Busan', 'incheon': 'Incheon',
+    'hong_kong': 'Hong Kong', 'taipei': 'Taipei', 'kuala_lumpur': 'Kuala Lumpur',
+    'tehran': 'Tehran', 'dubai': 'Dubai', 'abu_dhabi': 'Abu Dhabi',
+    'doha': 'Doha', 'beirut': 'Beirut', 'riyadh': 'Riyadh',
+    'jerusalem': 'Jerusalem', 'amman': 'Amman', 'baghdad': 'Baghdad',
     
     # Oceania
-    'sydney': 'Sydney', 'melbourne': 'Melbourne', 'auckland': 'Auckland',
+    'sydney': 'Sydney', 'melbourne': 'Melbourne', 'brisbane': 'Brisbane',
+    'perth': 'Perth', 'auckland': 'Auckland', 'wellington': 'Wellington',
     
     # Africa
-    'cairo': 'Cairo', 'johannesburg': 'Johannesburg', 'nairobi': 'Nairobi'
+    'cairo': 'Cairo', 'lagos': 'Lagos', 'johannesburg': 'Johannesburg',
+    'cape_town': 'Cape Town', 'nairobi': 'Nairobi', 'dar_es_salaam': 'Dar es Salaam',
+    'accra': 'Accra', 'kinshasa': 'Kinshasa', 'algiers': 'Algiers',
+    'tunis': 'Tunis', 'casablanca': 'Casablanca', 'marrakech': 'Marrakech'
 }
 
 
@@ -212,7 +246,7 @@ def generate_pattern_predictions(city_key, waqi_data):
 
 def generate_all_predictions():
     """
-    Main function: Generate predictions for all cities
+    Main function: Generate predictions for all cities with valid WAQI data
     """
     print("=" * 70)
     print("🔮 GLOBAL AQI PREDICTIONS GENERATOR")
@@ -231,6 +265,7 @@ def generate_all_predictions():
     print("\n🚀 Fetching WAQI data and generating predictions...\n")
     
     all_predictions = {}
+    monitored_cities = {}  # Track which cities have valid WAQI data
     stats = {
         'success': 0,
         'failed': 0,
@@ -250,11 +285,14 @@ def generate_all_predictions():
             stats['failed'] += 1
             continue
         
-        # Check if AQI value is valid (even 0 is valid, as long as we have data)
+        # Check if AQI value is valid (allow 0 as valid)
         if not isinstance(waqi_data['aqi'], (int, float)) or waqi_data['aqi'] < 0:
             print("❌ Invalid AQI")
             stats['failed'] += 1
             continue
+        
+        # Mark this city as monitored by WAQI
+        monitored_cities[city_key] = city_name
         
         # Generate predictions
         predictions = None
@@ -291,9 +329,11 @@ def generate_all_predictions():
     output_data = {
         'generated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'total_cities': len(CITY_MAPPING),
+        'monitored_cities': len(monitored_cities),
         'successful_predictions': stats['success'],
         'method': 'ML Model' if ml_available else 'Pattern Analysis',
-        'predictions': all_predictions
+        'predictions': all_predictions,
+        'monitored_city_keys': list(monitored_cities.keys())  # List of verified WAQI-monitored cities
     }
     
     # Save as JSON
@@ -304,14 +344,20 @@ def generate_all_predictions():
     with open('aqi_predictions.json', 'w') as f:
         json.dump(all_predictions, f, indent=2)
     
+    # Save the list of monitored cities for frontend validation
+    with open('monitored_cities.json', 'w') as f:
+        json.dump({'monitored_cities': monitored_cities}, f, indent=2)
+    
     print("✅ Saved to: global_aqi_predictions.json")
     print("✅ Saved to: aqi_predictions.json (dashboard format)")
+    print("✅ Saved to: monitored_cities.json (verified WAQI cities)")
     
     print("\n" + "=" * 70)
     print("📊 SUMMARY")
     print("=" * 70)
     print(f"✅ Successful: {stats['success']}")
     print(f"❌ Failed: {stats['failed']}")
+    print(f"🌍 WAQI-Monitored Cities: {len(monitored_cities)}")
     if ml_available:
         print(f"🤖 ML Predictions: {stats['ml_predictions']}")
     print(f"📈 Pattern Predictions: {stats['pattern_predictions']}")
