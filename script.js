@@ -1,5 +1,90 @@
 // AQI Dashboard JavaScript
 
+// Theme Management
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle?.querySelector('.theme-icon');
+    
+    // Function to set theme
+    const setTheme = (isLight) => {
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            if (themeIcon) themeIcon.textContent = '☀️';
+        } else {
+            document.body.classList.remove('light-mode');
+            if (themeIcon) themeIcon.textContent = '🌙';
+        }
+    };
+    
+    // Check if user has a saved preference
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme) {
+        // Use saved preference
+        setTheme(savedTheme === 'light');
+    } else {
+        // Use system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(!prefersDark);
+    }
+    
+    // Listen for system theme changes (only if no saved preference)
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(!e.matches);
+        }
+    });
+    
+    // Toggle theme on button click
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            
+            if (themeIcon) {
+                themeIcon.textContent = isLight ? '☀️' : '🌙';
+            }
+            
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            
+            // Add a subtle animation feedback
+            themeToggle.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                themeToggle.style.transform = '';
+            }, 150);
+        });
+    }
+}
+
+function initCursorGlow() {
+    const root = document.documentElement;
+    let rafId = null;
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+
+    const updateGlow = () => {
+        root.style.setProperty('--cursor-x', `${targetX}px`);
+        root.style.setProperty('--cursor-y', `${targetY}px`);
+        rafId = null;
+    };
+
+    const handlePointerMove = (event) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+        if (rafId === null) {
+            rafId = requestAnimationFrame(updateGlow);
+        }
+    };
+
+    const handlePointerLeave = () => {
+        root.style.setProperty('--cursor-x', '50%');
+        root.style.setProperty('--cursor-y', '50%');
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerleave', handlePointerLeave);
+}
+
 // Global cache for preloaded city data
 let preloadedCityData = {};
 let isDataPreloaded = false;
@@ -285,6 +370,9 @@ function setupCitySearchInput() {
         citySelect.dispatchEvent(new Event('change'));
     };
 
+    citySearch.addEventListener('focus', () => {
+        citySearch.value = '';
+    });
     citySearch.addEventListener('change', applySelection);
     citySearch.addEventListener('blur', applySelection);
     citySearch.addEventListener('keydown', (event) => {
@@ -319,6 +407,10 @@ function setupPredictionTabs() {
 
 // Initialize dashboard
 document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize theme first for immediate UI feedback
+    initTheme();
+    initCursorGlow();
+    
     // Initialize WAQI first to ensure cities are available
     if (typeof window.WAQI !== 'undefined' && window.WAQI.init) {
         window.WAQI.init();
@@ -871,8 +963,9 @@ function formatCityName(cityKey) {
 function extractCityNameForPredictions(cityNameOrKey) {
     let cityName = cityNameOrKey;
     
-    // If it's a key, convert to name first
-    if (cityNameOrKey.includes('_')) {
+    // If it's a key (lowercase or contains underscores), convert to proper name first
+    if (cityNameOrKey === cityNameOrKey.toLowerCase()) {
+        // It's a key - convert to proper city name format
         cityName = formatCityName(cityNameOrKey);
     }
     
@@ -1820,6 +1913,11 @@ async function generateCitiesGrid() {
                 ? formatNumber(data.aqi, 'N/A')
                 : formatNumber(displayData.aqi, 'N/A');
             const pm25Display = formatNumber(displayData.pm25, 'N/A');
+            
+            // Skip cities with N/A AQI display
+            if (aqiDisplay === 'N/A') {
+                return;
+            }
             
             // Format the update time properly
             let lastUpdate = 'Recently';

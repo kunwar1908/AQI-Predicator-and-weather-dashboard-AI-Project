@@ -29,18 +29,23 @@
     <script src="waqi_integration.js"></script>
 </head>
 <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <div class="container">
         <header>
             <div class="logo">
                 <h1>🌍 AQI Dashboard</h1>
                 <p>Real-time Air Quality Index Monitor</p>
             </div>
-            <div class="location-selector">
-                <input id="citySearch" list="cityList" placeholder="Type a city name..." aria-label="Type to search a city">
-                <datalist id="cityList"></datalist>
-                <select id="citySelect">
-                    <option disabled selected>SELECT A CITY</option>
-                    <option disabled>--- INDIA ---</option>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="location-selector">
+                    <input id="citySearch" list="cityList" placeholder="Type a city name..." aria-label="Type to search a city">
+                    <datalist id="cityList"></datalist>
+                    <select id="citySelect">
+                        <option disabled selected>SELECT A CITY</option>
+                        <option disabled>--- INDIA ---</option>
                     <option value="delhi">Delhi</option>
                     <option value="mumbai">Mumbai</option>
                     <option value="bengaluru">Bengaluru</option>
@@ -206,6 +211,7 @@
                     <option value="casablanca">Casablanca</option>
                     <option value="marrakech">Marrakech</option>
                 </select>
+                </div>
             </div>
         </header>
 
@@ -615,7 +621,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>About</h4>
-                    <p>Real-time air quality & weather insights for India</p>
+                    <p>Real-time global air quality monitoring with ML-powered predictions via WAQI</p>
                 </div>
                 <div class="footer-section">
                     <h4>Disclaimer</h4>
@@ -624,7 +630,7 @@
                 <div class="footer-section">
                     <h4>Last Updated</h4>
                     <p id="lastUpdated">Just now</p>
-                    <p style="font-size: 0.75rem; margin-top: 5px;" id="dataSource">Data Source: Real Dataset</p>
+                    <p style="font-size: 0.75rem; margin-top: 5px;" id="dataSource">Data fetched from WAQI (World Air Quality Index)</p>
                 </div>
             </div>
             <div class="footer-bottom">
