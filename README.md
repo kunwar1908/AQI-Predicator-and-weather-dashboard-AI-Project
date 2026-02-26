@@ -4,6 +4,12 @@
 
 ## 🎬 Demo Video
 
+
+https://github.com/user-attachments/assets/df69ee78-94bc-4e53-bfd1-39ec11dc4103
+
+
+
+
 <video src="screenshots/demo-video.mp4" controls muted playsinline width="100%"></video>
 
 A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset integration** and **ML-powered predictions**, similar to [aqinow.org](https://aqinow.org/AQI_India). This MST project combines data science, machine learning, and web development.
