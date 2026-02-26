@@ -16,7 +16,7 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 
 | Feature | Details |
 |---------|---------|
-| **Real Dataset** | 29,531 records from 26 cities (2015-2020) |
+| **Real Dataset** | 29,531 records from 24 cities (2015-2020) |
 | **ML Model** | Stacked Ensemble (XGBoost + RF + HistGradientBoosting) |
 | **Accuracy** | R² = 0.9087, MAE = 16.7 AQI units |
 | **Features** | 34 engineered features |
@@ -30,7 +30,7 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 
 ### Dataset Statistics
 - **Total Records**: 29,531 air quality measurements
-- **Cities Covered**: 26 major Indian cities
+- **Cities Covered**: 24 cities from the dataset
 - **Date Range**: 2015-2020 (5 years of historical data)
 - **Pollutants Tracked**: PM2.5, PM10, NO2, CO, SO2, O3, NH3, Benzene, Toluene, Xylene
 - **Missing Data Handling**: Intelligent imputation with city-specific patterns
@@ -124,7 +124,7 @@ pip install -r requirements.txt
 # 2. Train Stacked Ensemble model
 python aqi_ml_predictor.py
 # ⏱ Training takes 2-5 minutes
-# ✅ Achieves R² > 0.85
+# ✅ Achieves R² ≈ 0.91
 
 # 3. Interactive learning (recommended)
 jupyter notebook AQI_ML_Training.ipynb
@@ -145,14 +145,20 @@ jupyter notebook AQI_ML_Training.ipynb
 
 ```
 MST Project/
-├── 📄 index.html                    # Dashboard HTML (330 lines)
-├── 🎨 styles.css                    # Styling (790 lines)
-├── ⚙️ script.js                     # Interactivity (840 lines)
+├── 📄 index.html                    # Dashboard HTML
+├── 🎨 styles.css                    # Styling, themes, animations
+├── ⚙️ script.js                     # Interactivity & data binding
 │
 ├── 📊 DATA FILES
-│   ├── aqi_data.js                  # City data (27 cities, 440 lines)
-│   ├── all_cities_data.js           # Cities list (24 cities, 131 lines)
-│   ├── aqi_predictions.js           # ML predictions (auto-generated)
+│   ├── aqi_data.js                  # City data (from dataset)
+│   ├── all_cities_data.js           # City list (auto-generated)
+│   ├── all_cities_aqi.json          # Summary AQI snapshot
+│   ├── aqi_predictions.json         # ML predictions (JSON)
+│   ├── aqi_predictions.js           # ML predictions (JS module)
+│   ├── city_coordinates.js          # Map coordinates & AQI colors
+│   ├── latest_aqi_data.json         # Latest AQI snapshot
+│   ├── data_summary.json            # Aggregated dataset stats
+│   ├── top_cities_summary.json      # Top/cleanest city summaries
 │   └── Dataset/
 │       ├── city_day.csv             # Main dataset (29,531 records)
 │       ├── city_hour.csv            # Hourly data
@@ -161,7 +167,7 @@ MST Project/
 │       └── station_hour.csv         # Hourly station data
 │
 ├── 🤖 MACHINE LEARNING
-│   ├── aqi_ml_predictor.py          # ML system (450 lines)
+│   ├── aqi_ml_predictor.py          # ML system (stacked ensemble)
 │   ├── generate_quick_predictions.py # Quick mock predictions
 │   ├── AQI_ML_Training.ipynb        # Training notebook (10 sections)
 │   ├── aqi_stacked_model.pkl        # Trained model (after training)
@@ -173,9 +179,9 @@ MST Project/
 │   └── process_data.py              # Data processing pipeline
 │
 └── 📝 DOCUMENTATION
-    ├── README.md                    # This file
-    ├── requirements.txt             # Python dependencies
-    └── DATASET_INTEGRATION.md       # Dataset integration guide
+  ├── README.md                    # This file
+  ├── requirements.txt             # Python dependencies
+  └── DATASET_INTEGRATION.md       # Dataset integration guide
 ```
 
 ---
@@ -233,7 +239,7 @@ Target Transform:
 │  📁 Dataset/city_day.csv          🌐 Open-Meteo API          🌍 WAQI Integration  │
 │  (Offline Historical)              (Live Weather Data)         (Real-time AQI)     │
 │  29,531 records                    Free, No Auth Required      Global Coverage     │
-│  26 Cities (2015-2020)             Hourly/Daily Forecasts      Fallback Data       │
+│  24 Cities (2015-2020)             Hourly/Daily Forecasts      Fallback Data       │
 │                                                                                       │
 └────────────┬─────────────────────────────┬────────────────────────────┬─────────────┘
              │                             │                            │
@@ -363,7 +369,7 @@ Target Transform:
 ├─────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                       │
 │  ┌─ Real-Time Components:                                                           │
-│  │  ├─ 🗺️ Leaflet Map (26 city markers with color-coded AQI levels)               │
+│  │  ├─ 🗺️ Leaflet Map (city markers with color-coded AQI levels)                 │
 │  │  ├─ 📊 AQI Display (Current value with category badge)                         │
 │  │  ├─ 📈 24-Hour Prediction Chart (Line chart via Chart.js)                      │
 │  │  ├─ 🌡️ Weather Forecast (Hourly cards with temp, UV, wind)                    │
@@ -371,7 +377,7 @@ Target Transform:
 │  │  ├─ 📋 Historical Data (Min/Max AQI trends)                                    │
 │  │  ├─ 💡 Health Recommendations (Based on AQI level)                             │
 │  │  ├─ ⚠️ Health Alerts (Condition-specific warnings)                             │
-│  │  └─ 🏙️ City Grid (Quick view all 26 cities)                                   │
+│  │  └─ 🏙️ City Grid (Quick view all dataset cities)                              │
 │  │                                                                                   │
 │  ├─ User Interactions:                                                              │
 │  │  ├─ City Selection (Dropdown or map click)                                      │
@@ -433,7 +439,7 @@ Target Transform:
 ## 🎯 Dashboard Features
 
 ### 🗺️ Interactive AQI Map
-- **Geographical Visualization**: See all 26 cities on an interactive map of India
+- **Geographical Visualization**: See all supported cities on an interactive map of India
 - **Color-Coded Markers**: Cities marked by AQI category (Green → Yellow → Orange → Red → Purple → Maroon)
 - **Click to Explore**: Click any marker to view detailed city information
 - **Real-time Data**: Map markers show current AQI values for each city
@@ -446,12 +452,12 @@ Target Transform:
 ### 🤖 ML-Powered AQI Predictions
 - **24-Hour Forecast**: Machine learning predictions for next 24 hours
 - **Stacked Ensemble Model**: Combines XGBoost, Random Forest, and HistGradientBoosting
-- **High Accuracy**: R² > 0.85, MAE < 15 AQI units
+- **High Accuracy**: R² ≈ 0.91, MAE ≈ 16.7 AQI units
 - **Feature Engineering**:
   - Temporal features (hour, day, week, cyclical encodings)
   - Lag features (1-day, 3-day, 7-day historical AQI)
   - Meteorological interactions (PM ratio, traffic proxy, industrial markers)
-- **Interactive Chart**: Visualize predicted AQI trends with confidence intervals
+- **Interactive Chart**: Visualize predicted AQI trends
 - **Real-time Updates**: Predictions update when switching cities
 
 ![24-Hour Predictions](screenshots/24hrprediction.png)
@@ -461,6 +467,12 @@ Target Transform:
 - Visual indicators (Good, Moderate, Poor, Unhealthy, Severe, Hazardous)
 - Animated mascot that changes based on air quality
 - PM2.5 and PM10 values displayed prominently
+
+### 🎨 Theme & Interaction
+- Light/Dark theme toggle with saved preference
+- System theme detection on first load
+- Cursor glow effect for interactive focus
+- Responsive layout across desktop and mobile
 
 ### 🔬 Primary Air Pollutants (Real Data)
 - **PM2.5** - Fine particles
@@ -507,7 +519,7 @@ Target Transform:
 
 ![Notification Alert](screenshots/notification-alert.png)
 
-### 🏙️ Multi-City Support (24+ Cities from Dataset)
+### 🏙️ Multi-City Support (24 Cities from Dataset)
 **All cities from dataset available in dropdown and grid:**
 Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow, Hyderabad, Visakhapatnam, Coimbatore, Ernakulam, Kochi, Talcher, Thiruvananthapuram, Jaipur, Jorapokhar, Brajrajnagar, Amaravati, Amritsar, Aizawl, Shillong, Guwahati, and more...
 
@@ -519,7 +531,6 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 - Side-by-side comparison of multiple cities
 - Compare AQI levels, pollutants, and weather conditions
 - Visual overlay for easy analysis
-- Export comparison data
 
 ![Compare Cities](screenshots/compare-cities.png)
 
@@ -538,7 +549,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 ### Source Data (city_day.csv)
 - **Source**: https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india
 - **Total Records**: 29,531
-- **Cities Covered**: 26 unique cities
+- **Cities Covered**: 24 unique cities
 - **Time Period**: 2015-2020 (5+ years)
 - **Pollutants**: PM2.5, PM10, NO, NO2, NOx, NH3, CO, SO2, O3, Benzene, Toluene, Xylene
 - **Metadata**: AQI, AQI_Bucket classification
@@ -600,7 +611,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 | **Robustness** | No single point of failure |
 | **Accuracy** | Consistently achieves R² > 0.90 |
 
-### Feature Engineering (50+ Features)
+### Feature Engineering (34 Features)
 
 #### 1. Temporal Features (12 features)
 ```python
@@ -620,7 +631,7 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 - AQI_rolling_max_7      # 7-day peak
 ```
 
-#### 3. Meteorological Interactions (4+ features)
+#### 3. Meteorological Interactions (4 features)
 ```python
 - PM_ratio = PM2.5 / PM10           # Particle size distribution
 - PM_sum = PM2.5 + PM10             # Total particulate matter
@@ -639,8 +650,8 @@ CO, SO2, O3, Benzene, Toluene, Xylene
 | Metric | Target | Typical Result | Interpretation |
 |--------|--------|----------------|----------------|
 | **R² Score** | > 0.85 | 0.88-0.92 | Explains 88-92% of AQI variance |
-| **MAE** | < 15 | 10-14 AQI | Average error is ±10-14 AQI points |
-| **RMSE** | < 20 | 15-20 AQI | Root mean squared error |
+| **MAE** | < 20 | 16-17 AQI | Average error is ±16-17 AQI points |
+| **RMSE** | < 40 | 35-40 AQI | Root mean squared error |
 
 ### Model Comparison
 
@@ -695,7 +706,7 @@ python generate_quick_predictions.py
 # Option 2: Real ML predictions
 python aqi_ml_predictor.py
 # ⏱ Takes 2-5 minutes to train
-# ✅ Achieves R² > 0.85
+# ✅ Achieves R² ≈ 0.91
 # ✅ Production-ready predictions
 ```
 
@@ -724,9 +735,9 @@ python aqi_ml_predictor.py
 ## 💻 Technical Stack
 
 ### Frontend
-- **HTML5** - Semantic structure (380+ lines)
-- **CSS3** - Grid, Flexbox, animations (900+ lines)
-- **JavaScript ES6+** - Async/await, modules (970+ lines)
+- **HTML5** - Semantic structure
+- **CSS3** - Grid, Flexbox, animations
+- **JavaScript ES6+** - Async/await, modules
 - **Chart.js 4.4.0** - Data visualization (CDN)
 - **Leaflet.js 1.9.4** - Interactive maps (CDN)
 
@@ -762,7 +773,7 @@ python aqi_ml_predictor.py
 
 ### Responsive Breakpoints
 - 📱 Mobile: 320px+
-- �� Tablets: 768px+
+- 📲 Tablets: 768px+
 - 💻 Laptops: 1024px+
 - 🖥️ Desktops: 1400px+
 
@@ -901,28 +912,19 @@ pip install -r requirements.txt
 
 | Metric | Value |
 |--------|-------|
-| **Total Lines of Code** | 4,000+ |
-| **HTML** | 380+ lines |
-| **CSS** | 920+ lines |
-| **JavaScript** | 970+ lines |
-| **Python (Data Processing)** | 200 lines |
-| **Python (ML Predictor)** | 450 lines |
-| **EDA Notebook** | 500+ lines |
-| **ML Training Notebook** | 600+ lines |
 | **Dataset Records** | 29,531 rows |
-| **Cities Covered** | 26 unique cities |
-| **Cities on Map** | 30 cities with coordinates |
+| **Cities in Dataset** | 24 cities |
+| **City Coordinates** | 31 map markers |
 | **Time Period** | 2015-2020 (5+ years) |
-| **Files Created** | 21+ files |
-| **ML Features** | 50+ engineered features |
-| **Model Accuracy** | R² > 0.85, MAE < 15 |
+| **ML Features** | 34 engineered features |
+| **Model Accuracy** | R² = 0.9087, MAE = 16.7 |
 
 ### Key Achievements
 
 ✅ Full-stack dashboard with real data integration
 ✅ Comprehensive EDA with 15 analysis sections
 ✅ State-of-the-art ML prediction system (Stacked Ensemble)
-✅ 24-hour AQI forecasts for all 26 cities
+✅ 24-hour AQI forecasts for all 24 dataset cities
 ✅ Interactive visualizations with Chart.js
 ✅ **Interactive map with Leaflet.js**
 ✅ **Geographical AQI visualization across India**
@@ -934,14 +936,14 @@ pip install -r requirements.txt
 ## 🚀 Future Enhancements
 
 ### Dashboard
-- [ ] Live API integration (OpenWeatherMap, AirVisual)
+- [ ] Additional live APIs (OpenWeatherMap, AirVisual)
 - [x] **Interactive map view with city markers** ✅ **COMPLETED!**
 - [ ] Historical data for 7/30/90 days selection
 - [ ] Export data as CSV/PDF
 - [ ] Push notifications for AQI alerts
 - [ ] Multi-language support (Hindi, regional)
-- [ ] Dark/Light theme toggle
-- [ ] Compare multiple cities side-by-side
+- [x] Dark/Light theme toggle
+- [x] Compare multiple cities side-by-side
 
 ### Machine Learning
 - [ ] Add real weather data (temperature, humidity, wind)
@@ -993,20 +995,20 @@ For live data integration:
 - ✔ Trained stacked ensemble model with **90.87% accuracy** (R² = 0.9087)
 - ✔ Achieved **±16.7 AQI prediction error** (better than ±20 target)
 - ✔ Processed **29,531 records** with intelligent missing data handling
-- ✔ Engineered **34+ features** including temporal, lag, and interaction terms
+- ✔ Engineered **34 features** including temporal, lag, and interaction terms
 - ✔ Implemented log transformation for variance stabilization
 - ✔ Created comprehensive Jupyter notebooks with 10+ visualization sections
 
 **Full-Stack Development**
-- ✔ Built responsive dashboard with **2000+ lines of code**
+- ✔ Built responsive dashboard with a modern UI and data integration
 - ✔ Integrated live weather API (Open-Meteo) with dynamic backgrounds
-- ✔ Created interactive map with **26 Indian cities**
+- ✔ Created interactive map with **31 city markers**
 - ✔ Implemented real-time Chart.js visualizations
 - ✔ Added light/dark theme support based on system preferences
 - ✔ Optimized for mobile and desktop views
 
 **Real-World Features**
-- ✔ 24-hour AQI forecasting with confidence intervals
+- ✔ 24-hour AQI forecasting
 - ✔ Health recommendations based on air quality levels
 - ✔ Cigarette equivalent calculations for health awareness
 - ✔ Pollutant tracking (PM2.5, PM10, NO2, CO, SO2, O3, etc.)
@@ -1014,13 +1016,13 @@ For live data integration:
 
 ### 📈 By The Numbers
 - **29,531** data records processed
-- **26** cities covered
+- **24** cities covered
 - **34** engineered features
 - **90.87%** model accuracy (R²)
 - **±16.7** AQI prediction error
-- **2000+** lines of code
+- **31** city markers in map coordinates
 - **10** notebook sections
-- **5** ML algorithms tested
+- **4** models in the stacked ensemble
 
 ### 🎓 Learning Outcomes
 - Advanced ML techniques (stacked ensembles, feature engineering)
@@ -1107,7 +1109,7 @@ const realCityData = {
         maxAqi: 149,
         cigarettes: 2.8
     }
-    // ... 26 more cities
+   // ... other cities
 };
 ```
 
