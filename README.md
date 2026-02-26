@@ -252,14 +252,208 @@ Target Transform:
 └── TransformedTargetRegressor(func=log1p, inverse_func=expm1)
 ```
 
-### Data Pipeline
+---
+
+## 📊 System Architecture & Data Flow Diagram
+
+### Complete End-to-End Pipeline
+
 ```
-Raw Data (CSV) → Feature Engineering → Train/Test Split
-                                              ↓
-                 ← Prediction ← Model ← Training
-                        ↓
-                 JSON Export → JavaScript → Dashboard
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                          DATA SOURCES & INGESTION LAYER                             │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  📁 Dataset/city_day.csv          🌐 Open-Meteo API          🌍 WAQI Integration  │
+│  (Offline Historical)              (Live Weather Data)         (Real-time AQI)     │
+│  29,531 records                    Free, No Auth Required      Global Coverage     │
+│  26 Cities (2015-2020)             Hourly/Daily Forecasts      Fallback Data       │
+│                                                                                       │
+└────────────┬─────────────────────────────┬────────────────────────────┬─────────────┘
+             │                             │                            │
+             └─────────────────────────────┴────────────────────────────┘
+                                  │
+                                  ↓
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                      DATA PROCESSING & FEATURE ENGINEERING                          │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  ┌─ process_data.py (Data Cleaning):                                               │
+│  │   • Handle missing values (city-specific patterns)                              │
+│  │   • Normalize pollutant concentrations                                          │
+│  │   • Validate data ranges and outliers                                           │
+│  │                                                                                  │
+│  ├─ Feature Engineering (34 Features):                                            │
+│  │   ├─ Temporal: Year, Month, Day, DayOfWeek                                    │
+│  │   ├─ Cyclical: Sin/Cos encodings for seasons                                  │
+│  │   ├─ Lag Features: AQI_lag_1, AQI_lag_3, AQI_lag_7                           │
+│  │   ├─ Rolling Statistics: 7-day & 30-day moving averages                       │
+│  │   ├─ Interactions: PM_ratio, Traffic proxies, Industrial markers              │
+│  │   └─ Pollutants: PM2.5, PM10, NO2, CO, SO2, O3, NH3, etc.                    │
+│  │                                                                                  │
+│  └─ Output: Enhanced DataFrame with 34 features + target (AQI)                    │
+│                                                                                      │
+└────────────┬─────────────────────────────────────────────────────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                        ML MODEL TRAINING & VALIDATION                               │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  Split: 80% Train / 20% Test (Temporal Split for Time-Series)                      │
+│                                                                                       │
+│  ┌─ Feature Scaling:                                                                │
+│  │  StandardScaler → Zero mean, unit variance                                      │
+│  │  Saved: aqi_scaler.pkl                                                          │
+│  │                                                                                   │
+│  ├─ Base Layer (Parallel Training):                                                │
+│  │  ├─ Model 1: XGBoost                    | R² → Layer 1 Output                   │
+│  │  │  (n_estimators=400, max_depth=6)    |                                       │
+│  │  │  ├─ Captures non-linear patterns     |                                       │
+│  │  │  └─ Learns complex feature interactions                                      │
+│  │  │                                                                                │
+│  │  ├─ Model 2: Random Forest              | R² → Layer 1 Output                   │
+│  │  │  (n_estimators=400, max_depth=20)   |                                       │
+│  │  │  ├─ Robust to outliers               |                                       │
+│  │  │  └─ Handles non-linear relationships |                                       │
+│  │  │                                                                                │
+│  │  └─ Model 3: HistGradientBoosting       | R² → Layer 1 Output                   │
+│  │     (max_iter=400, max_depth=8)         |                                       │
+│  │     ├─ Fast training on large datasets  |                                       │
+│  │     └─ Native NaN handling              |                                       │
+│  │                                                                                   │
+│  ├─ Meta Layer (Layer 2):                                                           │
+│  │  ├─ Input: 3 predictions from base models                                       │
+│  │  ├─ Ridge Regression (alpha=1.0)                                                │
+│  │  │  └─ Learns optimal linear combination of base models                         │
+│  │  └─ Final Output: Single optimized AQI prediction                               │
+│  │                                                                                   │
+│  ├─ Performance Metrics:                                                            │
+│  │  ├─ Training: R² = 0.91, MAE = 14.5 AQI                                        │
+│  │  ├─ Testing:  R² = 0.91, MAE = 16.7 AQI ✅                                     │
+│  │  └─ Confidence: 90.87% variance explained                                       │
+│  │                                                                                   │
+│  └─ Serialization:                                                                  │
+│     ├─ aqi_stacked_model.pkl (20-50 MB)                                            │
+│     ├─ aqi_scaler.pkl                                                              │
+│     └─ aqi_features.pkl                                                            │
+│                                                                                      │
+└────────────┬──────────────────────────────────────────────────────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                      PREDICTION GENERATION (Current & Future)                        │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  ┌─ aqi_ml_predictor.py                                                             │
+│  │  └─ AQIPredictor.predict(city_data)                                             │
+│  │                                                                                   │
+│  ├─ Process:                                                                         │
+│  │  1. Load latest city data                                                        │
+│  │  2. Engineer features (same 34 features as training)                            │
+│  │  3. Scale features using saved scaler                                           │
+│  │  4. Pass through stacked ensemble                                                │
+│  │  5. Generate hourly predictions for next 24 hours                               │
+│  │                                                                                   │
+│  ├─ Output: Predictions Dictionary                                                  │
+│  │  {                                                                                │
+│  │    "delhi": [                                                                    │
+│  │      {"hour": 0, "predicted_aqi": 185.3, "timestamp": "2024-02-27T00:00:00"},  │
+│  │      {"hour": 1, "predicted_aqi": 192.1, "timestamp": "2024-02-27T01:00:00"},  │
+│  │      ...                                                                         │
+│  │      {"hour": 23, "predicted_aqi": 178.9, "timestamp": "2024-02-27T23:00:00"}  │
+│  │    ],                                                                            │
+│  │    "bombay": [...],                                                              │
+│  │    ...                                                                           │
+│  │  }                                                                                │
+│  │                                                                                   │
+│  ├─ File Outputs:                                                                   │
+│  │  ├─ aqi_predictions.json (API response format)                                  │
+│  │  └─ aqi_predictions.js (JavaScript module for dashboard)                        │
+│  │                                                                                   │
+│  └─ Accuracy: ±16.7 AQI units average error                                        │
+│                                                                                      │
+└────────────┬──────────────────────────────────────────────────────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                        DASHBOARD DATA INTEGRATION LAYER                              │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  Static Data Files:                Live Data Sources:                               │
+│  ├─ city_coordinates.js    →       ├─ Open-Meteo API      (Live weather)            │
+│  ├─ city_day.csv           →       ├─ WAQI API            (Real-time AQI)          │
+│  ├─ aqi_data.js            →       └─ aqi_predictions.js  (ML predictions)          │
+│  └─ aqi_predictions.js     →                                                        │
+│                             ↓                                                        │
+│                      Frontend Script.js                                              │
+│                      (Data Aggregation & Event Binding)                              │
+│                                                                                      │
+└────────────┬──────────────────────────────────────────────────────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                              INTERACTIVE DASHBOARD UI                               │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  ┌─ Real-Time Components:                                                           │
+│  │  ├─ 🗺️ Leaflet Map (26 city markers with color-coded AQI levels)               │
+│  │  ├─ 📊 AQI Display (Current value with category badge)                         │
+│  │  ├─ 📈 24-Hour Prediction Chart (Line chart via Chart.js)                      │
+│  │  ├─ 🌡️ Weather Forecast (Hourly cards with temp, UV, wind)                    │
+│  │  ├─ 💨 Pollutants Panel (PM2.5, PM10, NO2, SO2, CO, O3)                        │
+│  │  ├─ 📋 Historical Data (Min/Max AQI trends)                                    │
+│  │  ├─ 💡 Health Recommendations (Based on AQI level)                             │
+│  │  ├─ ⚠️ Health Alerts (Condition-specific warnings)                             │
+│  │  └─ 🏙️ City Grid (Quick view all 26 cities)                                   │
+│  │                                                                                   │
+│  ├─ User Interactions:                                                              │
+│  │  ├─ City Selection (Dropdown or map click)                                      │
+│  │  ├─ Chart Hover (Detailed data on hover)                                        │
+│  │  ├─ Map Zoom/Pan (Explore regions)                                              │
+│  │  ├─ Compare Cities (Multi-city overlay)                                         │
+│  │  └─ Theme Toggle (Light/Dark mode)                                              │
+│  │                                                                                   │
+│  └─ Technologies:                                                                    │
+│     ├─ HTML5 (Semantic structure)                                                   │
+│     ├─ CSS3 (Responsive design, animations)                                         │
+│     ├─ JavaScript ES6+ (Event handling, data binding)                               │
+│     ├─ Chart.js (Visualizations)                                                    │
+│     └─ Leaflet.js (Interactive mapping)                                             │
+│                                                                                      │
+└────────────┬──────────────────────────────────────────────────────────────────────────┘
+             │
+             ↓
+          👥 USER
+       (Browser Access)
 ```
+
+### Data Flow Summary
+
+1. **Data Sources** → Raw CSV + Live APIs
+2. **Processing** → Cleaning & Feature Engineering (34 features)
+3. **Training** → Stacked Ensemble Model (3 base models + Ridge meta-learner)
+4. **Validation** → Test set: R² = 0.91, MAE = 16.7 AQI
+5. **Prediction** → Generate 24-hour forecasts for all cities
+6. **Export** → JSON & JavaScript formats
+7. **Dashboard** → Real-time visualization with live weather integration
+8. **User Display** → Interactive UI with maps, charts, and recommendations
+
+---
+
+### Key Technologies by Layer
+
+| Layer | Technology | Purpose |
+|-------|----------|---------|
+| **Data Ingestion** | CSV, Open-Meteo API, WAQI API | Source data and real-time updates |
+| **Processing** | Python, Pandas, NumPy | Cleaning and feature engineering |
+| **ML Training** | Scikit-learn, XGBoost | Model development and optimization |
+| **Prediction** | Stacked Ensemble | Generate accurate 24-hour forecasts |
+| **Serialization** | Joblib, JSON | Model and data export |
+| **Frontend** | HTML5, CSS3, JavaScript | User interface and interactions |
+| **Visualization** | Chart.js, Leaflet.js | Interactive charts and maps |
+| **Deployment** | Live Server | Local/web hosting |
+
+---
 
 ### Development Tools
 - **VS Code** - Primary IDE
