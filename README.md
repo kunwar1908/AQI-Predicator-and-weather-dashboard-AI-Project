@@ -22,43 +22,6 @@ A comprehensive Air Quality Index (AQI) dashboard for India with **real dataset 
 
 ---
 
-## 🖼️ Screenshots
-
-### Main Dashboard
-![Dashboard Main](screenshots/dashboard-main.png)
-
-### Interactive Map
-![Interactive Map](screenshots/interactive-map.png)
-
-### City Selection
-![City Dropdown](screenshots/city-dropdown.png)
-
-### City Grid
-![City Grid](screenshots/city-grid.png)
-
-### City Comparison
-![Compare Cities](screenshots/compare-cities.png)
-
-### Weather Panel
-![Weather Panel](screenshots/weather-panel.png)
-
-### Historical Data
-![Historical Data](screenshots/historical-data.png)
-
-### Pollutant Charts
-![Pollutant Charts](screenshots/pollutant-charts.png)
-
-### Health Impact & Prevention Tips
-![Health Impact and Prevention Tips](screenshots/health-impact-and-prevention-tips.png)
-
-### Notification Alerts
-![Notification Alert](screenshots/notification-alert.png)
-
-### Trivia
-![Trivia](screenshots/trivia.png)
-
----
-
 ## 🎯 Model Performance & Stats
 
 ### Dataset Statistics
@@ -487,6 +450,8 @@ Target Transform:
 - **Interactive Chart**: Visualize predicted AQI trends with confidence intervals
 - **Real-time Updates**: Predictions update when switching cities
 
+![24-Hour Predictions](screenshots/24hrprediction.png)
+
 ### 📊 Live AQI Display
 - Real-time AQI value with color-coded categories
 - Visual indicators (Good, Moderate, Poor, Unhealthy, Severe, Hazardous)
@@ -501,8 +466,6 @@ Target Transform:
 - **NO₂** - Nitrogen dioxide
 - **O₃** - Ozone
 - **Plus**: NOx, NH3, Benzene, Toluene, Xylene (from dataset)
-
-![Pollutant Charts](screenshots/pollutant-charts.png)
 
 ### 🌡️ Weather Information
 - 24-hour weather forecast with temperatures
@@ -547,6 +510,22 @@ Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Ahmedabad, Gurugram, Patna, Lucknow,
 ![City Dropdown](screenshots/city-dropdown.png)
 
 ![City Grid](screenshots/city-grid.png)
+
+### 🔄 City Comparison
+- Side-by-side comparison of multiple cities
+- Compare AQI levels, pollutants, and weather conditions
+- Visual overlay for easy analysis
+- Export comparison data
+
+![Compare Cities](screenshots/compare-cities.png)
+
+### 💡 AQI Trivia & Educational Content
+- Interactive trivia about air quality
+- Did-you-know facts about pollution
+- Educational tips for environmental awareness
+- Engaging content to promote AQI literacy
+
+![Trivia](screenshots/trivia.png)
 
 ---
 
