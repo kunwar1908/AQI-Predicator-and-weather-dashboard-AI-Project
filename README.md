@@ -1143,3 +1143,24 @@ const realCityData = {
 
 *Last Updated: February 2026*
 *Version: 2.0 (with ML Predictions)*
+
+---
+
+## 🔮 Future Enhancements
+
+- **Integration with more Live APIs**: Include data from more sensors globally.
+- **Deep Learning Models**: Implement LSTM or Transformer-based models for longer-term forecasting.
+- **Push Notifications**: Allow users to subscribe to severe AQI alerts via web push.
+- **Mobile Application**: Build a React Native counterpart for mobile devices.
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page or submit a pull request if you want to improve the dashboard or the ML model.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
